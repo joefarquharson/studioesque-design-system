@@ -389,7 +389,7 @@
 
     /* Components */
 
-    --sds-brackets: url('../../assets/svg/details/brackets.svg');
+    --sds-brackets: var(--sds-brackets-light, none);
     --sds-color-logo: var(--sds-black-a90);
     /* Header colors (defaults, overridden by JS) */
     --sds-color-header-bg: oklch(from var(--sds-color-background) l c h / 0.9);
@@ -539,7 +539,7 @@
 
     /* Components */
 
-    --sds-brackets: url('../../assets/svg/details/brackets-dark.svg');
+    --sds-brackets: var(--sds-brackets-dark, none);
     --sds-color-logo: var(--sds-white-a90);
 
     /* Accents */

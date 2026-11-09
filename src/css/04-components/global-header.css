@@ -20,7 +20,7 @@
    properties cascade to every descendant, so this one rule also covers
    the mobile nav menu's own bracket/border rules further down this file. */
 #sds-global-header.sds-header-dark-forced {
-    --sds-brackets: url('../../assets/svg/details/brackets-dark.svg');
+    --sds-brackets: var(--sds-brackets-dark, none);
     --sds-color-border-faint: var(--sds-white-a08);
 }
 
@@ -28,7 +28,7 @@
    over a light background. Only used by js/hero-interactive.js, whose
    live hero color can be light or dark under either root theme. */
 #sds-global-header.sds-header-light-forced {
-    --sds-brackets: url('../../assets/svg/details/brackets.svg');
+    --sds-brackets: var(--sds-brackets-light, none);
     --sds-color-border-faint: var(--sds-black-a08);
 }
 
@@ -40,7 +40,7 @@
         var(--sds-brackets) right -8px top -8px no-repeat,
         var(--sds-brackets) right -8px bottom -8px no-repeat,
         var(--sds-brackets) left -8px bottom -8px no-repeat;
-    box-shadow: inset 0 0 0 1px var(--sds-color-border-faint);
+    box-shadow: inset 0 0 0 var(--sds-frame-width, 0px) var(--sds-color-border-faint);
 }
 
 .sds-header-logo {
@@ -516,9 +516,9 @@
             var(--sds-brackets) right -8px bottom -9px no-repeat,
             var(--sds-brackets) left -8px bottom -9px no-repeat;
         box-shadow:
-            inset  1px 0 0 var(--sds-color-border-faint),
-            inset -1px 0 0 var(--sds-color-border-faint),
-            inset  0  1px 0 var(--sds-color-border-faint);
+            inset  var(--sds-frame-width, 0px) 0 0 var(--sds-color-border-faint),
+            inset var(--sds-frame-width-neg, 0px) 0 0 var(--sds-color-border-faint),
+            inset  0  var(--sds-frame-width, 0px) 0 var(--sds-color-border-faint);
     }
 
     /* Bottom buffer: row 7, full-width — outer bottom frame.
@@ -533,9 +533,9 @@
             var(--sds-brackets) right -8px bottom -8px no-repeat,
             var(--sds-brackets) left -8px bottom -8px no-repeat;
         box-shadow:
-            inset  1px 0 0 var(--sds-color-border-faint),
-            inset -1px 0 0 var(--sds-color-border-faint),
-            inset  0 -1px 0 var(--sds-color-border-faint);
+            inset  var(--sds-frame-width, 0px) 0 0 var(--sds-color-border-faint),
+            inset var(--sds-frame-width-neg, 0px) 0 0 var(--sds-color-border-faint),
+            inset  0 var(--sds-frame-width-neg, 0px) 0 var(--sds-color-border-faint);
     }
 
     /* Left buffer: col 1, spanning all 5 nav rows (grid lines 2→7).
@@ -550,9 +550,9 @@
             var(--sds-brackets) right -9px bottom -8px no-repeat,
             var(--sds-brackets) left -8px bottom -8px no-repeat;
         box-shadow:
-            inset 0  1px 0 var(--sds-color-border-faint),
-            inset 1px 0 0 var(--sds-color-border-faint),
-            inset 0 -1px 0 var(--sds-color-border-faint);
+            inset 0  var(--sds-frame-width, 0px) 0 var(--sds-color-border-faint),
+            inset var(--sds-frame-width, 0px) 0 0 var(--sds-color-border-faint),
+            inset 0 var(--sds-frame-width-neg, 0px) 0 var(--sds-color-border-faint);
     }
 
     /* Right buffer: col 3, spanning all 5 nav rows (grid lines 2→7). Mirrors left.
@@ -566,9 +566,9 @@
             var(--sds-brackets) right -8px bottom -8px no-repeat,
             var(--sds-brackets) left -9px bottom -8px no-repeat;
         box-shadow:
-            inset  0  1px 0 var(--sds-color-border-faint),
-            inset -1px 0 0 var(--sds-color-border-faint),
-            inset  0 -1px 0 var(--sds-color-border-faint);
+            inset  0  var(--sds-frame-width, 0px) 0 var(--sds-color-border-faint),
+            inset var(--sds-frame-width-neg, 0px) 0 0 var(--sds-color-border-faint),
+            inset  0 var(--sds-frame-width-neg, 0px) 0 var(--sds-color-border-faint);
     }
 
     /* Nav content cells: fixed to col 2, auto-placed into rows 2–6 in DOM order.
@@ -585,9 +585,9 @@
             var(--sds-brackets) right -8px bottom -8px no-repeat,
             var(--sds-brackets) left -8px bottom -8px no-repeat;
         box-shadow:
-            inset 0 -1px 0 var(--sds-color-border-faint),
-            inset 1px 0 0 var(--sds-color-border-faint),
-            inset -1px 0 0 var(--sds-color-border-faint);
+            inset 0 var(--sds-frame-width-neg, 0px) 0 var(--sds-color-border-faint),
+            inset var(--sds-frame-width, 0px) 0 0 var(--sds-color-border-faint),
+            inset var(--sds-frame-width-neg, 0px) 0 0 var(--sds-color-border-faint);
     }
 
     /* First nav row (Home) only: adds top border + TL/TR brackets to open the
@@ -599,10 +599,10 @@
             var(--sds-brackets) right -8px bottom -8px no-repeat,
             var(--sds-brackets) left -8px bottom -8px no-repeat;
         box-shadow:
-            inset 0  1px 0 var(--sds-color-border-faint),
-            inset 0 -1px 0 var(--sds-color-border-faint),
-            inset 1px 0 0 var(--sds-color-border-faint),
-            inset -1px 0 0 var(--sds-color-border-faint);
+            inset 0  var(--sds-frame-width, 0px) 0 var(--sds-color-border-faint),
+            inset 0 var(--sds-frame-width-neg, 0px) 0 var(--sds-color-border-faint),
+            inset var(--sds-frame-width, 0px) 0 0 var(--sds-color-border-faint),
+            inset var(--sds-frame-width-neg, 0px) 0 0 var(--sds-color-border-faint);
     }
 
     /* Toggle button: same full-cell treatment as nav links. */

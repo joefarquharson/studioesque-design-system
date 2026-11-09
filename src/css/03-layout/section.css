@@ -41,8 +41,8 @@
         var(--sds-brackets) right -8px bottom -9px no-repeat,
         var(--sds-brackets) left -8px bottom -9px no-repeat;
     box-shadow:
-        inset  1px 0 0 var(--sds-color-border-faint), /* left  */
-        inset -1px 0 0 var(--sds-color-border-faint); /* right */
+        inset  var(--sds-frame-width, 0px) 0 0 var(--sds-color-border-faint), /* left  */
+        inset var(--sds-frame-width-neg, 0px) 0 0 var(--sds-color-border-faint); /* right */
 }
 
 /* Option 1: left + right + top (no bottom) */
@@ -54,9 +54,9 @@
         var(--sds-brackets) right -8px bottom -9px no-repeat,
         var(--sds-brackets) left -8px bottom -9px no-repeat;
     box-shadow:
-        inset  1px 0 0 var(--sds-color-border-faint), /* left  */
-        inset -1px 0 0 var(--sds-color-border-faint), /* right */
-        inset  0  1px 0 var(--sds-color-border-faint); /* top   */
+        inset  var(--sds-frame-width, 0px) 0 0 var(--sds-color-border-faint), /* left  */
+        inset var(--sds-frame-width-neg, 0px) 0 0 var(--sds-color-border-faint), /* right */
+        inset  0  var(--sds-frame-width, 0px) 0 var(--sds-color-border-faint); /* top   */
 }
 
 /* Option 2: left + right + bottom (no top) */
@@ -68,9 +68,9 @@
         var(--sds-brackets) right -8px bottom -8px no-repeat,
         var(--sds-brackets) left -8px bottom -8px no-repeat;
     box-shadow:
-        inset  1px 0 0 var(--sds-color-border-faint), /* left   */
-        inset -1px 0 0 var(--sds-color-border-faint), /* right  */
-        inset  0 -1px 0 var(--sds-color-border-faint); /* bottom */
+        inset  var(--sds-frame-width, 0px) 0 0 var(--sds-color-border-faint), /* left   */
+        inset var(--sds-frame-width-neg, 0px) 0 0 var(--sds-color-border-faint), /* right  */
+        inset  0 var(--sds-frame-width-neg, 0px) 0 var(--sds-color-border-faint); /* bottom */
 }
 
 
@@ -86,9 +86,9 @@
         var(--sds-brackets) right -9px bottom -8px no-repeat,
         var(--sds-brackets) left -8px bottom -8px no-repeat;
     box-shadow:
-        inset 0  1px 0 var(--sds-color-border-faint), /* top    */
-        inset 1px 0 0 var(--sds-color-border-faint),  /* left   */
-        inset 0 -1px 0 var(--sds-color-border-faint); /* bottom */
+        inset 0  var(--sds-frame-width, 0px) 0 var(--sds-color-border-faint), /* top    */
+        inset var(--sds-frame-width, 0px) 0 0 var(--sds-color-border-faint),  /* left   */
+        inset 0 var(--sds-frame-width-neg, 0px) 0 var(--sds-color-border-faint); /* bottom */
 }
 
 .sds-buffer-right {
@@ -99,9 +99,9 @@
         var(--sds-brackets) right -8px bottom -8px no-repeat,
         var(--sds-brackets) left -9px bottom -8px no-repeat;
     box-shadow:
-        inset  0  1px 0 var(--sds-color-border-faint), /* top    */
-        inset -1px 0 0 var(--sds-color-border-faint),  /* right  */
-        inset  0 -1px 0 var(--sds-color-border-faint); /* bottom */
+        inset  0  var(--sds-frame-width, 0px) 0 var(--sds-color-border-faint), /* top    */
+        inset var(--sds-frame-width-neg, 0px) 0 0 var(--sds-color-border-faint),  /* right  */
+        inset  0 var(--sds-frame-width-neg, 0px) 0 var(--sds-color-border-faint); /* bottom */
 }
 
 

@@ -24,6 +24,10 @@ scripts/check.mjs        # verifies @imports and url() assets resolve
 
 CSS asset URLs (e.g. `url('../../assets/svg/details/brackets.svg')`) resolve from `src/css/<layer>/` to `src/assets/`, so keep that relative layout.
 
+## Optional: brackets + borders
+
+The system's signature corner brackets and 1px frame lines are off by default. Import `src/css/extras/sds-brackets.css` (before or after `index.css`) to turn both on everywhere. See the comment at the top of that file for the four custom properties behind it.
+
 ## Checks
 
 ```

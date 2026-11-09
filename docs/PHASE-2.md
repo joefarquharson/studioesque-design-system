@@ -68,7 +68,7 @@ Done:
 
 Still to do:
 - [ ] Section-id selectors -> generic classes (`#work/#about/#contact/#related-work/#logos`): a full-bleed modifier plus a section-accent hook.
-- [ ] Brackets + borders as one opt-in unit (`--sds-brackets: none` default, `extras/sds-brackets.css`, border gate token).
+- [x] Brackets + borders as one opt-in unit. Core resolves `--sds-brackets` from `--sds-brackets-light/dark` (fallback `none`) and every frame shadow's thickness from `--sds-frame-width` / `--sds-frame-width-neg` (fallback `0px`, so invisible). `src/css/extras/sds-brackets.css` supplies the two SVG URLs and 1px / -1px. Order-independent. Verified: core + extras, with the tokens substituted back, is byte-identical to the pre-change CSS in every file; with extras absent, core has no bracket URLs and no hard-coded 1px frame shadows. 73 shadow lines gated. Real control borders (buttons, form fields) are deliberately not gated. `.sds-outside-grid`'s diagonal-lines pattern is still always on (not requested; same technique would apply).
 - [ ] `colors.css`: move hero/work/about/contact accent + `--sds-meta-theme-color-*` tokens out of the system.
 - [ ] `theme.js`, `header-colors.js`, `nav-underline.js`, `menu.js`, `contact-form.js`: replace hardcoded section ids / colors / element ids with config.
 - [ ] Remaining undeclared custom properties (see list above, minus the two fixed).

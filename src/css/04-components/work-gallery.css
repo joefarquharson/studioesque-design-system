@@ -23,9 +23,9 @@
     padding: var(--sds-padding-default);
     /* Borders: top + left + right (no bottom) */
     box-shadow:
-        inset 0 1px 0 var(--sds-color-border-faint),
-        inset 1px 0 0 var(--sds-color-border-faint),
-        inset -1px 0 0 var(--sds-color-border-faint);
+        inset 0 var(--sds-frame-width, 0px) 0 var(--sds-color-border-faint),
+        inset var(--sds-frame-width, 0px) 0 0 var(--sds-color-border-faint),
+        inset var(--sds-frame-width-neg, 0px) 0 0 var(--sds-color-border-faint);
     background:
         /* TL: top ✓ left ✓  → -8px -8px */
         var(--sds-brackets) left -8px top -8px no-repeat,
@@ -129,10 +129,10 @@
     --sds-bracket-bottom: -9px;
 
     box-shadow:
-        inset 0 1px 0 var(--sds-color-border-faint),       /* top:    always */
-        inset 1px 0 0 var(--sds-color-border-faint),        /* left:   always */
-        inset -1px 0 0 var(--sds-border-right-color),       /* right:  conditional */
-        inset 0 -1px 0 var(--sds-border-bottom-color);      /* bottom: conditional */
+        inset 0 var(--sds-frame-width, 0px) 0 var(--sds-color-border-faint),       /* top:    always */
+        inset var(--sds-frame-width, 0px) 0 0 var(--sds-color-border-faint),        /* left:   always */
+        inset var(--sds-frame-width-neg, 0px) 0 0 var(--sds-border-right-color),       /* right:  conditional */
+        inset 0 var(--sds-frame-width-neg, 0px) 0 var(--sds-border-bottom-color);      /* bottom: conditional */
 
     background:
         /* TL: top ✓ left ✓ → always -8px/-8px */
@@ -359,10 +359,10 @@
     --sds-bracket-right: -9px;
 
     box-shadow:
-        inset 0 1px 0 var(--sds-color-border-faint),       /* top:    always */
-        inset 1px 0 0 var(--sds-color-border-faint),        /* left:   always */
-        inset -1px 0 0 var(--sds-border-right-color),       /* right:  last phantom only */
-        inset 0 -1px 0 var(--sds-color-border-faint);       /* bottom: always */
+        inset 0 var(--sds-frame-width, 0px) 0 var(--sds-color-border-faint),       /* top:    always */
+        inset var(--sds-frame-width, 0px) 0 0 var(--sds-color-border-faint),        /* left:   always */
+        inset var(--sds-frame-width-neg, 0px) 0 0 var(--sds-border-right-color),       /* right:  last phantom only */
+        inset 0 var(--sds-frame-width-neg, 0px) 0 var(--sds-color-border-faint);       /* bottom: always */
     background:
         var(--sds-brackets) left -8px top -8px no-repeat,
         var(--sds-brackets) right var(--sds-bracket-right) top -8px no-repeat,

@@ -24,9 +24,11 @@ for (const m of index.matchAll(/@import\s+"([^"]+)"/g)) {
 
 // 2. css files on disk that index.css never imports
 for (const f of walk(cssRoot)) {
-  if (f.endsWith("index.css") || !f.endsWith(".css")) continue;
+  if (f.endsWith("index.css") || !f.endsWith(".css") || f.includes("/extras/")) continue;
   if (!imported.has(f)) console.warn("WARN not imported: " + f.replace(root + "/", ""));
 }
+
+// 2b. extras/ are opt-in on purpose and are not imported by index.css
 
 // 3. url() assets (skips placeholders like url('...') and data URIs)
 for (const f of walk(cssRoot).filter((p) => p.endsWith(".css"))) {

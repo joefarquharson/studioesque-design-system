@@ -160,10 +160,10 @@
         var(--sds-brackets) right -8px bottom -8px no-repeat, /* bottom-right */
         var(--sds-brackets) left -8px bottom -8px no-repeat;  /* bottom-left */
     box-shadow:
-        inset  1px 0 0 var(--sds-color-border-faint), /* left   */
-        inset -1px 0 0 var(--sds-color-border-faint), /* right  */
-        inset  0  1px 0 var(--sds-color-border-faint), /* top    */
-        inset  0 -1px 0 var(--sds-color-border-faint); /* bottom */
+        inset  var(--sds-frame-width, 0px) 0 0 var(--sds-color-border-faint), /* left   */
+        inset var(--sds-frame-width-neg, 0px) 0 0 var(--sds-color-border-faint), /* right  */
+        inset  0  var(--sds-frame-width, 0px) 0 var(--sds-color-border-faint), /* top    */
+        inset  0 var(--sds-frame-width-neg, 0px) 0 var(--sds-color-border-faint); /* bottom */
 }
 
 /* 2-column layout (≥961px). */
@@ -178,9 +178,9 @@
           var(--sds-brackets) right -8px bottom -8px no-repeat, /* bottom-right */
           var(--sds-brackets) left -9px bottom -8px no-repeat;  /* bottom-left */
         box-shadow:
-            inset -1px 0 0 var(--sds-color-border-faint), /* right  */
-            inset  0  1px 0 var(--sds-color-border-faint), /* top    */
-            inset  0 -1px 0 var(--sds-color-border-faint); /* bottom */
+            inset var(--sds-frame-width-neg, 0px) 0 0 var(--sds-color-border-faint), /* right  */
+            inset  0  var(--sds-frame-width, 0px) 0 var(--sds-color-border-faint), /* top    */
+            inset  0 var(--sds-frame-width-neg, 0px) 0 var(--sds-color-border-faint); /* bottom */
     }
 
     /* Left column, every row after the first — no top edge/corners
@@ -192,9 +192,9 @@
           var(--sds-brackets) right -8px bottom -8px no-repeat, /* bottom-right */
           var(--sds-brackets) left -8px bottom -8px no-repeat;  /* bottom-left */
         box-shadow:
-            inset  1px 0 0 var(--sds-color-border-faint), /* left   */
-            inset -1px 0 0 var(--sds-color-border-faint), /* right  */
-            inset  0 -1px 0 var(--sds-color-border-faint); /* bottom */
+            inset  var(--sds-frame-width, 0px) 0 0 var(--sds-color-border-faint), /* left   */
+            inset var(--sds-frame-width-neg, 0px) 0 0 var(--sds-color-border-faint), /* right  */
+            inset  0 var(--sds-frame-width-neg, 0px) 0 var(--sds-color-border-faint); /* bottom */
     }
 
     /* Right column, every row after the first — no top or left
@@ -206,8 +206,8 @@
           var(--sds-brackets) right -8px bottom -8px no-repeat, /* bottom-right */
           var(--sds-brackets) left -8px bottom -8px no-repeat;  /* bottom-left */
         box-shadow:
-            inset -1px 0 0 var(--sds-color-border-faint), /* right  */
-            inset  0 -1px 0 var(--sds-color-border-faint); /* bottom */
+            inset var(--sds-frame-width-neg, 0px) 0 0 var(--sds-color-border-faint), /* right  */
+            inset  0 var(--sds-frame-width-neg, 0px) 0 var(--sds-color-border-faint); /* bottom */
     }
 }
 
@@ -221,9 +221,9 @@
           var(--sds-brackets) right -8px bottom -8px no-repeat, /* bottom-right */
           var(--sds-brackets) left -8px bottom -8px no-repeat;  /* bottom-left */
         box-shadow:
-            inset  1px 0 0 var(--sds-color-border-faint), /* left   */
-            inset -1px 0 0 var(--sds-color-border-faint), /* right  */
-            inset  0 -1px 0 var(--sds-color-border-faint); /* bottom */
+            inset  var(--sds-frame-width, 0px) 0 0 var(--sds-color-border-faint), /* left   */
+            inset var(--sds-frame-width-neg, 0px) 0 0 var(--sds-color-border-faint), /* right  */
+            inset  0 var(--sds-frame-width-neg, 0px) 0 var(--sds-color-border-faint); /* bottom */
     }
 }
 
@@ -246,7 +246,7 @@
         var(--sds-brackets) right -8px bottom -8px no-repeat,
         var(--sds-brackets) left -8px bottom -8px no-repeat,
         var(--sds-logo-caption-bg, transparent);
-    box-shadow: inset 0 0 0 1px var(--sds-color-border-faint);
+    box-shadow: inset 0 0 0 var(--sds-frame-width, 0px) var(--sds-color-border-faint);
     color: var(--sds-logo-caption-text, var(--sds-color-text));
 }
 

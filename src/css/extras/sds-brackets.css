@@ -1,0 +1,43 @@
+/* src/css/extras/sds-brackets.css */
+
+/*
+  Brackets + borders — OPT-IN.
+
+  The system's signature frame is two things that always go together: small
+  corner bracket marks (SVG backgrounds at each corner) and 1px inset
+  box-shadow border lines. Core CSS draws neither by default. Import this
+  file (before or after index.css, order doesn't matter) to turn both on,
+  everywhere, at once:
+
+    @import "@studioesque/design-system/css";
+    @import "@studioesque/design-system/css/extras/sds-brackets.css";
+
+  How it works (so you can tune it):
+
+    --sds-brackets-light / --sds-brackets-dark
+        The two bracket SVGs. Core's theme blocks pick between them
+        (--sds-brackets: var(--sds-brackets-light, none) etc.), so per-element
+        themes (data-sds-theme="dark" on any element) still flip correctly.
+        Unset = `none` = no brackets, and the SVG is never requested.
+
+    --sds-frame-width / --sds-frame-width-neg
+        Border line thickness (and its negative, which inset box-shadows need
+        for the right/bottom edges). Core reads them as var(--x, 0px), so
+        unset means 0, which makes every frame shadow invisible. Keep the pair in sync if you change
+        them, e.g. 2px / -2px.
+
+  Border COLOR is untouched: it's still --sds-color-border-faint, which is
+  theme-aware. Only brackets and frame lines are gated here — real control
+  borders (buttons, form fields) don't depend on this file.
+
+  The url() paths resolve from src/css/extras/ to src/assets/, so keep that
+  folder layout (or override the two custom properties with your own URLs).
+*/
+
+:root {
+    --sds-brackets-light: url('../../assets/svg/details/brackets.svg');
+    --sds-brackets-dark: url('../../assets/svg/details/brackets-dark.svg');
+
+    --sds-frame-width: 1px;
+    --sds-frame-width-neg: -1px;
+}
