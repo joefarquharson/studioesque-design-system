@@ -29,15 +29,17 @@ Repos (both in `Portfolio-2026.code-workspace`):
 
 ## Next steps, in order
 
-**Step 0: housekeeping (you, 5 minutes)**
-- In the portfolio repo, commit the two uncommitted edits above.
-- Open `Portfolio-2026.code-workspace` in VS Code and start Claude Code with the design-system folder as the working directory. First prompt suggestion: "Read CLAUDE.md, docs/PHASE-2.md and docs/HANDOFF.md, then continue with Step 1."
+**Step 0: housekeeping. DONE (Nov 9)**
+- The two portfolio edits were committed and pushed (portfolio commit `6f4fdc4`).
 
-**Step 1: decide the JS shape (one decision, then build)**
-- Recommendation: convert `src/js/*.js` to ES modules with `init({ ... })`, plus a `src/js/index.js`. Pros: explicit config, each behavior independently optional, no globals. Cons: portfolio HTML moves from `<script defer>` to `<script type="module">`; modules are deferred and CORS-bound when served from `file://` (use a dev server).
-- Alternative: keep classic scripts reading one config global (`window.SDS_CONFIG`). Smaller change, but implicit coupling.
+**Step 1: JS shape. DONE (Nov 9): ES modules + init()**
+- Joe chose ES modules. Every `src/js/*.js` now exports an idempotent `initX()` (`initTheme`, `initHeaderColors`, `initMenu`, `initNavUnderline`, `initOutsideGrid`, `initTooltip`, `initWorkGallery`, `initContactForm`); importing a file has no side effects. `src/js/index.js` re-exports them and adds `init(options)`, which starts everything (`{ key: false }` skips a module). `src/js/lib/ready.js` (`onReady` / `onLoad`) makes a late `init()` (after DOMContentLoaded or load) still work; header-colors keeps its deliberate wait-for-DOMContentLoaded timing.
+- Behavior is unchanged: every hard-coded id/map/color is still in place, and the init functions take no options yet. Step 2 adds the per-module options (`init({ theme: {...}, headerColors: {...} })`).
+- Verified in headless Chrome (smoke page with sds markup): all eight modules act, no errors, double `init()` is a no-op, and `init()` after window load works. Not yet tested against real portfolio pages (Step 3).
+- No Node on Joe's machine (as of Nov 9), so `npm run check` and `rename.mjs` can't run locally until Node is installed.
 
 **Step 2: decouple the JS (the main remaining Phase 2 work)**
+- Each `initX()` gains an `options = {}` argument with the current hard-coded values as defaults; `init()` in `index.js` passes `options[key]` through when it is an object.
 - `theme.js`: replace the hardcoded `META_THEME_COLORS` map and default `'hero'` with config; element ids from config or `sds-` defaults; localStorage key `theme` -> `sds-theme` with a one-time fallback read of the legacy `theme` key (github.io projects share one origin).
 - `header-colors.js`: replace the `sectionColors` map (keyed by portfolio ids) with config or `data-sds-header-*` attributes per section; drop `--sds-hero-live-*` (set by `hero-interactive.js`, which is not in the system); the generic `default` entry stays. Currently it still references the removed `--sds-color-*-accent-*` tokens, so header theming is broken in the system until this lands.
 - `nav-underline.js`, `menu.js`: hardcoded ids `sds-global-header`, `sds-main-nav`, `sds-menu-trigger`, a `"hero"` fallback section id, and the assumption of `index.html#section` links; make configurable.

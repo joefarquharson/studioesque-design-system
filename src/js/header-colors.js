@@ -4,8 +4,22 @@
  *
  * Update: header offset is now computed from the real header height (+1px)
  * so it stays correct above/below 960px (and any future layout changes).
+ *
+ * Usage:
+ *   import { initHeaderColors } from './js/header-colors.js';
+ *   initHeaderColors();
+ *
+ * Dispatches `sds:sectionchange` on document (theme.js listens for it).
  */
-{
+
+import { onLoad } from './lib/ready.js';
+
+let initialized = false;
+
+export function initHeaderColors() {
+  if (initialized) return;
+  initialized = true;
+
   const header = document.getElementById("sds-global-header");
   const sections = document.querySelectorAll("section");
   const root = document.documentElement;
@@ -208,10 +222,15 @@
   // produce incorrect section detection if layout hasn't fully settled yet,
   // which causes sds:sectionchange to fire with the wrong section ID and sets
   // the wrong theme-color on the meta tags.
-  document.addEventListener('DOMContentLoaded', refreshAll);
+  // A module runs before DOMContentLoaded, so the listener still fires when
+  // init is called from one. Called later than that, the load (or immediate
+  // onLoad) run below covers the initial pass.
+  if (document.readyState !== 'complete') {
+    document.addEventListener('DOMContentLoaded', refreshAll, { once: true });
+  }
 
   // Recompute on load (fonts/layout settling) + resize (breakpoints)
-  window.addEventListener("load", refreshAll);
+  onLoad(refreshAll);
   window.addEventListener("resize", () => {
     // On resize we must rebuild the observer because rootMargin is not mutable.
     refreshAll();

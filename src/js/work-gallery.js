@@ -18,9 +18,19 @@
    homepage's asymmetric focus-card layout; a gallery with only
    .sds-work-card--small children (e.g. a "related work" gallery) uses a plain
    uniform grid — same phantom/border logic, just focusSpan 0.
+
+   Usage:
+     import { initWorkGallery } from './js/work-gallery.js';
+     initWorkGallery();
 */
 
-(function () {
+import { onReady } from './lib/ready.js';
+
+let initialized = false;
+
+export function initWorkGallery() {
+    if (initialized) return;
+    initialized = true;
 
     /* Breakpoint → column count and focus card column span.
        hasFocus=false uses a simpler 3 → 2 → 1 progression (same 768/400
@@ -132,10 +142,6 @@
     });
 
     /* Run on DOM ready */
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', update);
-    } else {
-        update();
-    }
+    onReady(update);
 
-}());
+}

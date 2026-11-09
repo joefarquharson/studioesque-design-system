@@ -1,7 +1,22 @@
-// menu.js
+/**
+ * menu.js
+ * Mobile menu: #sds-menu-trigger toggles .sds-menu-open on <html>; closes on
+ * nav-link click, Escape, and breakpoint crossings (with Safari handling).
+ *
+ * Usage:
+ *   import { initMenu } from './js/menu.js';
+ *   initMenu();
+ */
 
-{
-    const initMenu = () => {
+import { onReady } from './lib/ready.js';
+
+let initialized = false;
+
+export function initMenu() {
+    if (initialized) return;
+    initialized = true;
+
+    const setup = () => {
         const root = document.documentElement;
         const menuTrigger = document.getElementById('sds-menu-trigger');
         const mainNav = document.getElementById('sds-main-nav');
@@ -138,9 +153,5 @@
     // Initialize
     // =============================================
     
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initMenu);
-    } else {
-        initMenu();
-    }
+    onReady(setup);
 }

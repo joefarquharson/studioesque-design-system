@@ -10,8 +10,23 @@
  * two clip-paths on it (see styles/03-layout/outside-grid.css):
  *   --sds-outside-grid-dark-clip — the dark bands' on-screen rects (::after)
  *   --sds-outside-grid-page-clip — everything except those rects (::before)
+ *
+ * Usage:
+ *   import { initOutsideGrid } from './js/outside-grid.js';
+ *   initOutsideGrid();
  */
-{
+
+import { onReady, onLoad } from './lib/ready.js';
+
+let initialized = false;
+
+export function initOutsideGrid() {
+  if (initialized) return;
+  initialized = true;
+  onReady(setup);
+}
+
+function setup() {
   const outsideGrid = document.querySelector(".sds-outside-grid");
   const bands = document.querySelectorAll(
     'body > [data-sds-theme="dark"], main > [data-sds-theme="dark"]'
@@ -75,8 +90,8 @@
     }, { passive: true });
 
     // Layout can shift after first paint (fonts, images) and on breakpoints.
-    document.addEventListener("DOMContentLoaded", updateClips);
-    window.addEventListener("load", updateClips);
+    updateClips();
+    onLoad(updateClips);
     window.addEventListener("resize", updateClips);
   }
 }

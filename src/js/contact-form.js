@@ -4,9 +4,19 @@
      Email shows "blank" error if empty, "format" error if invalid
    - Field errors clear as soon as the user starts correcting them
    - A submit-level error message appears next to the button on failed submit
+
+   Usage:
+     import { initContactForm } from './js/contact-form.js';
+     initContactForm();
 */
 
-(function () {
+import { onReady } from './lib/ready.js';
+
+let initialized = false;
+
+export function initContactForm() {
+    if (initialized) return;
+    initialized = true;
 
     const MSG_BLANK = "This field can't be left blank";
     const MSG_EMAIL = 'Please enter a valid email address';
@@ -73,7 +83,7 @@
         return valid;
     }
 
-    document.addEventListener('DOMContentLoaded', function () {
+    onReady(function () {
         const form = document.querySelector('.sds-contact-form');
         if (!form) return;
 
@@ -110,4 +120,4 @@
         });
     });
 
-}());
+}

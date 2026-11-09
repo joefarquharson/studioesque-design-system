@@ -1,6 +1,25 @@
-// js/theme.js
+/**
+ * theme.js
+ * Light/dark toggle (#sds-theme-toggle), animated sun/moon icon, persisted
+ * choice, system-preference tracking, theme-color meta sync, and removal of
+ * the .sds-no-transition FOUC lock after load.
+ *
+ * Usage:
+ *   import { initTheme } from './js/theme.js';
+ *   initTheme();
+ *
+ * The page still needs its own inline <head> script that sets
+ * data-sds-theme before first paint; a module always runs too late for that.
+ */
 
-{
+import { onReady, onLoad } from './lib/ready.js';
+
+let initialized = false;
+
+export function initTheme() {
+    if (initialized) return;
+    initialized = true;
+
     const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
     
     if (isSafari) {
@@ -223,7 +242,7 @@
     // Manual Theme Toggle
     // =============================================
     
-    window.addEventListener('DOMContentLoaded', () => {
+    onReady(() => {
         const toggleBtn = document.getElementById('sds-theme-toggle');
         if (toggleBtn) {
             toggleBtn.addEventListener('click', () => {
@@ -245,7 +264,7 @@
     // Remove FOUC Lock
     // =============================================
     
-    window.addEventListener('load', () => {
+    onLoad(() => {
         setTimeout(() => {
             root.classList.remove('sds-no-transition');
         }, 100);

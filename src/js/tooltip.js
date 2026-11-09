@@ -5,9 +5,23 @@
  *
  * The tooltip is appended to <body> and position: fixed, so it isn't
  * clipped by overflow: hidden ancestors (e.g. .sds-work-card-media).
+ *
+ * Usage:
+ *   import { initTooltip } from './js/tooltip.js';
+ *   initTooltip();
  */
 
-(() => {
+import { onReady } from './lib/ready.js';
+
+let initialized = false;
+
+export function initTooltip() {
+  if (initialized) return;
+  initialized = true;
+  onReady(setup);
+}
+
+function setup() {
   const GAP = 8;      // px between trigger and tooltip
   const MARGIN = 8;   // px kept clear of the viewport edges
 
@@ -100,4 +114,4 @@
   // Fixed positioning goes stale when the page moves under it
   window.addEventListener("scroll", hide, { passive: true });
   window.addEventListener("resize", hide);
-})();
+}

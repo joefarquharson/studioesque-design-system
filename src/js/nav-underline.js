@@ -5,12 +5,23 @@
  * Fix: prevents the "first move" animation from x=0 (left edge of the nav/viewport)
  * by keeping transitions disabled until AFTER the underline has been positioned
  * at the active link at least once.
+ *
+ * Usage:
+ *   import { initNavUnderline } from './js/nav-underline.js';
+ *   initNavUnderline();
  */
 
-(() => {
+import { onReady, onLoad } from './lib/ready.js';
+
+let initialized = false;
+
+export function initNavUnderline() {
+  if (initialized) return;
+  initialized = true;
+
   const desktopMQ = window.matchMedia("(min-width: 769px)");
 
-  const init = () => {
+  const setup = () => {
     const nav = document.querySelector("#sds-main-nav ul.sds-nav-links");
     if (!nav) return;
 
@@ -174,10 +185,10 @@
 
     // Initial sync ASAP + after load (fonts/layout)
     syncToActiveSection();
-    window.addEventListener("load", syncToActiveSection);
+    onLoad(syncToActiveSection);
   };
 
-  if (desktopMQ.matches) init();
+  if (desktopMQ.matches) onReady(setup);
 
   desktopMQ.addEventListener("change", () => window.location.reload());
-})();
+}

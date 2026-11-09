@@ -15,7 +15,7 @@ Read `docs/PHASE-2.md` (progress + remaining work) and `docs/HANDOFF.md` (state,
 src/css/index.css          full bundle (import order matters)
 src/css/01-settings ... 05-utilities   ITCSS-style layers, one file per component in 04-components
 src/css/extras/            OPT-IN files, not imported by index.css (sds-brackets.css)
-src/js/                    classic scripts (module/config refactor pending)
+src/js/                    ES modules, each exports an idempotent initX(); index.js = init(options); lib/ready.js (per-module config pending)
 src/assets/svg/            details, icons, theme-toggle (CSS url() paths depend on this depth)
 docs/                      PHASE-2.md, HANDOFF.md, rename-map.json, portfolio-migration/
 ```

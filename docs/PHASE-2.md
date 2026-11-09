@@ -36,7 +36,7 @@ Findings from the Phase 1 extraction. Everything below is still true of the copi
 
 ## Other Phase 2 items
 
-- JS files are classic scripts, not ES modules. Decide: keep as scripts with a config global, or convert to modules with `init({ ... })` and add `src/js/index.js`.
+- ~~JS files are classic scripts, not ES modules.~~ Decided and done: ES modules with idempotent `initX()` exports plus `src/js/index.js` (`init(options)`).
 - Add `scripts/build.mjs` (esbuild/lightningcss) producing `dist/` with assets alongside CSS.
 - Decide whether `reset.css` and base typography (bare `h1`, `p`, `img` selectors) ship in core or an opt-in `sds-base.css`.
 - `work-gallery` placeholder copy, `logo-grid` examples: make neutral.
@@ -74,7 +74,8 @@ Still to do:
 - [ ] Remaining undeclared custom properties (see list above, minus the two fixed).
 - [ ] localStorage key `theme` -> `sds-theme` with a legacy fallback read.
 - [ ] Reword comments that say "portfolio"/"homepage".
-- [ ] JS: scripts vs. ES modules decision; `scripts/build.mjs`.
+- [x] JS converted to ES modules: each file exports an idempotent `initX()`, no import side effects; `src/js/index.js` re-exports them with `init(options)` (`{ key: false }` skips); `src/js/lib/ready.js` lets a late init still run. Behavior unchanged (options come with the config item above). Smoke-tested in headless Chrome.
+- [ ] `scripts/build.mjs`.
 
 Portfolio migration notes (for when it consumes the system):
 - Remove `class="subpage"` from the subpages; add `sds-scale-display` to the homepage `<body>` (decision: keep the About h2 large).
