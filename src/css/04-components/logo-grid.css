@@ -31,7 +31,7 @@
 
   Each card's background is a one-off brand color set via inline
   background-color — there's no shared light/dark recipe here the way
-  #related-work has, so it's set per instance rather than through a
+  a dark gallery section has, so it's set per instance rather than through a
   reusable CSS class.
 
   Each card can independently be set to light or dark theme via a
@@ -41,7 +41,7 @@
 
   This scopes brackets, the card border, and the caption text/border to
   that theme's tokens (--sds-brackets, --sds-color-border-faint, --sds-color-text) —
-  the same attribute-cascade pattern #related-work uses to force dark
+  the same attribute-cascade pattern a forced-dark section uses to force dark
   theme on its own subtree — independent of whatever theme the rest of
   the page is in. Use "dark" for cards with a dark or saturated
   background, "light" for pale ones; pick whichever reads correctly
@@ -61,13 +61,10 @@
   .sds-image-block-media does:
     <figure class="sds-logo-card" style="background-color: ...; --sds-logo-card-ratio: 1 / 1;">
 
-  Full-bleed layout: pair with #logos .sds-content-area { grid-column: 1 / -1; }
-  (added below) the same way #work and #related-work go full-bleed.
+  Full-bleed layout: add .sds-content--full-bleed (content.css) to the
+  wrapper, e.g. <div class="sds-content sds-content--full-bleed">, so the
+  grid spans all 12 columns.
 */
-
-#logos .sds-content-area {
-    grid-column: 1 / -1;
-}
 
 .sds-logo-grid {
     display: grid;

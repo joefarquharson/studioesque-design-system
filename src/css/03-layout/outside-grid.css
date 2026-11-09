@@ -15,7 +15,7 @@
 
   js/outside-grid.js clips each layer to its own vertical bands of the
   viewport on every scroll frame: ::after to wherever a full-width band
-  that forces dark theme on itself (e.g. #related-work, #sds-global-footer,
+  that forces dark theme on itself (e.g. a dark gallery section, #sds-global-footer,
   via data-sds-theme="dark") is on screen, ::before to everything else. So the
   strips beside a dark band are dark even while it's only partly scrolled
   into view, and never show both patterns on top of each other.

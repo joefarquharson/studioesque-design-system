@@ -67,7 +67,7 @@ Done:
 - [x] `.profile-link` removed from `animations.css`. It stays in the portfolio (its CSS already lives in `splash.css`), which must give it its own `transition` when it consumes the system.
 
 Still to do:
-- [ ] Section-id selectors -> generic classes (`#work/#about/#contact/#related-work/#logos`): a full-bleed modifier plus a section-accent hook.
+- [x] Section-id selectors replaced with three composable modifiers in `content.css`: `.sds-content--tinted` (background from `--sds-section-background`), `.sds-content--accent` (h2 / bullet / link-underline color from `--sds-section-accent`), `.sds-content--full-bleed` (content-area spans 12 columns). Tinted and accent are separate because the dark gallery band only wants a background. Same-specificity ties with typography.css resolve in the modifiers' favor by import order; the full-bleed selector (0-2-0) outranks section.css's responsive spans (0-1-0). The system no longer references any section id. (The accent/background color tokens in `colors.css` are now unused by the system; moving them out is the next item.)
 - [x] Brackets + borders as one opt-in unit. Core resolves `--sds-brackets` from `--sds-brackets-light/dark` (fallback `none`) and every frame shadow's thickness from `--sds-frame-width` / `--sds-frame-width-neg` (fallback `0px`, so invisible). `src/css/extras/sds-brackets.css` supplies the two SVG URLs and 1px / -1px. Order-independent. Verified: core + extras, with the tokens substituted back, is byte-identical to the pre-change CSS in every file; with extras absent, core has no bracket URLs and no hard-coded 1px frame shadows. 73 shadow lines gated. Real control borders (buttons, form fields) are deliberately not gated. `.sds-outside-grid`'s diagonal-lines pattern is still always on (not requested; same technique would apply).
 - [ ] `colors.css`: move hero/work/about/contact accent + `--sds-meta-theme-color-*` tokens out of the system.
 - [ ] `theme.js`, `header-colors.js`, `nav-underline.js`, `menu.js`, `contact-form.js`: replace hardcoded section ids / colors / element ids with config.
@@ -79,3 +79,24 @@ Still to do:
 Portfolio migration notes (for when it consumes the system):
 - Remove `class="subpage"` from the subpages; add `sds-scale-display` to the homepage `<body>` (decision: keep the About h2 large).
 - Run `node scripts/rename.mjs --dir <portfolio>` to rename its HTML, then review.
+
+### Portfolio migration: section modifiers
+
+Add to the portfolio's own stylesheet (these replace the old `#work`/`#about`/`#contact`/`#related-work` rules):
+
+```css
+#work    { --sds-section-background: var(--sds-color-background-accent-work);
+           --sds-section-accent: var(--sds-color-accent-work); }
+#about   { --sds-section-background: var(--sds-color-background-accent-about);
+           --sds-section-accent: var(--sds-color-accent-about); }
+#contact { --sds-section-background: var(--sds-color-background-accent-contact);
+           --sds-section-accent: var(--sds-color-accent-contact); }
+#related-work { --sds-section-background: var(--sds-color-background-accent-related-work); }
+```
+
+And add classes in the HTML:
+
+- `#work`: `sds-content sds-content--tinted sds-content--accent sds-content--full-bleed`
+- `#about`, `#contact`: `sds-content sds-content--tinted sds-content--accent`
+- `#related-work`: `sds-content sds-content--tinted sds-content--full-bleed`
+- the `#logos` wrapper on logos.html: `sds-content sds-content--full-bleed`

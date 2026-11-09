@@ -1,15 +1,13 @@
 /* styles/04-components/work-gallery.css */
 
 /* ========================================= */
-/* Override: content-area spans full width   */
+/* Full-width content area                   */
 /* ========================================= */
 
-/* section.css hardcodes column spans in responsive media queries at
-   specificity 0-1-0. This rule wins at all breakpoints (1-1-0). */
-#work .sds-content-area,
-#related-work .sds-content-area {
-    grid-column: 1 / -1;
-}
+/* Put .sds-content--full-bleed (content.css) on the section holding a
+   gallery so its .sds-content-area spans all 12 columns; section.css
+   hardcodes narrower spans in its responsive media queries, and the
+   modifier's selector (0-2-0) outranks those (0-1-0) at every breakpoint. */
 
 /* ========================= */
 /* Gallery header            */

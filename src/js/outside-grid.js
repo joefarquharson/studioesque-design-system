@@ -1,8 +1,8 @@
 /**
  * Outside-grid Band Clipping
  * Keeps the diagonal-line strips beside a forced-dark band (any full-width
- * child of <body> or <main> carrying data-sds-theme="dark", e.g. #related-work
- * and #sds-global-footer) dark for exactly the part of the viewport that band
+ * child of <body> or <main> carrying data-sds-theme="dark", e.g. a dark gallery
+ * section and #sds-global-footer) dark for exactly the part of the viewport that band
  * covers — including while it's only partly scrolled into view.
  *
  * .sds-outside-grid is one position:fixed overlay outside every section's DOM
@@ -23,7 +23,7 @@
       const rects = [];
 
       // Bands are in document order, so their rects are in vertical order.
-      // Adjacent bands (e.g. #related-work directly above #sds-global-footer)
+      // Adjacent bands (e.g. a dark section directly above #sds-global-footer)
       // merge into one rect so no sub-pixel seam shows between them.
       bands.forEach((band) => {
         const r = band.getBoundingClientRect();

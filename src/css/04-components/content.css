@@ -70,46 +70,49 @@
         inset 0 var(--sds-frame-width-neg, 0px) 0 var(--sds-color-border-faint);
 }
 
-/* Colors by section ID */
+/* ========================= */
+/* Section modifiers          */
+/* ========================= */
 
-#work {
-    background-color: var(--sds-color-background-accent-work);
+/*
+  Three independent, composable modifiers for a .sds-content section. They
+  replace the portfolio's old per-id rules (#work, #about, #contact,
+  #related-work, #logos), so a project styles its own sections by setting
+  two custom properties instead of the system knowing section names:
+
+    <section class="sds-content sds-content--tinted sds-content--accent">
+
+    .my-section {
+        --sds-section-background: ...;  // used by --tinted
+        --sds-section-accent: ...;      // used by --accent
+    }
+
+  --tinted      background-color from --sds-section-background
+                (default: --sds-color-background)
+  --accent      h2 color, list-bullet color, and link-underline color from
+                --sds-section-accent (default: --sds-color-accent)
+  --full-bleed  the section's .sds-content-area spans all 12 columns instead
+                of the middle content columns (galleries, image grids)
+
+  --tinted and --accent are separate on purpose: a dark gallery band only
+  wants a background and should keep its normal heading/link colors.
+*/
+
+.sds-content--tinted {
+    background-color: var(--sds-section-background, var(--sds-color-background));
 }
 
-#work h2, #work .sds-content-row ul li::before {
-    color: var(--sds-color-accent-work);
+.sds-content--accent h2,
+.sds-content--accent .sds-content-row ul li::before {
+    color: var(--sds-section-accent, var(--sds-color-accent));
 }
 
-#work a::after {
-    background-color: var(--sds-color-accent-work);
+.sds-content--accent a::after {
+    background-color: var(--sds-section-accent, var(--sds-color-accent));
 }
 
-#about {
-    background-color: var(--sds-color-background-accent-about);
-}
-
-#about h2, #about .sds-content-row ul li::before {
-    color: var(--sds-color-accent-about);
-}
-
-#about a::after {
-    background-color: var(--sds-color-accent-about);
-}
-
-#contact {
-    background-color: var(--sds-color-background-accent-contact);
-}
-
-#contact h2, #contact .sds-content-row ul li::before {
-    color: var(--sds-color-accent-contact);
-}
-
-#contact a::after {
-    background-color: var(--sds-color-accent-contact);
-}
-
-#related-work {
-    background-color: var(--sds-color-background-accent-related-work);
+.sds-content--full-bleed .sds-content-area {
+    grid-column: 1 / -1;
 }
 
 /* Responsive */

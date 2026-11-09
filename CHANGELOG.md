@@ -2,6 +2,7 @@
 
 ## 0.0.1 (unreleased)
 
+- Section modifiers `.sds-content--tinted/--accent/--full-bleed` replace the portfolio's per-id section rules.
 - Brackets and frame borders are now opt-in via `extras/sds-brackets.css`.
 - Headings: `--sds-heading-N` (compact default) / `--sds-display-N` with opt-in `.sds-scale-display`; removed `body.subpage`.
 - All classes, custom properties, ids, data attributes, and events prefixed with `sds-`.
