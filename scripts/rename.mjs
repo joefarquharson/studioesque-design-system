@@ -3,6 +3,11 @@
 //   node scripts/rename.mjs                # dry run on src/
 //   node scripts/rename.mjs --write        # apply
 //   node scripts/rename.mjs --dir ../site  # also process another tree (html/css/js)
+//   node scripts/rename.mjs --dir ../site --skip-src   # ONLY the other tree
+//
+// Use --skip-src when renaming another project (e.g. the portfolio). src/ is
+// already renamed, and comments written since then that mention BEM
+// modifiers (`--tinted`, `--x`) would be caught by the custom-property rule.
 import { readFileSync, writeFileSync, readdirSync, statSync } from "node:fs";
 import { join, resolve, dirname, extname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -10,7 +15,7 @@ import { fileURLToPath } from "node:url";
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const args = process.argv.slice(2);
 const write = args.includes("--write");
-const dirs = [join(root, "src")];
+const dirs = args.includes("--skip-src") ? [] : [join(root, "src")];
 args.forEach((a, i) => { if (a === "--dir") dirs.push(resolve(args[i + 1])); });
 const map = JSON.parse(readFileSync(join(root, "docs/rename-map.json"), "utf8"));
 const excludeProps = new Set(map.customProperties.exclude || []);

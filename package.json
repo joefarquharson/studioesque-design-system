@@ -5,7 +5,10 @@
   "private": true,
   "license": "MIT",
   "type": "module",
-  "files": ["src", "dist"],
+  "files": [
+    "src",
+    "dist"
+  ],
   "exports": {
     "./css": "./src/css/index.css",
     "./css/*": "./src/css/*",
@@ -18,5 +21,8 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/<user>/studioesque-design-system.git"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.65.0"
   }
 }

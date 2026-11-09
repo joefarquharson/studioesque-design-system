@@ -49,8 +49,15 @@ Repos (both in `Portfolio-2026.code-workspace`):
 - Comments reworded: page-hero.css, global-header.css (`.sds-header-light-forced` is a host hook), typography.css, visually-hidden.css, content.css, work-gallery.js.
 - Verified in headless Chrome with two pages, defaults and `init(sdsOptions)`: no errors; per-section header colors, forced-dark header at related-work, meta colors per section and theme, nav underline per section, legacy key migration, `sds-theme` written on toggle, form messages (blank / email format / optional field untouched). Section detection was exercised via resize: headless Chrome here dispatches no scroll events, so real scrolling is still a Step 3 check.
 
-**Step 3: verify in a real browser (Claude Code can do this)**
-- Serve the portfolio with the system's CSS/JS swapped in (or a throwaway demo page in `docs/`), screenshot before/after for index, print-packaging-environment, logos at 1200/800/400px, light and dark, with and without `sds-brackets.css`. Check: headings, header color changes while scrolling, theme toggle, mobile menu, nav underline, outside-grid dark bands, logo grid brackets, image-block theme swap.
+**Step 3: verify in a real browser. DONE (Nov 9)**
+- Harness: `scripts/compare-portfolio/` (README there). `playwright-core` dev dependency drives the installed Chrome. Builds a throwaway copy of the portfolio (index, print, identity) wired to the system per the Step 5 checklist, then compares it to the live portfolio.
+- **index.html: pixel-identical** at 1200/800/400, light and dark (interactive hero included).
+- **print.html, identity.html: pixel-identical except the page-hero title**, once `#logos` gets `sds-content--full-bleed` (a migration step, already in the checklist). `.sds-page-hero` pins h1 one step SMALLER than the live site: live 60/48/36px (`body.subpage h1`), system 48/36/30px. The component comment calls this deliberate ("reads too large next to the eyebrow"), but the portfolio never had it. **Open decision for Joe** (see open items).
+- Real wheel scrolling on all three pages, both themes: header bg/logo/name/role colors, underline, forced-dark header at related-work, theme-color meta, and data-sds-theme match before at every section.
+- Theme toggle (writes `sds-theme`, legacy `theme` untouched), mobile menu open + Escape, and the 400px menu screenshot match.
+- Without `sds-brackets.css`: no brackets and no frame borders, as designed.
+- `rename.mjs` gained `--skip-src`: without it, renaming another tree also rewrites `src/` comments that mention BEM modifiers (`--tinted` -> `--sds-tinted`). Use it in Step 5.
+- Portfolio bugs found (exist before and after, not system issues): `identity.html:248` has full-width digits (`１１．５２４３`) in an SVG path in the related-work card CTA (console error); `index.html` requests a missing favicon (404).
 
 **Step 4: tooling and docs**
 - `scripts/build.mjs` (esbuild or lightningcss): bundle `dist/sds.css`, `sds.min.css`, `sds.js` with assets alongside so CSS `url()` paths still resolve; add `npm run build`.
@@ -61,7 +68,8 @@ Repos (both in `Portfolio-2026.code-workspace`):
 
 **Step 5: migrate the portfolio (last, separate checklist; edit the portfolio repo only now)**
 - Copy `docs/portfolio-migration/portfolio-tokens.css` in; load after the system CSS.
-- `node scripts/rename.mjs --dir <portfolio>` to rename its HTML; review the diff. Excludes `.profile-link`.
+- `node scripts/rename.mjs --dir <portfolio> --skip-src` to rename its HTML/CSS/JS (including `hero-interactive.js`); review the diff. Excludes `.profile-link`. `scripts/compare-portfolio/build-after.mjs` is a working reference for every edit in this list.
+- Add `sds-content--full-bleed` to the `#logos` wrapper (logo-grid pages).
 - Add the section modifier CSS/classes from `docs/PHASE-2.md` ("Portfolio migration: section modifiers").
 - Remove `class="subpage"` from subpages; add `sds-scale-display` to the homepage `<body>`.
 - Give `.profile-link` its own `transition` (the system no longer provides it).
@@ -75,7 +83,8 @@ Repos (both in `Portfolio-2026.code-workspace`):
 
 ## Open items and risks
 
-- Everything so far was verified by reading/parsing CSS and JS, never by rendering. Step 3 is the biggest risk reducer.
+- Step 3 rendered and compared the real pages (see above); re-run `scripts/compare-portfolio` after system changes and during Step 5.
+- **Decision needed: page-hero title size.** System `.sds-page-hero` h1 is 48/36/30px; the live portfolio is 60/48/36px. Either keep the smaller size (the portfolio changes on migration) or move the pin up one step in `page-hero.css` to match the live site.
 - Unprefixed bare-element rules (`h1`, `p`, `img`) can collide with a host project's CSS; Step 4 decides how to ship them.
 - Known undeclared custom properties (intentionally left): `--sds-color-background-knockout` (typography.css, with `!important`), `--sds-color-background-token`, `--sds-color-border-strong`, `--sds-line-height-tight`, `--sds-line-height-medium`, `--sds-color-background-offset`. `--sds-content-start/-end` are read with fallbacks and never set (fine).
 - `.sds-outside-grid`'s diagonal-lines pattern is always on (not gated like brackets).

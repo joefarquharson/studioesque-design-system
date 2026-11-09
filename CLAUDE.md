@@ -7,7 +7,8 @@ Read `docs/PHASE-2.md` (progress + remaining work) and `docs/HANDOFF.md` (state,
 ## Commands
 
 - `npm run check` : verifies every `@import` and `url()` asset resolves. Run after any CSS move/rename.
-- `node scripts/rename.mjs` : dry-run of the `docs/rename-map.json` rename (`--write` applies, `--dir <path>` also processes another tree such as the portfolio's HTML). Idempotent.
+- `node scripts/rename.mjs` : dry-run of the `docs/rename-map.json` rename (`--write` applies, `--dir <path>` also processes another tree, `--skip-src` processes only that tree; always use it for the portfolio).
+- `scripts/compare-portfolio/` : before/after pixel + behavior comparison against the live portfolio (Playwright + installed Chrome). See its README.
 
 ## Layout
 
