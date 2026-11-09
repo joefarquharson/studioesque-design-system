@@ -1,9 +1,9 @@
 /* styles/04-components/page-hero.css */
 
 /*
-  Page Hero — reusable first section for portfolio subpages.
+  Page Hero — reusable first section for inner pages.
 
-  Usage: put this at the top of <main> on any portfolio page:
+  Usage: put this at the top of <main>:
 
     <section id="page-hero" class="sds-content sds-page-hero">
       <div class="sds-grid-wrapper">
@@ -20,15 +20,15 @@
 
   Deliberately uses the same buffer/content-area grid system and default
   .sds-content coloring (--sds-color-background / --sds-color-text) as any other content
-  section — no accent color, unlike the homepage's #hero. The .sds-page-hero
+  section — no accent color. The .sds-page-hero
   class exists so this pattern reads as an intentional, reusable component
   rather than a one-off, and gives a hook for page-hero-specific overrides
   later without touching the shared .sds-content rules.
 
-  Header behavior: id="page-hero" is matched in js/header-colors.js, which
-  applies the same neutral header treatment as the "default" fallback
-  (blur + transparency over --sds-color-background). Update that entry if
-  portfolio hero sections should ever get their own accent color.
+  Header behavior: js/header-colors.js gives any section without its own
+  `colors` entry the neutral "default" header treatment (blur + transparency
+  over --sds-color-background). To give page heroes their own header colors,
+  pass an entry for their id, e.g. initHeaderColors({ colors: { 'page-hero': {…} } }).
 */
 
 /* Inherits .sds-content's default background/text color. */

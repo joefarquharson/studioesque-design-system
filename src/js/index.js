@@ -10,8 +10,15 @@
  *     init();
  *   </script>
  *
- * Usage (skip some):
- *   init({ contactForm: false, workGallery: false });
+ * Usage (configure some, skip some):
+ *   init({
+ *     theme: { metaColors: { light: {…}, dark: {…} } },
+ *     headerColors: { colors: { gallery: { forceDark: true } } },
+ *     contactForm: false,
+ *   });
+ *
+ * Each key takes that module's options object (see the header comment of
+ * each file), `false` to skip it, or nothing for its defaults.
  *
  * Usage (pick and choose):
  *   import { initTheme, initMenu } from './sds/js/index.js';
@@ -57,12 +64,13 @@ const modules = {
 };
 
 /**
- * Start every module. Pass `false` for a key to skip that module.
- * (Per-module option objects arrive with the Step 2 config work.)
+ * Start every module. options[key] is passed to that module's init;
+ * `false` skips it.
  */
 export function init(options = {}) {
     for (const [key, start] of Object.entries(modules)) {
-        if (options[key] === false) continue;
-        start();
+        const moduleOptions = options[key];
+        if (moduleOptions === false) continue;
+        start(typeof moduleOptions === 'object' && moduleOptions !== null ? moduleOptions : {});
     }
 }

@@ -75,10 +75,9 @@
 /* ========================= */
 
 /*
-  Three independent, composable modifiers for a .sds-content section. They
-  replace the portfolio's old per-id rules (#work, #about, #contact,
-  #related-work, #logos), so a project styles its own sections by setting
-  two custom properties instead of the system knowing section names:
+  Three independent, composable modifiers for a .sds-content section. The
+  system never targets section ids, so a project styles its own sections by
+  setting two custom properties instead of the system knowing section names:
 
     <section class="sds-content sds-content--tinted sds-content--accent">
 

@@ -7,109 +7,71 @@
  *
  * Usage:
  *   import { initHeaderColors } from './js/header-colors.js';
- *   initHeaderColors();
+ *   initHeaderColors();                // every section uses the default colors
+ *   initHeaderColors({
+ *     colors: {                        // keyed by section id
+ *       intro:   { headerLogo: 'var(--sds-color-accent)' },
+ *       gallery: { headerBg: '…', headerName: '…', forceDark: true },
+ *     },
+ *   });
  *
- * Dispatches `sds:sectionchange` on document (theme.js listens for it).
+ * Options (all optional):
+ *   header    Element|selector       '#sds-global-header'
+ *   sections  selector|NodeList      'section'
+ *   colors    { [sectionId]: entry } Each entry is merged over the default
+ *             entry, so give only what differs. Pass `default` to change the
+ *             fallback used for unlisted ids, sections without an id, and
+ *             scroll positions outside every section.
+ *
+ * Entry fields (CSS values, set on <html> as --sds-color-header-*):
+ *   headerBg, headerLogo, headerName, headerRole, headerUnderline,
+ *   forceDark (boolean: adds .sds-header-dark-forced to the header, for a
+ *   section that is forced dark with data-sds-theme="dark").
+ *
+ * Dispatches `sds:sectionchange` on document with { sectionId } ("default"
+ * when no section matches). theme.js listens for it.
  */
 
 import { onLoad } from './lib/ready.js';
+import { resolve, resolveAll } from './lib/dom.js';
+
+// Mirrors the :root defaults in colors.css, keeping blur/transparency but
+// using the plain page background instead of a section-specific accent color.
+const DEFAULT_ENTRY = {
+  headerBg: "oklch(from var(--sds-color-background) l c h / 0.9)",
+  headerLogo: "var(--sds-color-logo)",
+  headerName: "var(--sds-color-text)",
+  headerRole: "var(--sds-color-text-meta)",
+  headerUnderline: "var(--sds-color-accent)",
+};
+
+const DEFAULTS = {
+  header: "#sds-global-header",
+  sections: "section",
+  colors: {},
+};
 
 let initialized = false;
 
-export function initHeaderColors() {
+export function initHeaderColors(options = {}) {
   if (initialized) return;
   initialized = true;
 
-  const header = document.getElementById("sds-global-header");
-  const sections = document.querySelectorAll("section");
+  const config = { ...DEFAULTS, ...options };
+  const header = resolve(config.header);
+  const sections = resolveAll(config.sections);
   const root = document.documentElement;
 
   let currentSection = "";
 
-  const sectionColors = {
-    // Fallback for sections with no id (or an id not present below) — mirrors
-    // the :root defaults in colors.css, keeping blur/transparency but using
-    // the plain page background instead of a section-specific accent color.
-    default: {
-      headerBg: "oklch(from var(--sds-color-background) l c h / 0.9)",
-      headerLogo: "var(--sds-color-logo)",
-      headerName: "var(--sds-color-text)",
-      headerRole: "var(--sds-color-text-meta)",
-      headerUnderline: "var(--sds-color-accent)",
-    },
-    // --sds-hero-live-* are set by js/hero-interactive.js (opt-in interactive
-    // hero only). Unset everywhere else, so each falls back to the static
-    // hero value and this behaves exactly as before.
-    hero: {
-      // --sds-hero-live-header-bg: optional full override (unused for now — set
-      // it to e.g. transparent on <html>); otherwise the live/static hero
-      // color at 90%.
-      headerBg: "var(--sds-hero-live-header-bg, oklch(from var(--sds-hero-live-bg, var(--sds-color-background-accent-hero)) l c h / 0.9))",
-      headerLogo: "var(--sds-hero-live-text, var(--sds-color-accent-hero))",
-      headerName: "var(--sds-hero-live-header-text, var(--sds-color-text))",
-      headerRole: "var(--sds-hero-live-header-text, var(--sds-color-text))",
-      headerUnderline: "var(--sds-hero-live-text, var(--sds-color-accent-hero))",
-    },
-    // Portfolio subpage hero (styles/04-components/page-hero.css) — plain
-    // content background, no accent color. Identical to "default" today;
-    // kept as its own explicit entry so it can diverge later without
-    // relying on the id-not-found fallback.
-    "page-hero": {
-      headerBg: "oklch(from var(--sds-color-background) l c h / 0.9)",
-      headerLogo: "var(--sds-color-logo)",
-      headerName: "var(--sds-color-text)",
-      headerRole: "var(--sds-color-text-meta)",
-      headerUnderline: "var(--sds-color-accent)",
-    },
-    work: {
-      headerBg: "oklch(from var(--sds-color-background) l c h / 0.9)",
-      headerLogo: "var(--sds-color-accent-work)",
-      headerName: "var(--sds-color-text)",
-      headerRole: "var(--sds-color-text-meta)",
-      headerUnderline: "var(--sds-color-accent-work)",
-    },
-    about: {
-      headerBg: "oklch(from var(--sds-color-background-accent-about) l c h / 0.9)",
-      headerLogo: "var(--sds-color-accent-about)",
-      headerName: "var(--sds-color-text)",
-      headerRole: "var(--sds-color-text-meta)",
-      headerUnderline: "var(--sds-color-accent-about)",
-    },
-    contact: {
-      headerBg: "oklch(from var(--sds-color-background) l c h / 0.9)",
-      headerLogo: "var(--sds-color-accent-contact)",
-      headerName: "var(--sds-color-text)",
-      headerRole: "var(--sds-color-text-meta)",
-      headerUnderline: "var(--sds-color-accent-contact)",
-    },
-    // "Related work" gallery (portfolio pages) — forced dark theme via
-    // data-sds-theme="dark" on the section itself, independent of the page's
-    // current light/dark toggle. var(--sds-color-background) etc. would follow
-    // the ROOT's data-sds-theme (the header lives outside this section in the
-    // DOM, so it doesn't inherit the section's forced-dark scope) — so
-    // these values are the dark-theme recipe written out literally instead.
-    // The underlying scale tokens (--sds-l-95, --sds-c-blue-95, --sds-white-a90,
-    // etc.) are theme-independent, defined once in :root, so this stays
-    // correct regardless of the root theme. Keep in sync with
-    // [data-sds-theme="dark"] in colors.css if that recipe changes.
-    "related-work": {
-      headerBg: "oklch(from var(--sds-color-background-accent-related-work) l c h / 0.9)",
-      headerLogo: "var(--sds-white-a90)",
-      headerName: "var(--sds-white-a90)",
-      headerRole: "var(--sds-white-a60)",
-      headerUnderline: "oklch(var(--sds-l-40) var(--sds-c-blue-40) var(--sds-h-blue))",
-      // See header-dark-forced handling below — the header is outside this
-      // section's DOM subtree, so it can't pick up the section's
-      // data-sds-theme="dark" via CSS alone. Flag it here so JS can swap it too.
-      // (.sds-outside-grid has the same problem; js/outside-grid.js handles it.)
-      forceDark: true,
-    },
-  };
+  // Every entry is merged over the default, so partial entries are complete.
+  const defaultEntry = { ...DEFAULT_ENTRY, ...config.colors.default };
 
   function updateSectionColors(sectionId) {
     // Unknown/unmapped section ids (or empty ids) fall back to the default
     // header treatment rather than silently keeping the previous colors.
-    const colors = sectionColors[sectionId] || sectionColors.default;
+    const entry = Object.hasOwn(config.colors, sectionId) ? config.colors[sectionId] : null;
+    const colors = entry ? { ...defaultEntry, ...entry } : defaultEntry;
 
     root.style.setProperty("--sds-color-header-bg", colors.headerBg);
     root.style.setProperty("--sds-color-header-logo", colors.headerLogo);
@@ -118,13 +80,13 @@ export function initHeaderColors() {
 
     // The header's own corner brackets and faint borders: --sds-brackets /
     // --sds-color-border-faint normally only swap via [data-sds-theme="dark"] on
-    // the ROOT, and #sds-global-header sits outside
+    // the ROOT, and the header sits outside
     // every section's DOM subtree so it can't inherit a section-local
     // data-sds-theme="dark" override. header-dark-forced redeclares both custom
-    // properties directly on #sds-global-header (see global-header.css), which
+    // properties directly on the header (see global-header.css), which
     // then cascades to every descendant that consumes them — including the
     // mobile nav menu nested inside the header.
-    header.classList.toggle("sds-header-dark-forced", !!colors.forceDark);
+    header?.classList.toggle("sds-header-dark-forced", !!colors.forceDark);
 
     // Safe fallback if a section is missing headerUnderline
     root.style.setProperty(

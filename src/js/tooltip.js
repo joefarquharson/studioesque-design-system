@@ -27,7 +27,7 @@ function setup() {
 
   const tip = document.createElement("div");
   tip.className = "sds-tooltip";
-  tip.id = "tooltip";
+  tip.id = "sds-tooltip";
   tip.setAttribute("role", "tooltip");
   document.body.appendChild(tip);
 

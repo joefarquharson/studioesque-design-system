@@ -25,8 +25,9 @@
 }
 
 /* Light counterpart, for when the root theme is dark but the header sits
-   over a light background. Only used by js/hero-interactive.js, whose
-   live hero color can be light or dark under either root theme. */
+   over a light background. No SDS script sets it; it is a hook for host
+   scripts whose section color can be light or dark under either root theme
+   (e.g. an interactive hero). */
 #sds-global-header.sds-header-light-forced {
     --sds-brackets: var(--sds-brackets-light, none);
     --sds-color-border-faint: var(--sds-black-a08);

@@ -6,21 +6,35 @@
  * Usage:
  *   import { initMenu } from './js/menu.js';
  *   initMenu();
+ *
+ * Options (all optional):
+ *   trigger  Element|selector   '#sds-menu-trigger'
+ *   nav      Element|selector   '#sds-main-nav'   (the panel that slides in)
+ *   links    selector|NodeList  '.sds-header-nav a' (clicking one closes the menu)
  */
 
 import { onReady } from './lib/ready.js';
+import { resolve, resolveAll } from './lib/dom.js';
+
+const DEFAULTS = {
+    trigger: '#sds-menu-trigger',
+    nav: '#sds-main-nav',
+    links: '.sds-header-nav a',
+};
 
 let initialized = false;
 
-export function initMenu() {
+export function initMenu(options = {}) {
     if (initialized) return;
     initialized = true;
 
+    const config = { ...DEFAULTS, ...options };
+
     const setup = () => {
         const root = document.documentElement;
-        const menuTrigger = document.getElementById('sds-menu-trigger');
-        const mainNav = document.getElementById('sds-main-nav');
-        const navLinks = document.querySelectorAll('.sds-header-nav a');
+        const menuTrigger = resolve(config.trigger);
+        const mainNav = resolve(config.nav);
+        const navLinks = resolveAll(config.links);
 
         if (!menuTrigger || !mainNav) return;
 

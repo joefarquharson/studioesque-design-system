@@ -38,14 +38,16 @@ Repos (both in `Portfolio-2026.code-workspace`):
 - Verified in headless Chrome (smoke page with sds markup): all eight modules act, no errors, double `init()` is a no-op, and `init()` after window load works. Not yet tested against real portfolio pages (Step 3).
 - Node v26 installed Nov 9; `npm run check` passes and all modules pass `node --check` and import cleanly under Node (no DOM access at import time).
 
-**Step 2: decouple the JS (the main remaining Phase 2 work)**
-- Each `initX()` gains an `options = {}` argument with the current hard-coded values as defaults; `init()` in `index.js` passes `options[key]` through when it is an object.
-- `theme.js`: replace the hardcoded `META_THEME_COLORS` map and default `'hero'` with config; element ids from config or `sds-` defaults; localStorage key `theme` -> `sds-theme` with a one-time fallback read of the legacy `theme` key (github.io projects share one origin).
-- `header-colors.js`: replace the `sectionColors` map (keyed by portfolio ids) with config or `data-sds-header-*` attributes per section; drop `--sds-hero-live-*` (set by `hero-interactive.js`, which is not in the system); the generic `default` entry stays. Currently it still references the removed `--sds-color-*-accent-*` tokens, so header theming is broken in the system until this lands.
-- `nav-underline.js`, `menu.js`: hardcoded ids `sds-global-header`, `sds-main-nav`, `sds-menu-trigger`, a `"hero"` fallback section id, and the assumption of `index.html#section` links; make configurable.
-- `contact-form.js`: host-owned field ids (`#contact-name`, `#contact-email`, `#contact-message`, `#contact-submit-error`) and `#contact`; scope by `.sds-contact-form` and `name` attributes.
-- Reword comments that mention "portfolio" / "homepage" (page-hero.css, typography.css, header-colors.js).
-- Keep each script working with no config (sensible defaults) wherever possible.
+**Step 2: decouple the JS. DONE (Nov 9)**
+- Every `initX(options)` takes an options object; defaults are the generic `sds-` ids/selectors, and each file's header comment documents its options. `init()` passes `options[key]` through. Element options accept an Element or a selector (`src/js/lib/dom.js`).
+- The portfolio's values moved verbatim to `docs/portfolio-migration/portfolio-js-config.js` (`sdsOptions`, passed as `init(sdsOptions)`): theme-color meta map, `initialSection: 'hero'`, `metaFallback`, `legacyStorageKey: 'theme'`, and the header `colors` entries (hero with `--sds-hero-live-*`, page-hero, work, about, contact, related-work).
+- `theme.js`: options `toggle`, `metaLight`, `metaDark`, `storageKey` ('sds-theme'), `legacyStorageKey` (default null; copies a legacy value once, never deletes it), `metaColors` (null = meta tags untouched), `metaFallback`, `initialSection`. localStorage access is wrapped in try/catch. The header comment has the matching inline `<head>` snippet.
+- `header-colors.js`: options `header`, `sections`, `colors`. Entries merge over the default entry, so partial entries are fine. Works without a header element.
+- `menu.js`: `trigger`, `nav`, `links`. `nav-underline.js`: `nav`, `header`, `links`, `sections`; the `"hero"` fallback id is gone (no match -> first link, which is what the portfolio got anyway since Home is first). `outside-grid.js`: `element`, `bands`.
+- `contact-form.js`: now driven by markup. Validates every `[required]` field in every `.sds-contact-form`; `type="email"` gets the format check; submit message is `.sds-form-submit-error`. Options `form`, `fields`, `submitError`, `messages`, `onValid(form, event)`. No field ids needed (the portfolio form already matches: name/email/message are `required`, company is not).
+- Tooltip element id `tooltip` -> `sds-tooltip` (prefix rule; nothing referenced it).
+- Comments reworded: page-hero.css, global-header.css (`.sds-header-light-forced` is a host hook), typography.css, visually-hidden.css, content.css, work-gallery.js.
+- Verified in headless Chrome with two pages, defaults and `init(sdsOptions)`: no errors; per-section header colors, forced-dark header at related-work, meta colors per section and theme, nav underline per section, legacy key migration, `sds-theme` written on toggle, form messages (blank / email format / optional field untouched). Section detection was exercised via resize: headless Chrome here dispatches no scroll events, so real scrolling is still a Step 3 check.
 
 **Step 3: verify in a real browser (Claude Code can do this)**
 - Serve the portfolio with the system's CSS/JS swapped in (or a throwaway demo page in `docs/`), screenshot before/after for index, print-packaging-environment, logos at 1200/800/400px, light and dark, with and without `sds-brackets.css`. Check: headings, header color changes while scrolling, theme toggle, mobile menu, nav underline, outside-grid dark bands, logo grid brackets, image-block theme swap.
@@ -63,7 +65,8 @@ Repos (both in `Portfolio-2026.code-workspace`):
 - Add the section modifier CSS/classes from `docs/PHASE-2.md` ("Portfolio migration: section modifiers").
 - Remove `class="subpage"` from subpages; add `sds-scale-display` to the homepage `<body>`.
 - Give `.profile-link` its own `transition` (the system no longer provides it).
-- Update the inline `<head>` theme script to the new localStorage key (and fallback) and `data-sds-theme`.
+- Update the inline `<head>` theme script to the new localStorage key (and fallback) and `data-sds-theme`. Its hero-color override for the meta tags stays portfolio-side.
+- Copy `docs/portfolio-migration/portfolio-js-config.js` in; replace the nine `<script defer>` tags with one `<script type="module">` calling `init(sdsOptions)` (hero-interactive.js stays a portfolio script).
 - Import `sds-brackets.css` to keep the current look.
 - Vendor `dist/` (or pinned CDN link); delete the duplicated copies.
 
@@ -76,4 +79,6 @@ Repos (both in `Portfolio-2026.code-workspace`):
 - Unprefixed bare-element rules (`h1`, `p`, `img`) can collide with a host project's CSS; Step 4 decides how to ship them.
 - Known undeclared custom properties (intentionally left): `--sds-color-background-knockout` (typography.css, with `!important`), `--sds-color-background-token`, `--sds-color-border-strong`, `--sds-line-height-tight`, `--sds-line-height-medium`, `--sds-color-background-offset`. `--sds-content-start/-end` are read with fallbacks and never set (fine).
 - `.sds-outside-grid`'s diagonal-lines pattern is always on (not gated like brackets).
+- Probable portfolio bug, preserved via `metaFallback: '#EB5125'`: a section with no meta entry (`page-hero` on subpages, or no section) sets the status bar to the LIGHT hero orange even in dark mode. Fix by adding `page-hero`/`default` entries to `metaColors` in the portfolio config (Joe's call on colors).
+- Headless Chrome in this environment dispatches no scroll events, so scroll-driven behavior needs a rendering browser for Step 3 (e.g. Playwright as a dev dependency; ask Joe first).
 - The design-system repo has no remote; commit regularly, since the Cowork backup of the pre-rename state was only in a scratch folder.

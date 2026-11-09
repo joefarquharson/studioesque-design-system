@@ -6,19 +6,77 @@
  *
  * Usage:
  *   import { initTheme } from './js/theme.js';
- *   initTheme();
+ *   initTheme();                       // defaults below
+ *   initTheme({
+ *     metaColors: {                    // sRGB only (iOS rejects OKLCH/var())
+ *       light: { intro: '#FFFFFF', gallery: '#272727' },
+ *       dark:  { intro: '#192027', gallery: '#272727' },
+ *     },
+ *     metaFallback: '#FFFFFF',         // section with no entry
+ *   });
+ *
+ * Options (all optional):
+ *   toggle            Element|selector  '#sds-theme-toggle'
+ *   metaLight         Element|selector  '#sds-theme-color-light'
+ *   metaDark          Element|selector  '#sds-theme-color-dark'
+ *   storageKey        string            'sds-theme'
+ *   legacyStorageKey  string|null       null. If set and storageKey is empty,
+ *                                       its value is copied to storageKey once
+ *                                       (the legacy key is left in place).
+ *   metaColors        { light: {id: hex}, dark: {id: hex} } | null
+ *                                       null = the theme-color meta tags are
+ *                                       never touched.
+ *   metaFallback      hex|null          color for a section id with no entry;
+ *                                       null = leave the tags as they are.
+ *   initialSection    string            'default'. Section id assumed until
+ *                                       the first sds:sectionchange event.
  *
  * The page still needs its own inline <head> script that sets
  * data-sds-theme before first paint; a module always runs too late for that.
+ * It must read the same storageKey:
+ *
+ *   <script>
+ *     (function () {
+ *       var saved; try { saved = localStorage.getItem('sds-theme'); } catch (e) {}
+ *       var system = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+ *       document.documentElement.setAttribute('data-sds-theme', saved || system);
+ *     })();
+ *   </script>
  */
 
 import { onReady, onLoad } from './lib/ready.js';
+import { resolve } from './lib/dom.js';
+
+const DEFAULTS = {
+    toggle: '#sds-theme-toggle',
+    metaLight: '#sds-theme-color-light',
+    metaDark: '#sds-theme-color-dark',
+    storageKey: 'sds-theme',
+    legacyStorageKey: null,
+    metaColors: null,
+    metaFallback: null,
+    initialSection: 'default',
+};
+
+// localStorage can throw (Safari private mode, blocked storage)
+const storage = {
+    get(key) { try { return localStorage.getItem(key); } catch { return null; } },
+    set(key, value) { try { localStorage.setItem(key, value); } catch { /* ignore */ } },
+};
 
 let initialized = false;
 
-export function initTheme() {
+export function initTheme(options = {}) {
     if (initialized) return;
     initialized = true;
+
+    const config = { ...DEFAULTS, ...options };
+
+    // One-time migration from a legacy key (e.g. a site that used 'theme')
+    if (config.legacyStorageKey && !storage.get(config.storageKey)) {
+        const legacy = storage.get(config.legacyStorageKey);
+        if (legacy === 'light' || legacy === 'dark') storage.set(config.storageKey, legacy);
+    }
 
     const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
     
@@ -167,46 +225,36 @@ export function initTheme() {
     };
 
     // =============================================
-    // Sync theme-color Meta Tag
-    // =============================================
-
-    // =============================================
-    // Theme-color Meta Tag — Section Color Map
+    // Sync theme-color Meta Tags
     // =============================================
     //
-    // iOS's theme-color meta tag parser only accepts sRGB (hex/rgb/named).
-    // OKLCH and CSS variables are rejected. These are the sRGB equivalents
-    // of each section's --sds-color-background-accent-* value in each theme.
-    // If section background colors change in colors.css, update these too.
-    // "related-work" uses the same dark hex under both keys — that section
-    // forces dark theme via data-sds-theme="dark" regardless of the page's
-    // current light/dark toggle, so the status bar should match it exactly
-    // either way rather than following the root theme.
-    // '#272727' = --sds-grey-90 (dark --sds-color-background-accent-related-work).
-    const META_THEME_COLORS = {
-        light: { hero: '#EB5125', work: '#FFFFFF', about: '#FFEDDA', contact: '#FFFFFF', 'related-work': '#272727', profile: '#FFFFFF' },
-        dark:  { hero: '#143457', work: '#192027', about: '#15393E', contact: '#192027', 'related-work': '#272727', profile: '#192027' },
-    };
+    // iOS's theme-color meta tag parser only accepts sRGB (hex/rgb/named);
+    // OKLCH and CSS variables are rejected. So config.metaColors holds the
+    // sRGB equivalent of each section's background, per theme. A section
+    // forced dark via data-sds-theme="dark" should use the same hex under
+    // both keys, so the status bar matches it whatever the root theme is.
 
     // Tracks the section currently in view. Set by the sds:sectionchange event
-    // dispatched from header-colors.js. Defaults to 'hero' (first section).
-    let activeSection = 'hero';
+    // dispatched from header-colors.js.
+    let activeSection = config.initialSection;
 
     // Updates both theme-color meta tags to the current section's color.
     // Updating both ensures iOS reads the correct color regardless of whether
     // the system preference or the user's manual toggle is the active tag.
     const syncThemeColorMeta = () => {
+        if (!config.metaColors) return;
         const theme = root.getAttribute('data-sds-theme') || 'light';
-        const color = META_THEME_COLORS[theme]?.[activeSection] ?? META_THEME_COLORS.light.hero;
-        const lightMeta = document.getElementById('sds-theme-color-light');
-        const darkMeta  = document.getElementById('sds-theme-color-dark');
+        const color = config.metaColors[theme]?.[activeSection] ?? config.metaFallback;
+        if (!color) return;
+        const lightMeta = resolve(config.metaLight);
+        const darkMeta  = resolve(config.metaDark);
         if (lightMeta) lightMeta.content = color;
         if (darkMeta)  darkMeta.content  = color;
     };
 
     // Re-sync on section change (fired by header-colors.js scroll detection)
     document.addEventListener('sds:sectionchange', (e) => {
-        activeSection = e.detail.sectionId || 'hero';
+        activeSection = e.detail.sectionId || config.initialSection;
         syncThemeColorMeta();
     });
 
@@ -216,7 +264,7 @@ export function initTheme() {
 
     const applyTheme = (theme, animate = true) => {
         root.setAttribute('data-sds-theme', theme);
-        localStorage.setItem('theme', theme);
+        storage.set(config.storageKey, theme);
 
         // Sync status bar color before transition starts
         syncThemeColorMeta();
@@ -233,7 +281,7 @@ export function initTheme() {
     // =============================================
     
     mediaQuery.addEventListener('change', (e) => {
-        if (!localStorage.getItem('theme')) {
+        if (!storage.get(config.storageKey)) {
             applyTheme(e.matches ? 'dark' : 'light');
         }
     });
@@ -243,7 +291,7 @@ export function initTheme() {
     // =============================================
     
     onReady(() => {
-        const toggleBtn = document.getElementById('sds-theme-toggle');
+        const toggleBtn = resolve(config.toggle);
         if (toggleBtn) {
             toggleBtn.addEventListener('click', () => {
                 const currentTheme = root.getAttribute('data-sds-theme');

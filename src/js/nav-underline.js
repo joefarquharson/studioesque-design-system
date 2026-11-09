@@ -9,35 +9,54 @@
  * Usage:
  *   import { initNavUnderline } from './js/nav-underline.js';
  *   initNavUnderline();
+ *
+ * Options (all optional):
+ *   nav       Element|selector   '#sds-main-nav ul.sds-nav-links'
+ *             (must contain the .sds-nav-underline element)
+ *   header    Element|selector   '#sds-global-header' (height = scroll offset)
+ *   links     selector           'a[href*="#"]', looked up inside nav
+ *   sections  selector|NodeList  'main section[id]'
+ *
+ * A link is active when its fragment matches the id of the section in view.
+ * Same-page ("#about") and cross-page ("index.html#about") hrefs both work.
+ * With no match, the first link is treated as active.
  */
 
 import { onReady, onLoad } from './lib/ready.js';
+import { resolve, resolveAll } from './lib/dom.js';
+
+const DEFAULTS = {
+  nav: "#sds-main-nav ul.sds-nav-links",
+  header: "#sds-global-header",
+  links: 'a[href*="#"]',
+  sections: "main section[id]",
+};
 
 let initialized = false;
 
-export function initNavUnderline() {
+export function initNavUnderline(options = {}) {
   if (initialized) return;
   initialized = true;
 
+  const config = { ...DEFAULTS, ...options };
   const desktopMQ = window.matchMedia("(min-width: 769px)");
 
   const setup = () => {
-    const nav = document.querySelector("#sds-main-nav ul.sds-nav-links");
+    const nav = resolve(config.nav);
     if (!nav) return;
 
     const underline = nav.querySelector(".sds-nav-underline");
     if (!underline) return;
 
-    // Matches both same-page ("#hero") and cross-page ("index.html#hero")
-    // fragment links — nav hrefs now point at index.html#... so they still
-    // work when clicked from a page that doesn't have that section itself.
-    const links = Array.from(nav.querySelectorAll('a[href*="#"]'));
-    // Sections are optional: subpages (e.g. portfolio-page.html) may have
-    // zero, or one whose id (e.g. "page-hero") doesn't match any nav href.
-    // Only `links` is required — syncToActiveSection() falls back to the
-    // first link when no section match is found, so hover animation still
-    // works even when scroll-based active-section detection can't apply.
-    const sections = Array.from(document.querySelectorAll("main section[id]"));
+    // Matches both same-page ("#about") and cross-page ("index.html#about")
+    // fragment links, so nav links still work when clicked from a page that
+    // doesn't have that section itself.
+    const links = resolveAll(config.links, nav);
+    // Sections are optional: a page may have none, or none whose id matches
+    // a nav href. Only `links` is required — syncToActiveSection() falls back
+    // to the first link when no section match is found, so hover animation
+    // still works even when scroll-based active-section detection can't apply.
+    const sections = resolveAll(config.sections);
     if (!links.length) return;
 
     // --- IMPORTANT: keep transitions OFF until we have placed it correctly once ---
@@ -58,20 +77,21 @@ export function initNavUnderline() {
 
     const getHeaderOffset = () => {
       // Use the real header height (+1px fudge) to match your header-colors.js logic
-      const header = document.getElementById("sds-global-header");
+      const header = resolve(config.header);
       if (!header) return 100;
       return Math.ceil(header.getBoundingClientRect().height) + 1;
     };
 
     const getActiveSectionId = () => {
       const scrollPos = window.scrollY + getHeaderOffset();
-      let activeId = sections[0]?.id || "hero";
+      // "" never matches a link, so it falls through to links[0]
+      let activeId = sections[0]?.id || "";
 
       for (const section of sections) {
         const top = section.offsetTop;
         const bottom = top + section.offsetHeight;
         if (scrollPos >= top && scrollPos < bottom) {
-          activeId = section.id || "hero";
+          activeId = section.id || "";
           break;
         }
       }
@@ -98,7 +118,7 @@ export function initNavUnderline() {
       // this fallback, the function returned early and the code below that
       // enables the underline's transition (see hasInitialized) never ran,
       // permanently leaving it snapping instead of sliding on hover.
-      // .hash (not getAttribute) so "index.html#hero" still matches "#hero" —
+      // .hash (not getAttribute) so "index.html#about" still matches "#about" —
       // .hash is parsed off the resolved URL, ignoring whatever path precedes it.
       const activeLink = links.find((a) => a.hash === `#${id}`) || links[0];
       if (!activeLink) return;

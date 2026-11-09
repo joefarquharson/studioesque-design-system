@@ -15,7 +15,7 @@
 
    Multiple galleries per page: every element with class="sds-work-gallery" is
    updated independently. A gallery with a .sds-work-card--focus child uses the
-   homepage's asymmetric focus-card layout; a gallery with only
+   asymmetric focus-card layout; a gallery with only
    .sds-work-card--small children (e.g. a "related work" gallery) uses a plain
    uniform grid — same phantom/border logic, just focusSpan 0.
 

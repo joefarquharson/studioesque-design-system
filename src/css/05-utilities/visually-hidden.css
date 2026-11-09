@@ -2,7 +2,7 @@
 
 /*
   Hides content visually while keeping it available to screen readers and
-  search engines (e.g. the homepage's h1, which has no visible heading).
+  search engines (e.g. a page h1 that has no visible heading).
   position: absolute also takes it out of grid/flex flow, so it doesn't
   occupy a cell or shift sibling selectors' layout.
 

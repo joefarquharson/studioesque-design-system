@@ -271,7 +271,7 @@ h5 {
 /* Headings default to the compact --sds-heading-N scale. Add
    .sds-scale-display to <body>, a section, or any wrapper to give every
    heading inside it the larger --sds-display-N scale instead (e.g. a
-   homepage whose headings sit next to a full-bleed hero).
+   landing page whose headings sit next to a full-bleed hero).
 
    This only remaps tokens, so it has no specificity interaction with the
    h1-h5 rules, and the responsive step-downs (960 / 480) come for free from

@@ -14,23 +14,32 @@
  * Usage:
  *   import { initOutsideGrid } from './js/outside-grid.js';
  *   initOutsideGrid();
+ *
+ * Options (all optional):
+ *   element  Element|selector   '.sds-outside-grid'
+ *   bands    selector|NodeList  'body > [data-sds-theme="dark"], main > [data-sds-theme="dark"]'
  */
 
 import { onReady, onLoad } from './lib/ready.js';
+import { resolve, resolveAll } from './lib/dom.js';
+
+const DEFAULTS = {
+  element: ".sds-outside-grid",
+  bands: 'body > [data-sds-theme="dark"], main > [data-sds-theme="dark"]',
+};
 
 let initialized = false;
 
-export function initOutsideGrid() {
+export function initOutsideGrid(options = {}) {
   if (initialized) return;
   initialized = true;
-  onReady(setup);
+  const config = { ...DEFAULTS, ...options };
+  onReady(() => setup(config));
 }
 
-function setup() {
-  const outsideGrid = document.querySelector(".sds-outside-grid");
-  const bands = document.querySelectorAll(
-    'body > [data-sds-theme="dark"], main > [data-sds-theme="dark"]'
-  );
+function setup(config) {
+  const outsideGrid = resolve(config.element);
+  const bands = resolveAll(config.bands);
 
   if (outsideGrid && bands.length) {
     function updateClips() {
