@@ -36,7 +36,7 @@ Repos (both in `Portfolio-2026.code-workspace`):
 - Joe chose ES modules. Every `src/js/*.js` now exports an idempotent `initX()` (`initTheme`, `initHeaderColors`, `initMenu`, `initNavUnderline`, `initOutsideGrid`, `initTooltip`, `initWorkGallery`, `initContactForm`); importing a file has no side effects. `src/js/index.js` re-exports them and adds `init(options)`, which starts everything (`{ key: false }` skips a module). `src/js/lib/ready.js` (`onReady` / `onLoad`) makes a late `init()` (after DOMContentLoaded or load) still work; header-colors keeps its deliberate wait-for-DOMContentLoaded timing.
 - Behavior is unchanged: every hard-coded id/map/color is still in place, and the init functions take no options yet. Step 2 adds the per-module options (`init({ theme: {...}, headerColors: {...} })`).
 - Verified in headless Chrome (smoke page with sds markup): all eight modules act, no errors, double `init()` is a no-op, and `init()` after window load works. Not yet tested against real portfolio pages (Step 3).
-- No Node on Joe's machine (as of Nov 9), so `npm run check` and `rename.mjs` can't run locally until Node is installed.
+- Node v26 installed Nov 9; `npm run check` passes and all modules pass `node --check` and import cleanly under Node (no DOM access at import time).
 
 **Step 2: decouple the JS (the main remaining Phase 2 work)**
 - Each `initX()` gains an `options = {}` argument with the current hard-coded values as defaults; `init()` in `index.js` passes `options[key]` through when it is an object.
