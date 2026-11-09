@@ -1,0 +1,122 @@
+/* styles/01-settings/dimensions.css */
+
+:root {
+
+    /* Bases */
+
+    --sds-eighth-x: .0625rem;
+    --sds-quarter-x: .125rem;
+    --sds-three-eighths-x: .1875rem;
+    --sds-half-x: .25rem;
+    --sds-five-eighths-x: .3125rem;
+    --sds-three-quarter-x: .375rem;
+    --sds-one-x: .5rem;
+    --sds-one-and-a-quarter-x: .625rem;
+    --sds-one-and-a-half-x: .75rem;
+    --sds-two-x: 1rem;
+    --sds-two-and-a-half-x: 1.25rem;
+    --sds-three-x: 1.5rem;
+    --sds-four-x: 2rem;
+    --sds-five-x: 2.5rem;
+    --sds-six-x: 3rem;
+    --sds-eight-x: 4rem;
+    --sds-ten-x: 5rem;
+    --sds-twelve-x: 6rem;
+    --sds-sixteen-x: 8rem;
+
+    /* Negative bases*/
+
+    --sds-neg-eighth-x: -.0625rem;
+    --sds-neg-quarter-x: -.125rem;
+    --sds-neg-three-eighths-x: -.1875rem;
+    --sds-neg-half-x: -.25rem;
+    --sds-neg-five-eighths-x: -.3125rem;
+    --sds-neg-three-quarter-x: -.375rem;
+    --sds-neg-one-x: -.5rem;
+    --sds-neg-one-and-a-quarter-x: -.625rem;
+    --sds-neg-one-and-a-half-x: -.75rem;
+    --sds-neg-two-x: -1rem;
+    --sds-neg-two-and-a-half-x: -1.25rem;
+    --sds-neg-three-x: -1.5rem;
+    --sds-neg-four-x: -2rem;
+    --sds-neg-five-x: -2.5rem;
+    --sds-neg-six-x: -3rem;
+    --sds-neg-eight-x: -4rem;
+    --sds-neg-ten-x: -5rem;
+    --sds-neg-twelve-x: -6rem;
+    --sds-neg-sixteen-x: -8rem;
+
+    /* Corner radius */
+
+    --sds-radius-xsmall: var(--sds-quarter-x);
+    --sds-radius-small: var(--sds-half-x);
+    --sds-radius-medium: var(--sds-one-x);
+    --sds-radius-large: var(--sds-one-and-a-half-x);
+    --sds-radius-xlarge: var(--sds-two-x);
+
+    /* Padding */
+
+    --sds-padding-default: var(--sds-four-x);
+    --sds-padding-small: var(--sds-three-x);
+    --sds-padding-xsmall: var(--sds-two-and-a-half-x);
+
+    /* Other adaptive spacing */
+
+    --sds-adaptive-space-3xsmall: var(--sds-half-x);
+    --sds-adaptive-space-2xsmall: var(--sds-one-x);
+    --sds-adaptive-space-xsmall: var(--sds-one-and-a-half-x);
+    --sds-adaptive-space-small: var(--sds-two-x);
+    --sds-adaptive-space-medium: var(--sds-two-and-a-half-x);
+    --sds-adaptive-space-large: var(--sds-three-x);
+    --sds-adaptive-space-xlarge: var(--sds-four-x);
+    --sds-adaptive-space-2xlarge: var(--sds-five-x);
+
+}
+
+@media only screen and (max-width: 960px) {
+
+    :root {
+
+        /* Padding & margins */
+
+        --sds-padding-default: var(--sds-three-x);
+        --sds-padding-small: var(--sds-two-and-a-half-x);
+        --sds-padding-xsmall: var(--sds-two-x);
+
+        /* Other adaptive spacing */
+
+        --sds-adaptive-space-3xsmall: var(--sds-three-eighths-x);
+        --sds-adaptive-space-2xsmall: var(--sds-three-quarter-x);
+        --sds-adaptive-space-xsmall: var(--sds-one-and-a-quarter-x);
+        --sds-adaptive-space-small: var(--sds-one-and-a-half-x);
+        --sds-adaptive-space-medium: var(--sds-two-x);
+        --sds-adaptive-space-large: var(--sds-two-and-a-half-x);
+        --sds-adaptive-space-xlarge: var(--sds-three-x);
+        --sds-adaptive-space-2xlarge: var(--sds-four-x);
+
+    }
+}
+
+@media only screen and (max-width: 480px) {
+
+    :root {
+
+        /* Padding & margins */
+
+        --sds-padding-default: var(--sds-two-and-a-half-x);
+        --sds-padding-small: var(--sds-two-x);
+        --sds-padding-xsmall: var(--sds-one-and-a-half-x);
+
+        /* Other adaptive spacing */
+
+        --sds-adaptive-space-3xsmall: var(--sds-quarter-x);
+        --sds-adaptive-space-2xsmall: var(--sds-half-x);
+        --sds-adaptive-space-xsmall: var(--sds-one-x);
+        --sds-adaptive-space-small: var(--sds-one-and-a-quarter-x);
+        --sds-adaptive-space-medium: var(--sds-one-and-a-half-x);
+        --sds-adaptive-space-large: var(--sds-two-x);
+        --sds-adaptive-space-xlarge: var(--sds-two-and-a-half-x);
+        --sds-adaptive-space-2xlarge: var(--sds-three-x);
+
+    }
+}

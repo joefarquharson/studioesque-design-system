@@ -1,0 +1,164 @@
+/* styles/03-layout/section.css */
+
+/*
+  Section layout system.
+
+  Each section's .sds-grid-wrapper contains up to 5 children:
+    .sds-buffer-top     — optional, full-width top spacer, min-height --sds-twelve-x
+    .sds-buffer-left    — optional, left margin zone, bracket border on top/left/bottom
+    .sds-content-area   — required, 6-col subgrid (default), contains content rows
+    .sds-buffer-right   — optional, right margin zone, bracket border on top/right/bottom
+    .sds-buffer-bottom  — optional, full-width bottom spacer, min-height --sds-twelve-x
+
+  Buffer border modifiers (apply to .sds-buffer-top or .sds-buffer-bottom):
+    .sds-cap-top        — adds top border    (left + right + top)
+    .sds-cap-bottom     — adds bottom border (left + right + bottom)
+    (no modifier)   — sides only         (left + right)
+
+  Column split is controlled per-section via CSS custom properties:
+    --sds-content-start   column line where content begins (default: 4)
+    --sds-content-end     column line where content ends   (default: 10)
+
+  Examples:
+    Default 3-6-3:      --sds-content-start: 4;  --sds-content-end: 10
+    Wide 1-10-1:        --sds-content-start: 2;  --sds-content-end: 12
+    Asymmetric 3-9-0:   --sds-content-start: 4;  --sds-content-end: 13  (omit .sds-buffer-right)
+*/
+
+
+/* ===================== */
+/* Top / Bottom Buffers  */
+/* ===================== */
+
+/* Default: left + right only (option 3) */
+.sds-buffer-top,
+.sds-buffer-bottom {
+    grid-column: 1 / -1;
+    min-height: var(--sds-twelve-x);
+    background:
+        var(--sds-brackets) left -8px top -9px no-repeat,
+        var(--sds-brackets) right -8px top -9px no-repeat,
+        var(--sds-brackets) right -8px bottom -9px no-repeat,
+        var(--sds-brackets) left -8px bottom -9px no-repeat;
+    box-shadow:
+        inset  1px 0 0 var(--sds-color-border-faint), /* left  */
+        inset -1px 0 0 var(--sds-color-border-faint); /* right */
+}
+
+/* Option 1: left + right + top (no bottom) */
+.sds-buffer-top.sds-cap-top,
+.sds-buffer-bottom.sds-cap-top {
+    background:
+        var(--sds-brackets) left -8px top -8px no-repeat,
+        var(--sds-brackets) right -8px top -8px no-repeat,
+        var(--sds-brackets) right -8px bottom -9px no-repeat,
+        var(--sds-brackets) left -8px bottom -9px no-repeat;
+    box-shadow:
+        inset  1px 0 0 var(--sds-color-border-faint), /* left  */
+        inset -1px 0 0 var(--sds-color-border-faint), /* right */
+        inset  0  1px 0 var(--sds-color-border-faint); /* top   */
+}
+
+/* Option 2: left + right + bottom (no top) */
+.sds-buffer-top.sds-cap-bottom,
+.sds-buffer-bottom.sds-cap-bottom {
+    background:
+        var(--sds-brackets) left -8px top -9px no-repeat,
+        var(--sds-brackets) right -8px top -9px no-repeat,
+        var(--sds-brackets) right -8px bottom -8px no-repeat,
+        var(--sds-brackets) left -8px bottom -8px no-repeat;
+    box-shadow:
+        inset  1px 0 0 var(--sds-color-border-faint), /* left   */
+        inset -1px 0 0 var(--sds-color-border-faint), /* right  */
+        inset  0 -1px 0 var(--sds-color-border-faint); /* bottom */
+}
+
+
+/* ===================== */
+/* Left / Right Buffers  */
+/* ===================== */
+
+.sds-buffer-left {
+    grid-column: 1 / var(--sds-content-start, 4);
+    background:
+        var(--sds-brackets) left -8px top -8px no-repeat,
+        var(--sds-brackets) right -9px top -8px no-repeat,
+        var(--sds-brackets) right -9px bottom -8px no-repeat,
+        var(--sds-brackets) left -8px bottom -8px no-repeat;
+    box-shadow:
+        inset 0  1px 0 var(--sds-color-border-faint), /* top    */
+        inset 1px 0 0 var(--sds-color-border-faint),  /* left   */
+        inset 0 -1px 0 var(--sds-color-border-faint); /* bottom */
+}
+
+.sds-buffer-right {
+    grid-column: var(--sds-content-end, 10) / 13;
+    background:
+        var(--sds-brackets) left -9px top -8px no-repeat,
+        var(--sds-brackets) right -8px top -8px no-repeat,
+        var(--sds-brackets) right -8px bottom -8px no-repeat,
+        var(--sds-brackets) left -9px bottom -8px no-repeat;
+    box-shadow:
+        inset  0  1px 0 var(--sds-color-border-faint), /* top    */
+        inset -1px 0 0 var(--sds-color-border-faint),  /* right  */
+        inset  0 -1px 0 var(--sds-color-border-faint); /* bottom */
+}
+
+
+/* ===================== */
+/* Content Area          */
+/* ===================== */
+
+.sds-content-area {
+    grid-column: var(--sds-content-start, 4) / var(--sds-content-end, 10);
+    display: grid;
+    grid-template-columns: subgrid;
+    /* No border — content rows provide their own bracket decoration */
+}
+
+/* Content rows default to spanning the full content-area width */
+.sds-content-area > * {
+    grid-column: 1 / -1;
+}
+
+
+/* ===================== */
+/* Responsive            */
+/* ===================== */
+
+@media only screen and (max-width: 1280px) {
+    /* Narrow to 2-col buffers (2-8-2) */
+    .sds-buffer-left  { grid-column: 1 / 3; }
+    .sds-content-area { grid-column: 3 / 11; }
+    .sds-buffer-right { grid-column: 11 / 13; }
+}
+
+@media only screen and (max-width: 960px) {
+    /* Buffer height matches --sds-ten-x header */
+    .sds-buffer-top,
+    .sds-buffer-bottom {
+        min-height: var(--sds-ten-x);
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    /* Buffer height matches --sds-eight-x header */
+    .sds-buffer-top,
+    .sds-buffer-bottom {
+        min-height: var(--sds-eight-x);
+    }
+}
+
+@media only screen and (max-width: 960px) {
+    /* Collapse to 1-col buffers (1-10-1) */
+    .sds-buffer-left  { grid-column: 1 / 2; }
+    .sds-content-area { grid-column: 2 / 12; }
+    .sds-buffer-right { grid-column: 12 / 13; }
+}
+
+@media only screen and (max-width: 640px) {
+    /* Buffers disappear — content goes full width */
+    .sds-buffer-left  { display: none; }
+    .sds-buffer-right { display: none; }
+    .sds-content-area { grid-column: 1 / -1; }
+}

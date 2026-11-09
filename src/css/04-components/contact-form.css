@@ -1,0 +1,179 @@
+/* styles/04-components/contact-form.css */
+
+/* ========================= */
+/* Form layout               */
+/* ========================= */
+
+.sds-contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sds-adaptive-space-large);
+}
+
+.sds-form-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sds-adaptive-space-xsmall);
+}
+
+/* ========================= */
+/* Label                     */
+/* Same as .sds-body-small bold  */
+/* ========================= */
+
+.sds-form-label {
+    font-size: var(--sds-font-size-small);
+    font-variation-settings:
+        "wght" var(--sds-font-weight-semibold),
+        "wdth" var(--sds-font-width-regular);
+    line-height: var(--sds-line-height-open);
+    letter-spacing: var(--sds-letter-spacing-default);
+    color: var(--sds-color-text);
+}
+
+.sds-form-label-optional {
+    font-variation-settings:
+        "wght" var(--sds-font-weight-regular),
+        "wdth" var(--sds-font-width-regular);
+    color: var(--sds-color-text-meta);
+}
+
+/* ========================= */
+/* Input + textarea          */
+/* Same font as .sds-body        */
+/* ========================= */
+
+.sds-form-input {
+    width: 100%;
+    background-color: var(--sds-color-background-offset);
+    border: none;
+    border-radius: var(--sds-radius-large);
+    box-shadow: inset 0 0 0 1px var(--sds-color-border);
+    padding: var(--sds-padding-small) var(--sds-padding-default);
+    font-family: var(--sds-sans-serif);
+    font-size: var(--sds-font-size-medium);
+    font-variation-settings:
+        "wght" var(--sds-font-weight-regular),
+        "wdth" var(--sds-font-width-regular);
+    line-height: var(--sds-line-height-open);
+    letter-spacing: var(--sds-letter-spacing-default);
+    color: var(--sds-color-text);
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+}
+
+.sds-form-input::placeholder {
+    color: var(--sds-color-text-meta);
+}
+
+.sds-form-input:not(:placeholder-shown) {
+    font-variation-settings:
+        "wght" var(--sds-font-weight-medium),
+        "wdth" var(--sds-font-width-regular);
+}
+
+.sds-form-input:focus {
+    box-shadow: inset 0 0 0 1px var(--sds-color-border), 0 0 0 1px var(--sds-color-border);
+}
+
+/* ========================= */
+/* Textarea                  */
+/* 8 lines before overflow   */
+/* ========================= */
+
+.sds-form-textarea {
+    resize: vertical;
+    /* 8 lines × line-height-open (1.625em) + padding top + bottom */
+    min-height: calc(8 * 1.625em + 2 * var(--sds-padding-small));
+}
+
+/* ========================= */
+/* Field header row          */
+/* label + inline error msg  */
+/* ========================= */
+
+.sds-form-field-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--sds-adaptive-space-small);
+}
+
+/* ========================= */
+/* Error state               */
+/* ========================= */
+
+.sds-form-error {
+    display: none;
+    align-items: center;
+    gap: var(--sds-adaptive-space-2xsmall);
+    font-size: var(--sds-font-size-2xsmall);
+    font-variation-settings:
+        "wght" var(--sds-font-weight-medium),
+        "wdth" var(--sds-font-width-regular);
+    line-height: var(--sds-line-height-open);
+    letter-spacing: var(--sds-letter-spacing-default);
+    color: var(--sds-color-feedback-negative);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.sds-form-error svg {
+    flex-shrink: 0;
+}
+
+.sds-form-field--error .sds-form-error {
+    display: flex;
+}
+
+.sds-form-field--error .sds-form-input {
+    background-color: var(--sds-color-background-feedback-negative);
+    box-shadow: inset 0 0 0 1px var(--sds-color-feedback-negative);
+    color: var(--sds-color-feedback-negative);
+}
+
+.sds-form-field--error .sds-form-input::placeholder {
+    color: var(--sds-color-feedback-negative);
+}
+
+.sds-form-field--error .sds-form-input:focus {
+    box-shadow: inset 0 0 0 1px var(--sds-color-feedback-negative), 0 0 0 1px var(--sds-color-feedback-negative);
+}
+
+/* ========================= */
+/* Form footer row           */
+/* button + submit error     */
+/* ========================= */
+
+.sds-form-footer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--sds-adaptive-space-medium);
+    align-self: flex-start;
+}
+
+.sds-form-submit-error {
+    white-space: normal; /* allow wrapping on narrow viewports */
+}
+
+/* ========================= */
+/* Responsive font sizing    */
+/* Mirrors .sds-body and         */
+/* .sds-body-small in            */
+/* typography.css            */
+/* ========================= */
+
+@media only screen and (max-width: 960px) {
+    .sds-form-input  { font-size: var(--sds-font-size-small); }    /* 20 → 18, like .sds-body */
+    .sds-form-label  { font-size: var(--sds-font-size-2xsmall); }  /* 18 → 14, like .sds-body-small */
+    .sds-form-error  { font-size: var(--sds-font-size-3xsmall); }  /* 14 → 12, one step below label */
+}
+
+@media only screen and (max-width: 480px) {
+    .sds-form-input  { font-size: var(--sds-font-size-xsmall); }   /* 18 → 16, like .sds-body */
+    .sds-form-label  { font-size: var(--sds-font-size-3xsmall); }  /* 14 → 12, like .sds-body-small */
+    .sds-form-error  { font-size: var(--sds-font-size-3xsmall); }  /* stays at 12 — floor */
+}

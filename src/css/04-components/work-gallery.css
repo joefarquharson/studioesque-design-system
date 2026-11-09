@@ -1,0 +1,396 @@
+/* styles/04-components/work-gallery.css */
+
+/* ========================================= */
+/* Override: content-area spans full width   */
+/* ========================================= */
+
+/* section.css hardcodes column spans in responsive media queries at
+   specificity 0-1-0. This rule wins at all breakpoints (1-1-0). */
+#work .sds-content-area,
+#related-work .sds-content-area {
+    grid-column: 1 / -1;
+}
+
+/* ========================= */
+/* Gallery header            */
+/* ========================= */
+
+.sds-work-gallery-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--sds-padding-default);
+    padding: var(--sds-padding-default);
+    /* Borders: top + left + right (no bottom) */
+    box-shadow:
+        inset 0 1px 0 var(--sds-color-border-faint),
+        inset 1px 0 0 var(--sds-color-border-faint),
+        inset -1px 0 0 var(--sds-color-border-faint);
+    background:
+        /* TL: top ✓ left ✓  → -8px -8px */
+        var(--sds-brackets) left -8px top -8px no-repeat,
+        /* TR: top ✓ right ✓ → -8px -8px */
+        var(--sds-brackets) right -8px top -8px no-repeat,
+        /* BR: right ✓ bottom ✗ → -8px -9px */
+        var(--sds-brackets) right -8px bottom -9px no-repeat,
+        /* BL: left ✓ bottom ✗ → -8px -9px */
+        var(--sds-brackets) left -8px bottom -9px no-repeat;
+}
+
+/* "View all work" ghost button (.sds-btn .sds-btn--ghost — styling lives in
+   buttons.css). Negative margins cancel the button's own padding so the
+   header keeps its height and the arrow lines up with the content edge. */
+.sds-work-gallery-viewall {
+    flex-shrink: 0;
+    margin-block: calc(var(--sds-one-and-a-half-x) * -1);
+    margin-right: calc(var(--sds-one-and-a-half-x) * -1);
+}
+
+/* ========================= */
+/* Gallery grid              */
+/* ========================= */
+
+.sds-work-gallery {
+    display: grid;
+    grid-template-columns: 1fr; /* <400px: 1 col */
+    gap: 0;
+}
+
+@media (min-width: 400px) {
+    .sds-work-gallery { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 768px) {
+    .sds-work-gallery { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (min-width: 1280px) {
+    .sds-work-gallery { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* Simple galleries with no focus card (e.g. "related work") cap at 3
+   columns instead of progressing to 4 at 1280px+ — there's no focus card
+   to justify the extra column, so it stays 3 → 2 → 1 at the same
+   breakpoints .sds-work-gallery already uses. Two classes on one selector
+   (specificity 0-0-2-0) beats the plain .sds-work-gallery rule above
+   regardless of source order. */
+@media (min-width: 1280px) {
+    .sds-work-gallery.sds-work-gallery--related {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* ========================= */
+/* Focus card column span    */
+/* ========================= */
+
+/* Default: full width across all cols (<960px) */
+.sds-work-card--focus {
+    grid-column: 1 / -1;
+}
+
+/* ≥960px: spans 2 of 3 or 4 cols */
+@media (min-width: 960px) {
+    .sds-work-card--focus {
+        grid-column: span 2;
+    }
+}
+
+/* ========================= */
+/* Base card                 */
+/* ========================= */
+
+.sds-work-card {
+    display: flex;
+    flex-direction: column;
+}
+
+/* ========================= */
+/* Bracket / border system   */
+/* ========================= */
+
+/*
+  All cards default to top + left borders only.
+  Two CSS custom properties drive conditional right and bottom:
+    --sds-border-right-color  transparent → visible
+    --sds-border-bottom-color transparent → visible
+  Bracket offsets mirror: -9px (no border) → -8px (has border).
+
+  JS assigns two classes to toggle these:
+    .sds-is-last-in-row  → right border + bracket
+    .sds-is-last-row     → bottom border + bracket
+*/
+
+.sds-work-card--focus,
+.sds-work-card--small {
+    --sds-border-right-color: transparent;
+    --sds-border-bottom-color: transparent;
+    --sds-bracket-right: -9px;
+    --sds-bracket-bottom: -9px;
+
+    box-shadow:
+        inset 0 1px 0 var(--sds-color-border-faint),       /* top:    always */
+        inset 1px 0 0 var(--sds-color-border-faint),        /* left:   always */
+        inset -1px 0 0 var(--sds-border-right-color),       /* right:  conditional */
+        inset 0 -1px 0 var(--sds-border-bottom-color);      /* bottom: conditional */
+
+    background:
+        /* TL: top ✓ left ✓ → always -8px/-8px */
+        var(--sds-brackets) left -8px top -8px no-repeat,
+        /* TR: right conditional → -9px or -8px */
+        var(--sds-brackets) right var(--sds-bracket-right) top -8px no-repeat,
+        /* BR: right and bottom conditional */
+        var(--sds-brackets) right var(--sds-bracket-right) bottom var(--sds-bracket-bottom) no-repeat,
+        /* BL: bottom conditional */
+        var(--sds-brackets) left -8px bottom var(--sds-bracket-bottom) no-repeat;
+}
+
+/* JS-assigned: add right border (last card in row) */
+.sds-work-card.sds-is-last-in-row {
+    --sds-border-right-color: var(--sds-color-border-faint);
+    --sds-bracket-right: -8px;
+}
+
+/* JS-assigned: add bottom border (card in last row) */
+.sds-work-card.sds-is-last-row {
+    --sds-border-bottom-color: var(--sds-color-border-faint);
+    --sds-bracket-bottom: -8px;
+}
+
+/* ========================= */
+/* Card media                */
+/* ========================= */
+
+/* <a> linking to the same page as the CTA. Out of the tab order and
+   hidden from assistive tech (tabindex="-1" aria-hidden="true") so each
+   card is announced as one link — the CTA. */
+.sds-work-card-media {
+    display: block;    /* overrides typography.css "main article a" inline */
+    overflow: hidden;
+    /* background-color: var(--sds-color-background-offset); */
+    border-radius: var(--sds-radius-large);
+    flex-shrink: 0;
+    isolation: isolate; /* Safari: keeps rounded corners clipping the scaled img */
+}
+
+/* Suppress the text-link underline from typography.css */
+.sds-work-card-media::after { display: none; }
+
+.sds-work-card-media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--sds-transition-default);
+}
+
+/* Hover zoom: the image scales from its center inside .sds-work-card-media,
+   whose overflow: hidden keeps the visible box at its original size.
+   Triggered only by the image or the CTA (not the rest of the card);
+   :focus-visible on the CTA mirrors it for keyboard users.
+   Skipped on cards whose CTA is disabled (aria-disabled="true"). */
+.sds-work-card:not(:has(.sds-work-card-cta[aria-disabled="true"])):has(.sds-work-card-media:hover, .sds-work-card-cta:is(:hover, :focus-visible)) .sds-work-card-media img {
+    transform: scale(1.08);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sds-work-card-media img { transition: none; }
+}
+
+/* Disabled card: image matches the disabled CTA's cursor (buttons.css) */
+.sds-work-card:has(.sds-work-card-cta[aria-disabled="true"]) .sds-work-card-media {
+    cursor: not-allowed;
+}
+
+/* ========================= */
+/* Card typography           */
+/* ========================= */
+
+.sds-work-card-lead {
+    font-size: var(--sds-font-size-2xsmall);
+    font-variation-settings:
+        "wght" var(--sds-font-weight-medium),
+        "wdth" var(--sds-font-width-condensed);
+    line-height: var(--sds-line-height-default);
+    letter-spacing: var(--sds-letter-spacing-tracked);
+    color: var(--sds-color-text-meta);
+    text-transform: uppercase;
+    max-width: unset;
+}
+
+.sds-work-card-title {
+    font-size: var(--sds-font-size-large);  /* all card types; scales in responsive section below */
+    font-variation-settings:
+        "wght" var(--sds-font-weight-bold),
+        "wdth" var(--sds-font-width-regular);
+    letter-spacing: var(--sds-letter-spacing-tight);
+    line-height: var(--sds-line-height-default);
+    max-width: unset;
+}
+
+.sds-work-card-desc {
+    font-size: var(--sds-font-size-xsmall);
+    font-variation-settings:
+        "wght" var(--sds-font-weight-regular),
+        "wdth" var(--sds-font-width-regular);
+    line-height: var(--sds-line-height-open);
+    color: var(--sds-color-text-meta);
+    max-width: unset;
+}
+
+.sds-work-card-lead + .sds-work-card-title,
+.sds-work-card-lead + .sds-work-card-title,
+.sds-work-card-lead + .sds-work-card-title, 
+.sds-work-card-lead + .sds-work-card-title,
+.sds-work-card-lead + .sds-work-card-title {
+    margin-top: var(--sds-flow-space-attached);
+}
+
+/* ========================= */
+/* Card CTA (→ button)       */
+/* ========================= */
+
+.sds-work-card-cta {
+    flex-shrink: 0; /* prevent button from squishing in flex layouts */
+}
+
+/* ========================= */
+/* Focus card                */
+/* ========================= */
+
+.sds-work-card--focus {
+    position: relative;
+    padding: var(--sds-padding-default);
+}
+
+.sds-work-card--focus .sds-work-card-media {
+    width: 100%;
+    flex: 1;           /* fills card height rather than shrinking with aspect-ratio */
+    border-radius: var(--sds-radius-large);
+    min-height: 320px; 
+}
+
+/* Floating text box overlapping the bottom of the image.
+   Offsets are 2×padding so the body sits padding-default inside
+   the image edges (image bottom/left/right = card content edges = 1×padding
+   from card outer; body needs 2×padding from card outer = 1×padding from image). */
+.sds-work-card--focus .sds-work-card-body {
+    position: absolute;
+    bottom: calc(var(--sds-padding-small) * 2);
+    left: calc(var(--sds-padding-small) * 2);
+    right: calc(var(--sds-padding-small) * 2);
+    padding: var(--sds-padding-small);
+    background-color: var(--sds-color-background);
+    border-radius: var(--sds-radius-small);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto auto;  /* lead / title / desc (lead row collapses if absent) */
+    column-gap: var(--sds-adaptive-space-small);
+}
+
+.sds-work-card--focus .sds-work-card-lead {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.sds-work-card--focus .sds-work-card-title {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.sds-work-card--focus .sds-work-card-desc {
+    grid-column: 1;
+    grid-row: 3;
+    margin-top: var(--sds-flow-space-attached);  /* heading → text; overrides h3+p flow-spacing */
+}
+
+.sds-work-card--focus .sds-work-card-cta {
+    grid-column: 2;
+    grid-row: 1 / -1;
+    align-self: end;
+}
+
+/* ========================= */
+/* Small cards               */
+/* ========================= */
+
+.sds-work-card--small {
+    padding: var(--sds-padding-default);
+    gap: var(--sds-adaptive-space-large);      /* image → heading */
+}
+
+.sds-work-card--small .sds-work-card-media {
+    aspect-ratio: 16 / 10;
+    width: 100%;
+}
+
+.sds-work-card--small .sds-work-card-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.sds-work-card--focus .sds-work-card-lead,
+.sds-work-card--small .sds-work-card-lead {
+    margin-bottom: var(--sds-flow-space-attached);  /* leader → title */
+}
+
+.sds-work-card--small .sds-work-card-desc {
+    flex: 1;                              /* grows to fill body; pushes CTA to bottom */
+    margin-top: var(--sds-flow-space-attached);  /* heading → text; overrides h3+p flow-spacing */
+}
+
+.sds-work-card--small .sds-work-card-cta {
+    margin-top: var(--sds-adaptive-space-medium);   /* desc → cta */
+}
+
+/* ========================= */
+/* Phantom slots             */
+/* ========================= */
+
+/*
+  JS creates phantom divs to fill empty slots in the last row.
+  All phantoms always have top + left + bottom borders.
+  Only the final phantom (rightmost) gets is-last-in-row → right border.
+  Background matches the section background color.
+*/
+.sds-work-card--phantom {
+    --sds-border-right-color: transparent;
+    --sds-bracket-right: -9px;
+
+    box-shadow:
+        inset 0 1px 0 var(--sds-color-border-faint),       /* top:    always */
+        inset 1px 0 0 var(--sds-color-border-faint),        /* left:   always */
+        inset -1px 0 0 var(--sds-border-right-color),       /* right:  last phantom only */
+        inset 0 -1px 0 var(--sds-color-border-faint);       /* bottom: always */
+    background:
+        var(--sds-brackets) left -8px top -8px no-repeat,
+        var(--sds-brackets) right var(--sds-bracket-right) top -8px no-repeat,
+        var(--sds-brackets) right var(--sds-bracket-right) bottom -8px no-repeat,
+        var(--sds-brackets) left -8px bottom -8px no-repeat,
+        var(--sds-color-background-accent-work);
+}
+
+.sds-work-card--phantom.sds-is-last-in-row {
+    --sds-border-right-color: var(--sds-color-border-faint);
+    --sds-bracket-right: -8px;
+}
+
+/* ========================= */
+/* Responsive text sizing    */
+/* Mirrors typography.css:   */
+/*   title → like h3         */
+/*   desc  → like .sds-body-small*/
+/* ========================= */
+
+@media only screen and (max-width: 960px) {
+    .sds-work-card-lead { font-size: var(--sds-font-size-3xsmall); }  /* 14 → 12 */
+    .sds-work-card-title { font-size: var(--sds-font-size-medium); }  /* 24 → 20 */
+    .sds-work-card-desc  { font-size: var(--sds-font-size-2xsmall); } /* 16 → 14 */
+}
+
+@media only screen and (max-width: 480px) {
+    .sds-work-card-lead { font-size: var(--sds-font-size-4xsmall); }  /* 12 → 10 */
+    .sds-work-card-title { font-size: var(--sds-font-size-small); }   /* 20 → 18 */
+    .sds-work-card-desc  { font-size: var(--sds-font-size-3xsmall); } /* 14 → 12 */
+}

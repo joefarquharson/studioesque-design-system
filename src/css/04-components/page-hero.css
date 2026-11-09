@@ -1,0 +1,56 @@
+/* styles/04-components/page-hero.css */
+
+/*
+  Page Hero — reusable first section for portfolio subpages.
+
+  Usage: put this at the top of <main> on any portfolio page:
+
+    <section id="page-hero" class="sds-content sds-page-hero">
+      <div class="sds-grid-wrapper">
+        <div class="sds-buffer-top sds-cap-top"></div>
+        <div class="sds-buffer-left"></div>
+        <div class="sds-content-area">
+          <div class="sds-content-row">...</div>
+          <div class="sds-content-row">...</div>
+        </div>
+        <div class="sds-buffer-right"></div>
+        <div class="sds-buffer-bottom sds-cap-bottom"></div>
+      </div>
+    </section>
+
+  Deliberately uses the same buffer/content-area grid system and default
+  .sds-content coloring (--sds-color-background / --sds-color-text) as any other content
+  section — no accent color, unlike the homepage's #hero. The .sds-page-hero
+  class exists so this pattern reads as an intentional, reusable component
+  rather than a one-off, and gives a hook for page-hero-specific overrides
+  later without touching the shared .sds-content rules.
+
+  Header behavior: id="page-hero" is matched in js/header-colors.js, which
+  applies the same neutral header treatment as the "default" fallback
+  (blur + transparency over --sds-color-background). Update that entry if
+  portfolio hero sections should ever get their own accent color.
+*/
+
+/* Inherits .sds-content's default background/text color. */
+
+/* One step further down the scale than the default --sds-heading-1 —
+   page-hero's title reads too large at that size next to the eyebrow above
+   it. Pinned by overriding the token on the component itself, so the h1
+   rule in typography.css still does the actual sizing; no h1 selector (and
+   no specificity fight) needed here. The nearest ancestor wins, so this
+   also beats a .sds-scale-display on <body>. */
+.sds-page-hero {
+    --sds-heading-1: var(--sds-font-size-3xlarge); /* 60 → 48 */
+}
+
+@media only screen and (max-width: 960px) {
+    .sds-page-hero {
+        --sds-heading-1: var(--sds-font-size-2xlarge); /* 48 → 36 */
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .sds-page-hero {
+        --sds-heading-1: var(--sds-font-size-xlarge); /* 36 → 30 */
+    }
+}

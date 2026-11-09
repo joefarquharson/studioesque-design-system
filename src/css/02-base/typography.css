@@ -1,0 +1,525 @@
+/* styles/02-base/typography.css */
+
+/* ============================================= */
+/* Flow Spacing System */
+/* ============================================= */
+
+:root {
+    --sds-flow-space-attached: .25em;
+    --sds-flow-space-text: .75em;
+    --sds-flow-space-before-heading: 1.25em;
+    --sds-flow-space-before-minor-heading: 1.875em;
+    --sds-flow-space-after-heading: 1em;
+    --sds-flow-space-after-minor-heading: .375em;
+}
+
+/* ============================================= */
+/* Themed Contexts */
+/* ============================================= */
+
+/* body (reset.css) resolves letter-spacing and weight from the light
+   tokens, and children inherit the resolved length/number — not the
+   var(). A nested [data-sds-theme="dark"] section redefines the tokens but
+   nothing re-reads them, so text without its own letter-spacing rule
+   (e.g. .sds-work-card-desc) kept the light values. Re-declare here so the
+   section's own token values take effect for everything inside it. */
+[data-sds-theme] {
+    letter-spacing: var(--sds-letter-spacing-default);
+    font-variation-settings:
+        "wght" var(--sds-font-weight-regular),
+        "wdth" var(--sds-font-width-regular);
+}
+
+/* ============================================= */
+/* Selection Styling */
+/* ============================================= */
+
+::selection,
+::-moz-selection,
+::-o-selection,
+::-ms-selection,
+::-webkit-selection{
+    background-color: var(--sds-color-background-knockout) !important;
+    color: var(--sds-color-text-knockout) !important;
+}
+
+/* ============================================= */
+/* Base Text Elements */
+/* ============================================= */
+
+p, li, ol {
+    max-width: 56ch;
+}
+
+p:last-of-type {
+    margin-bottom: 0;
+}
+
+b {
+    font-weight: var(--sds-font-weight-bold);
+}
+
+/* ============================================= */
+/* Links - Base Reset */
+/* ============================================= */
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* :where() zeroes specificity — a bare a:visited (0,1,1) would otherwise
+   beat single-class component colors like .sds-btn--fill (0,1,0) on any
+   visited link (incl. href="#", which counts as the current page). */
+:where(a:visited) {
+    color: inherit;
+}
+
+/* ============================================= */
+/* Text Links - Content Only */
+/* ============================================= */
+
+/* Scope to content containers */
+main p a,
+main li a,
+main article a,
+.sds-body a,
+.sds-body-small a,
+section p a,
+section li a {
+    position: relative;
+    display: inline;
+}
+
+main p a::after,
+main li a::after,
+main article a::after,
+.sds-body a::after,
+.sds-body-small a::after,
+section p a::after,
+section li a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 0.075em;
+    background-color: currentColor;
+}
+
+main p a:hover::after,
+main li a:hover::after,
+main article a:hover::after,
+.sds-body a:hover::after,
+.sds-body-small a:hover::after,
+section p a:hover::after,
+section li a:hover::after {
+    bottom: 0.075em;
+    height: 0.075em;
+}
+
+main p a:active::after,
+main li a:active::after,
+main article a:active::after,
+.sds-body a:active::after,
+.sds-body-small a:active::after,
+section p a:active::after,
+section li a:active::after {
+    bottom: 0.025em;
+    height: 0.125em;
+}
+
+/* ============================================= */
+/* Universal Flow Spacing */
+/* ============================================= */
+
+/* Standard flow spacing */
+p + p, 
+p + ul,
+p + ol,
+li + p, 
+li + ul,
+li + ol,
+ol + p,
+ol + ul,
+ol + ol,
+ul + p,
+ul + ul,
+ul + ol {
+    margin-top: var(--sds-flow-space-text);
+}
+
+/* Spacing before headings */
+
+/* .sds-leader is a kicker/eyebrow — only ever appears directly above a
+   heading. Flat --sds-flow-space-attached for now; revisit if it needs to
+   scale per heading level the way p/li/ol → h3/h4/h5 do below. */
+.sds-leader + h1,
+.sds-leader + h2,
+.sds-leader + h3, 
+.sds-leader + h4,
+.sds-leader + h5 {
+    margin-top: var(--sds-flow-space-attached);
+}
+
+h2 + h3 {
+    margin-top: var(--sds-flow-space-before-heading);
+}
+
+p + h3, 
+li + h3, 
+ol + h3,
+ul + h3,
+h3 + h4,
+h4 + h5 {
+    margin-top: var(--sds-flow-space-before-heading);
+}
+
+p + h4, 
+li + h4, 
+ol + h4,
+ul + h4 {
+    margin-top: var(--sds-flow-space-before-minor-heading);
+}
+
+p + h5, 
+li + h5, 
+ol + h5,
+ul + h5 {
+    margin-top: var(--sds-flow-space-before-minor-heading);
+}
+
+/* Spacing after headings */
+
+h2 + p,
+h2 + ul,
+h2 + ol,
+h3 + p,
+h3 + ul,
+h3 + ol,
+h4 + p,
+h4 + ul,
+h4 + ol {
+    margin-top: var(--sds-flow-space-after-heading);
+}
+
+h5 + p,
+h5 + ul,
+h5 + ol {
+    margin-top: var(--sds-flow-space-after-minor-heading);
+}
+
+/* Special heading combinations */
+h2 + h4 {
+    margin-top: var(--sds-flow-space-after-heading);
+}
+
+/* ============================================= */
+/* Headings */
+/* ============================================= */
+
+h1, h2, h3, h4, h5 {
+    font-variation-settings:
+        "wght" var(--sds-font-weight-bold);
+}
+
+h1 {
+    font-variation-settings:
+        "wdth" var(--sds-font-width-extended);
+    letter-spacing: var(--sds-letter-spacing-tight);
+    line-height: var(--sds-line-height-dense);
+}
+
+h2 {
+    font-variation-settings:
+        "wdth" var(--sds-font-width-extended);
+    letter-spacing: var(--sds-letter-spacing-tight);
+    line-height: var(--sds-line-height-default);
+}
+
+h3, h4, h5 {
+    font-variation-settings:
+        "wdth" var(--sds-font-width-regular);
+    letter-spacing: var(--sds-letter-spacing-default);
+    line-height: var(--sds-line-height-default);
+}
+
+h1 {
+    font-size: var(--sds-heading-1);
+}
+
+h2 {
+    font-size: var(--sds-heading-2);
+}
+
+h3 {
+    font-size: var(--sds-heading-3);
+}
+
+h4 {
+    font-size: var(--sds-heading-4);
+}
+
+h5 {
+    font-size: var(--sds-heading-5);
+}
+
+/* ============================================= */
+/* Display heading scale (opt-in)                 */
+/* ============================================= */
+
+/* Headings default to the compact --sds-heading-N scale. Add
+   .sds-scale-display to <body>, a section, or any wrapper to give every
+   heading inside it the larger --sds-display-N scale instead (e.g. a
+   homepage whose headings sit next to a full-bleed hero).
+
+   This only remaps tokens, so it has no specificity interaction with the
+   h1-h5 rules, and the responsive step-downs (960 / 480) come for free from
+   the token values in 01-settings/typography.css — no per-scale media
+   queries needed here. A component can pin its own size the same way, by
+   setting --sds-heading-N on itself (see page-hero.css). */
+
+.sds-scale-display {
+    --sds-heading-1: var(--sds-display-1);
+    --sds-heading-2: var(--sds-display-2);
+    --sds-heading-3: var(--sds-display-3);
+    --sds-heading-4: var(--sds-display-4);
+    --sds-heading-5: var(--sds-display-5);
+}
+
+/* ============================================= */
+/* Text Utility Classes */
+/* ============================================= */
+
+.sds-leader {
+    font-size: var(--sds-font-size-xsmall);
+    font-variation-settings:
+        "wght" var(--sds-font-weight-medium),
+        "wdth" var(--sds-font-width-condensed);
+    line-height: var(--sds-line-height-dense);
+    letter-spacing: var(--sds-letter-spacing-tracked);
+    color: var(--sds-color-text-meta);
+    text-transform: uppercase;
+}
+
+.sds-intro {
+    font-size: var(--sds-font-size-large);
+    font-variation-settings:
+        "wght" var(--sds-font-weight-regular),
+        "wdth" var(--sds-font-width-regular);
+    line-height: var(--sds-line-height-open);
+    letter-spacing: var(--sds-letter-spacing-default);
+    color: var(--sds-color-text-meta);
+}
+
+.sds-body {
+    font-size: var(--sds-font-size-medium);
+    font-variation-settings:
+        "wght" var(--sds-font-weight-regular),
+        "wdth" var(--sds-font-width-regular);
+    line-height: var(--sds-line-height-open);
+    letter-spacing: var(--sds-letter-spacing-default);
+}
+
+.sds-body-small {
+    font-size: var(--sds-font-size-small);
+    font-variation-settings:
+        "wght" var(--sds-font-weight-regular),
+        "wdth" var(--sds-font-width-regular);
+    line-height: var(--sds-line-height-open);
+    letter-spacing: var(--sds-letter-spacing-default);
+}
+
+.sds-caption {
+    font-size: var(--sds-font-size-2xsmall);
+    font-variation-settings:
+        "wght" var(--sds-font-weight-regular),
+        "wdth" var(--sds-font-width-regular);
+    line-height: var(--sds-line-height-comfy);
+    letter-spacing: var(--sds-letter-spacing-loose);
+    color: var(--sds-color-text-meta);
+}
+
+.sds-caption strong {
+    font-variation-settings: "wght" var(--sds-font-weight-semibold);
+}
+
+.sds-legal {
+    font-size: var(--sds-font-size-3xsmall);
+    font-variation-settings:
+        "wght" var(--sds-font-weight-regular),
+        "wdth" var(--sds-font-width-semi-condensed);
+    line-height: var(--sds-line-height-default);
+    letter-spacing: var(--sds-letter-spacing-looser);
+    color: var(--sds-color-text-meta);
+}
+
+/* ============================================= */
+/* Lists */
+/* ============================================= */
+
+/* List container - adds space above and below entire list */
+.sds-body ul,
+.sds-body-small ul {
+    list-style: none;
+    padding-left: 0;
+    margin-top: var(--sds-flow-space-text);    /* Space above list */
+    margin-bottom: var(--sds-flow-space-text); /* Space below list */
+}
+
+/* List items */
+.sds-body ul li,
+.sds-body-small ul li {
+    display: block;
+    position: relative;
+    padding-left: 0;
+    margin-bottom: 0;
+    max-width: 56ch;
+}
+
+/* Space between list items */
+.sds-body ul li + li,
+.sds-body-small ul li + li {
+    margin-top: var(--sds-flow-space-text);
+}
+
+/* Arrow bullets */
+.sds-body ul li::before {
+    content: "\22A2";
+    position: absolute;
+    left: -1.7em;
+    width: var(--sds-two-x);
+    text-align: center;
+}
+
+.sds-body-small ul li::before {
+    content: "\22A2";
+    position: absolute;
+    left: -1.92em;
+    width: var(--sds-two-x);
+    text-align: center;
+}
+
+/* ============================================= */
+/* Code & Tokens */
+/* ============================================= */
+
+.sds-code {
+    font-family: var(--sds-monospace);
+    font-variation-settings:
+        "wght" var(--sds-font-weight-bold);
+    color: var(--sds-black-a60);
+    font-variant-ligatures: discretionary-ligatures;
+    font-feature-settings: "calt" 1;
+}
+
+.sds-token {
+    font-family: var(--sds-monospace);
+    font-variation-settings:
+        "wdth" var(--sds-font-width-condensed);
+    margin: 0 .125em;
+    padding: .125em .25em;
+    border-radius: .25em;
+    color: var(--sds-color-text-meta);
+    background-color: var(--sds-color-background-token);
+}
+
+@media only screen and (max-width: 960px) {
+
+    /* ============================================= */
+    /* Text Utility Classes */
+    /* ============================================= */
+
+    .sds-leader {
+        font-size: var(--sds-font-size-2xsmall);
+    }
+
+    .sds-intro {
+        font-size: var(--sds-font-size-medium);
+    }
+
+    .sds-body {
+        font-size: var(--sds-font-size-small);
+    }
+
+    .sds-body-small {
+        font-size: var(--sds-font-size-2xsmall);
+    }
+
+    .sds-caption {
+        font-size: var(--sds-font-size-3xsmall);
+    }
+
+    .sds-legal {
+        font-size: var(--sds-font-size-3xsmall);
+    }
+
+    /* ============================================= */
+    /* Lists */
+    /* ============================================= */
+
+    /* List container */
+    .sds-body ul,
+    .sds-body-small ul {
+        padding-left: 1.375em;
+    }
+
+    /* Arrow bullets */
+    .sds-body ul li::before {
+        left: -1.5em;
+    }
+    
+    .sds-body-small ul li::before {
+        left: -1.6em;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+
+    /* ============================================= */
+    /* Text Utility Classes */
+    /* ============================================= */
+
+    .sds-leader {
+        font-size: var(--sds-font-size-3xsmall);
+    }
+    
+    .sds-intro {
+        font-size: var(--sds-font-size-small);
+    }
+
+    .sds-body {
+        font-size: var(--sds-font-size-xsmall);
+    }
+
+    .sds-body-small {
+        font-size: var(--sds-font-size-3xsmall);
+    }
+
+    .sds-caption {
+        font-size: var(--sds-font-size-3xsmall);
+    }
+
+    .sds-legal {
+        font-size: var(--sds-font-size-3xsmall);
+    }
+
+    /* ============================================= */
+    /* Lists */
+    /* ============================================= */
+
+    /* List container */
+    .sds-body ul,
+    .sds-body-small ul {
+        padding-left: 1.375em;
+    }
+
+    /* Arrow bullets */
+    .sds-body ul li::before {
+        left: -1.5em;
+    }
+    
+    .sds-body-small ul li::before {
+        left: -1.6em;
+    }
+}

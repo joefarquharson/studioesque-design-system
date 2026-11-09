@@ -1,0 +1,72 @@
+/* styles/04-components/tooltip.css */
+
+/*
+  Tooltip — a short message shown on hover (mouse/pen) or keyboard focus.
+
+  Usage: add data-sds-tooltip to any element. No other markup needed.
+
+    <a class="sds-btn sds-btn--outline sds-btn--icon-only" data-sds-tooltip="Coming soon" ...>
+    <a class="sds-work-card-media" data-sds-tooltip="Coming soon" ...>
+
+  Optional: data-sds-tooltip-position="bottom" to prefer below (default: top).
+  It flips automatically when there isn't room on the preferred side.
+
+  js/tooltip.js creates a single .sds-tooltip element on <body> and positions
+  it over the hovered/focused trigger. It lives on <body> (not inside the
+  trigger) so overflow: hidden ancestors like .sds-work-card-media can't clip
+  it, and it copies the trigger's nearest data-sds-theme so it matches dark
+  sections.
+
+  Keyboard: the tooltip also shows on :focus-visible. An element without
+  href/tabindex (e.g. an aria-disabled <a>) can't take focus — add
+  tabindex="0" if keyboard users should be able to reach its message.
+*/
+
+.sds-tooltip {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1100;                      /* above global header (1001) */
+    max-width: var(--sds-sixteen-x);
+    padding: var(--sds-three-quarter-x) var(--sds-one-x);
+    border-radius: var(--sds-radius-small);
+    background-color: var(--sds-color-background-strong);
+    color: var(--sds-color-text-knockout);
+    font-size: var(--sds-font-size-3xsmall);
+    font-variation-settings:
+        "wght" var(--sds-font-weight-medium),
+        "wdth" var(--sds-font-width-regular);
+    line-height: var(--sds-line-height-default);
+    letter-spacing: var(--sds-letter-spacing-loose);
+    text-align: center;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(var(--sds-half-x));
+    transition:
+        opacity var(--sds-transition-fast),
+        transform var(--sds-transition-fast),
+        visibility 0s linear .15s;      /* hide after the fade-out */
+}
+
+/* Below the trigger: slide in from above instead */
+.sds-tooltip[data-sds-placement="bottom"] {
+    transform: translateY(var(--sds-neg-half-x));
+}
+
+.sds-tooltip.sds-is-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition:
+        opacity var(--sds-transition-fast),
+        transform var(--sds-transition-fast),
+        visibility 0s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sds-tooltip,
+    .sds-tooltip[data-sds-placement="bottom"] {
+        transform: none;
+    }
+}

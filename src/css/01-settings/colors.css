@@ -1,0 +1,576 @@
+/* styles/01-settings/colors.css */
+
+/* Light is the default (:root), and is also re-applied by any element with
+   data-sds-theme="light" — e.g. a light .sds-logo-card on a page whose global
+   theme is dark — so it gets the light values, not the inherited dark
+   ones from [data-sds-theme="dark"] on <html>. */
+:root,
+[data-sds-theme="light"] {
+
+    /*  l c h / a  */
+
+    /* LIGHTNESS */
+    
+    --sds-l-max: 100%;
+    --sds-l-05: 97.6%;
+    --sds-l-10: 95.5%;
+    --sds-l-20: 92.5%;
+    --sds-l-30: 87%;
+    --sds-l-40: 77.3%;
+    --sds-l-50: 64%;
+    --sds-l-60: 51%;
+    --sds-l-70: 39.8%;
+    --sds-l-80: 32.1%;
+    --sds-l-90: 27.3%;
+    --sds-l-95: 23.9%;
+    --sds-l-min: 0%;
+
+    /* CHROMA */
+
+    /* blue (H=252) */
+    --sds-c-blue-05: 0.011;
+    --sds-c-blue-10: 0.0211;
+    --sds-c-blue-20: 0.0357;
+    --sds-c-blue-30: 0.0633;
+    --sds-c-blue-40: 0.115;
+    --sds-c-blue-50: 0.185;
+    --sds-c-blue-60: 0.148;
+    --sds-c-blue-70: 0.1161;
+    --sds-c-blue-80: 0.0941;
+    --sds-c-blue-90: 0.0805;
+    --sds-c-blue-95: 0.071;
+    --sds-c-blue-min: 0.011;            /* 05 */
+    --sds-c-blue-max: 0.185;            /* 50 */
+
+    /* amber (H=69) */
+    --sds-c-amber-05: 0.0169;
+    --sds-c-amber-10: 0.0322;
+    --sds-c-amber-20: 0.0547;
+    --sds-c-amber-30: 0.0985;
+    --sds-c-amber-40: 0.1685;
+    --sds-c-amber-50: 0.139;
+    --sds-c-amber-60: 0.1103;
+    --sds-c-amber-70: 0.0854;
+    --sds-c-amber-80: 0.0685;
+    --sds-c-amber-90: 0.0579;
+    --sds-c-amber-95: 0.0505;
+    --sds-c-amber-min: 0.0169;          /* 05 */
+    --sds-c-amber-max: 0.1685;          /* 40 */
+
+    /* warm-red (H=36) */
+    --sds-c-warm-red-05: 0.012;
+    --sds-c-warm-red-10: 0.0226;
+    --sds-c-warm-red-20: 0.0384;
+    --sds-c-warm-red-30: 0.0695;
+    --sds-c-warm-red-40: 0.1328;
+    --sds-c-warm-red-50: 0.2135;
+    --sds-c-warm-red-60: 0.171;
+    --sds-c-warm-red-70: 0.1343;
+    --sds-c-warm-red-80: 0.1092;
+    --sds-c-warm-red-90: 0.0937;
+    --sds-c-warm-red-95: 0.0827;
+    --sds-c-warm-red-min: 0.012;        /* 05 */
+    --sds-c-warm-red-max: 0.2135;       /* 50 */
+
+    /* green (H=137) */
+    --sds-c-green-05: 0.04;
+    --sds-c-green-10: 0.0632;
+    --sds-c-green-20: 0.1004;
+    --sds-c-green-30: 0.1545;
+    --sds-c-green-40: 0.1419;
+    --sds-c-green-50: 0.1248;
+    --sds-c-green-60: 0.1079;
+    --sds-c-green-70: 0.0935;
+    --sds-c-green-80: 0.0836;
+    --sds-c-green-90: 0.0774;
+    --sds-c-green-95: 0.0731;
+    --sds-c-green-min: 0.04;            /* 05 */
+    --sds-c-green-max: 0.1545;          /* 30 */
+
+    /* lime (H=117) */
+    --sds-c-lime-05: 0.079;
+    --sds-c-lime-10: 0.1358;
+    --sds-c-lime-20: 0.1575;
+    --sds-c-lime-30: 0.1494;
+    --sds-c-lime-40: 0.1349;
+    --sds-c-lime-50: 0.1151;
+    --sds-c-lime-60: 0.0958;
+    --sds-c-lime-70: 0.0791;
+    --sds-c-lime-80: 0.0677;
+    --sds-c-lime-90: 0.0606;
+    --sds-c-lime-95: 0.0556;
+    --sds-c-lime-min: 0.0556;           /* 95 */
+    --sds-c-lime-max: 0.1575;           /* 20 */
+
+    /* teal (H=209) */
+    --sds-c-teal-05: 0.0205;
+    --sds-c-teal-10: 0.038;
+    --sds-c-teal-20: 0.0635;
+    --sds-c-teal-30: 0.1113;
+    --sds-c-teal-40: 0.122;
+    --sds-c-teal-50: 0.1019;
+    --sds-c-teal-60: 0.0823;
+    --sds-c-teal-70: 0.0654;
+    --sds-c-teal-80: 0.0538;
+    --sds-c-teal-90: 0.0466;
+    --sds-c-teal-95: 0.0415;
+    --sds-c-teal-min: 0.0205;           /* 05 */
+    --sds-c-teal-max: 0.122;            /* 40 */
+
+    /* purple (H=330) */
+    --sds-c-purple-05: 0.0135;
+    --sds-c-purple-10: 0.0238;
+    --sds-c-purple-20: 0.0389;
+    --sds-c-purple-30: 0.0674;
+    --sds-c-purple-40: 0.1209;
+    --sds-c-purple-50: 0.2015;
+    --sds-c-purple-60: 0.2275;
+    --sds-c-purple-70: 0.1785;
+    --sds-c-purple-80: 0.1447;
+    --sds-c-purple-90: 0.1238;
+    --sds-c-purple-95: 0.109;
+    --sds-c-purple-min: 0.0135;         /* 05 */
+    --sds-c-purple-max: 0.2275;         /* 60 */
+
+    /* pink (H=353) */
+    --sds-c-pink-05: 0.012;
+    --sds-c-pink-10: 0.024;
+    --sds-c-pink-20: 0.0419;
+    --sds-c-pink-30: 0.0774;
+    --sds-c-pink-40: 0.1505;
+    --sds-c-pink-50: 0.201;
+    --sds-c-pink-60: 0.1667;
+    --sds-c-pink-70: 0.1372;
+    --sds-c-pink-80: 0.1169;
+    --sds-c-pink-90: 0.1044;
+    --sds-c-pink-95: 0.0955;
+    --sds-c-pink-min: 0.012;            /* 05 */
+    --sds-c-pink-max: 0.201;            /* 50 */
+
+    /* system-green (H=159) */
+    --sds-c-system-green-05: 0.0345;
+    --sds-c-system-green-10: 0.0665;
+    --sds-c-system-green-20: 0.1158;
+    --sds-c-system-green-30: 0.1995;
+    --sds-c-system-green-40: 0.1761;
+    --sds-c-system-green-50: 0.1442;
+    --sds-c-system-green-60: 0.1129;
+    --sds-c-system-green-70: 0.086;
+    --sds-c-system-green-80: 0.0676;
+    --sds-c-system-green-90: 0.0561;
+    --sds-c-system-green-95: 0.048;
+    --sds-c-system-green-min: 0.0345;   /* 05 */
+    --sds-c-system-green-max: 0.1995;   /* 30 */
+
+    /* system-red (H=22) */
+    --sds-c-system-red-05: 0.0116;
+    --sds-c-system-red-10: 0.0218;
+    --sds-c-system-red-20: 0.037;
+    --sds-c-system-red-30: 0.0672;
+    --sds-c-system-red-40: 0.1288;
+    --sds-c-system-red-50: 0.237;
+    --sds-c-system-red-60: 0.1983;
+    --sds-c-system-red-70: 0.1547;
+    --sds-c-system-red-80: 0.1248;
+    --sds-c-system-red-90: 0.1061;
+    --sds-c-system-red-95: 0.093;
+    --sds-c-system-red-min: 0.0116;     /* 05 */
+    --sds-c-system-red-max: 0.237;      /* 50 */
+
+    /* HUE */
+
+    --sds-h-blue: 252;
+    --sds-h-amber: 69;
+    --sds-h-warm-red: 36;
+    --sds-h-green: 137;
+    --sds-h-lime: 117;
+    --sds-h-teal: 209;
+    --sds-h-purple: 296;
+    --sds-h-pink: 330;
+    --sds-h-system-green: 159;
+    --sds-h-system-red: 22;
+
+    /* ALPHA */
+    
+    --sds-a-min: 0;
+    --sds-a-04: .04;
+    --sds-a-08: .08;
+    --sds-a-12: .12;
+    --sds-a-16: .16;
+    --sds-a-30: .3;
+    --sds-a-45: .45;
+    --sds-a-60: .6;
+    --sds-a-75: .75;
+    --sds-a-90: .9;
+    --sds-a-max: 1;
+
+    /* PERCENTAGE MODIFIERS */
+
+    --sds-p-min: 0;
+    --sds-p-lowest: .05;
+    --sds-p-lower: .15;
+    --sds-p-low: .3;
+    --sds-p-medium: .5;
+    --sds-p-high: .7;
+    --sds-p-higher: .85;
+    --sds-p-highest: .95;
+    --sds-p-max: 1;
+
+    /* Primitives */
+
+    --sds-white-a04: oklch(var(--sds-l-max) 0 none / var(--sds-a-04));
+    --sds-white-a08: oklch(var(--sds-l-max) 0 none / var(--sds-a-08));
+    --sds-white-a12: oklch(var(--sds-l-max) 0 none / var(--sds-a-12));
+    --sds-white-a16: oklch(var(--sds-l-max) 0 none / var(--sds-a-16));
+    --sds-white-a30: oklch(var(--sds-l-max) 0 none / var(--sds-a-30));
+    --sds-white-a45: oklch(var(--sds-l-max) 0 none / var(--sds-a-45));
+    --sds-white-a60: oklch(var(--sds-l-max) 0 none / var(--sds-a-60));
+    --sds-white-a75: oklch(var(--sds-l-max) 0 none / var(--sds-a-75));
+    --sds-white-a90: oklch(var(--sds-l-max) 0 none / var(--sds-a-90));
+    --sds-white: oklch(var(--sds-l-max) 0 none / var(--sds-a-max));
+
+    --sds-black-a04: oklch(var(--sds-l-min) 0 none / var(--sds-a-04));
+    --sds-black-a08: oklch(var(--sds-l-min) 0 none / var(--sds-a-08));
+    --sds-black-a12: oklch(var(--sds-l-min) 0 none / var(--sds-a-12));
+    --sds-black-a16: oklch(var(--sds-l-min) 0 none / var(--sds-a-16));
+    --sds-black-a30: oklch(var(--sds-l-min) 0 none / var(--sds-a-30));
+    --sds-black-a45: oklch(var(--sds-l-min) 0 none / var(--sds-a-45));
+    --sds-black-a60: oklch(var(--sds-l-min) 0 none / var(--sds-a-60));
+    --sds-black-a75: oklch(var(--sds-l-min) 0 none / var(--sds-a-75));
+    --sds-black-a90: oklch(var(--sds-l-min) 0 none / var(--sds-a-90));
+    --sds-black: oklch(var(--sds-l-min) 0 none / var(--sds-a-max));
+
+    --sds-grey-05: oklch(var(--sds-l-05) 0 none);
+    --sds-grey-10: oklch(var(--sds-l-10) 0 none);
+    --sds-grey-20: oklch(var(--sds-l-20) 0 none);
+    --sds-grey-30: oklch(var(--sds-l-30) 0 none);
+    --sds-grey-40: oklch(var(--sds-l-40) 0 none);
+    --sds-grey-50: oklch(var(--sds-l-50) 0 none);
+    --sds-grey-60: oklch(var(--sds-l-60) 0 none);
+    --sds-grey-70: oklch(var(--sds-l-70) 0 none);
+    --sds-grey-80: oklch(var(--sds-l-80) 0 none);
+    --sds-grey-90: oklch(var(--sds-l-90) 0 none);
+    --sds-grey-95: oklch(var(--sds-l-95) 0 none);
+
+    /* 
+    --sds-neutral-faint: oklch(var(--sds-l-50) 0 none / var(--sds-a-30));
+    --sds-neutral-subtle: oklch(var(--sds-l-50) 0 none / var(--sds-a-45));
+    --sds-neutral-strong: oklch(var(--sds-l-50) 0 none / var(--sds-a-60));
+
+    --sds-warm-grey-05: oklch(var(--sds-l-05) calc(var(--sds-c-amber-05) * var(--sds-p-lowest)) var(--sds-h-amber));
+    --sds-warm-grey-10: oklch(var(--sds-l-10) calc(var(--sds-c-amber-10) * var(--sds-p-lowest)) var(--sds-h-amber));
+    --sds-warm-grey-20: oklch(var(--sds-l-20) calc(var(--sds-c-amber-20) * var(--sds-p-lowest)) var(--sds-h-amber));
+    --sds-warm-grey-30: oklch(var(--sds-l-30) calc(var(--sds-c-amber-30) * var(--sds-p-lowest)) var(--sds-h-amber));
+    --sds-warm-grey-40: oklch(var(--sds-l-40) calc(var(--sds-c-amber-40) * var(--sds-p-lowest)) var(--sds-h-amber));
+    --sds-warm-grey-50: oklch(var(--sds-l-50) calc(var(--sds-c-amber-50) * var(--sds-p-lowest)) var(--sds-h-amber));
+    --sds-warm-grey-60: oklch(var(--sds-l-60) calc(var(--sds-c-amber-60) * var(--sds-p-lowest)) var(--sds-h-amber));
+    --sds-warm-grey-70: oklch(var(--sds-l-70) calc(var(--sds-c-amber-70) * var(--sds-p-lowest)) var(--sds-h-amber));
+    --sds-warm-grey-80: oklch(var(--sds-l-80) calc(var(--sds-c-amber-80) * var(--sds-p-lowest)) var(--sds-h-amber));
+    --sds-warm-grey-90: oklch(var(--sds-l-90) calc(var(--sds-c-amber-90) * var(--sds-p-lowest)) var(--sds-h-amber));
+    --sds-warm-grey-95: oklch(var(--sds-l-95) calc(var(--sds-c-amber-95) * var(--sds-p-lowest)) var(--sds-h-amber));
+
+    --sds-cool-grey-05: oklch(var(--sds-l-05) calc(var(--sds-c-blue-05) * var(--sds-p-lower)) var(--sds-h-blue));
+    --sds-cool-grey-10: oklch(var(--sds-l-10) calc(var(--sds-c-blue-10) * var(--sds-p-lower)) var(--sds-h-blue));
+    --sds-cool-grey-20: oklch(var(--sds-l-20) calc(var(--sds-c-blue-20) * var(--sds-p-lower)) var(--sds-h-blue));
+    --sds-cool-grey-30: oklch(var(--sds-l-30) calc(var(--sds-c-blue-30) * var(--sds-p-lower)) var(--sds-h-blue));
+    --sds-cool-grey-40: oklch(var(--sds-l-40) calc(var(--sds-c-blue-40) * var(--sds-p-lower)) var(--sds-h-blue));
+    --sds-cool-grey-50: oklch(var(--sds-l-50) calc(var(--sds-c-blue-50) * var(--sds-p-lower)) var(--sds-h-blue));
+    --sds-cool-grey-60: oklch(var(--sds-l-60) calc(var(--sds-c-blue-60) * var(--sds-p-lower)) var(--sds-h-blue));
+    --sds-cool-grey-70: oklch(var(--sds-l-70) calc(var(--sds-c-blue-70) * var(--sds-p-lower)) var(--sds-h-blue));
+    --sds-cool-grey-80: oklch(var(--sds-l-80) calc(var(--sds-c-blue-80) * var(--sds-p-lower)) var(--sds-h-blue));
+    --sds-cool-grey-90: oklch(var(--sds-l-90) calc(var(--sds-c-blue-90) * var(--sds-p-lower)) var(--sds-h-blue));
+    --sds-cool-grey-95: oklch(var(--sds-l-95) calc(var(--sds-c-blue-95) * var(--sds-p-lowest)) var(--sds-h-blue));
+
+    --sds-blue-05: oklch(var(--sds-l-05) var(--sds-c-blue-05) var(--sds-h-blue));
+    --sds-blue-10: oklch(var(--sds-l-10) var(--sds-c-blue-10) var(--sds-h-blue));
+    --sds-blue-20: oklch(var(--sds-l-20) var(--sds-c-blue-20) var(--sds-h-blue));
+    --sds-blue-30: oklch(var(--sds-l-30) var(--sds-c-blue-30) var(--sds-h-blue));
+    --sds-blue-40: oklch(var(--sds-l-40) var(--sds-c-blue-40) var(--sds-h-blue));
+    --sds-blue-50: oklch(var(--sds-l-50) var(--sds-c-blue-50) var(--sds-h-blue));
+    --sds-blue-60: oklch(var(--sds-l-60) var(--sds-c-blue-60) var(--sds-h-blue));
+    --sds-blue-70: oklch(var(--sds-l-70) var(--sds-c-blue-70) var(--sds-h-blue));
+    --sds-blue-80: oklch(var(--sds-l-80) var(--sds-c-blue-80) var(--sds-h-blue));
+    --sds-blue-90: oklch(var(--sds-l-90) var(--sds-c-blue-90) var(--sds-h-blue));
+    --sds-blue-95: oklch(var(--sds-l-95) var(--sds-c-blue-95) var(--sds-h-blue));
+    */
+    
+
+    /* Backgrounds (surfaces) */
+
+    --sds-color-background: var(--sds-white);
+    --sds-color-background-neutral-soft: oklch(var(--sds-l-10) calc(var(--sds-c-amber-10) * var(--sds-p-lowest)) var(--sds-h-amber));
+    --sds-color-background-neutral-strong: oklch(var(--sds-l-20) calc(var(--sds-c-amber-20) * var(--sds-p-lowest)) var(--sds-h-amber));
+
+    /* Backgrounds */
+
+    --sds-color-background-strong: var(--sds-black-a90);
+    --sds-color-background-strong-hover: var(--sds-black-a90);
+    --sds-color-background-strong-active: var(--sds-black-a90);
+
+    --sds-color-background-meta: var(--sds-black-a60);
+    --sds-color-background-meta-hover: var(--sds-black-a90);
+    --sds-color-background-meta-active: var(--sds-black-a90);
+
+    --sds-color-background-subtle: var(--sds-black-a30);
+    --sds-color-background-subtle-hover: var(--sds-black-a45);
+    --sds-color-background-subtle-active: var(--sds-black-a45);
+
+    --sds-color-background-faint: var(--sds-black-a08);
+    --sds-color-background-faint-hover: var(--sds-black-a12);
+    --sds-color-background-faint-active: var(--sds-black-a16);
+
+    --sds-color-background-transparent: transparent;
+    --sds-color-background-transparent-hover: var(--sds-black-a04);
+    --sds-color-background-transparent-active: var(--sds-black-a08);
+
+    --sds-color-background-disabled: var(--sds-black-a08);
+
+    /* Borders */
+
+    --sds-color-border: var(--sds-black-a90);
+    --sds-color-border-hover: var(--sds-black-a90);
+    --sds-color-border-active: var(--sds-black-a90);
+
+    --sds-color-border-meta: var(--sds-black-a60);
+    --sds-color-border-meta-hover: var(--sds-black-a90);
+    --sds-color-border-meta-active: var(--sds-black-a90);
+
+    --sds-color-border-subtle: var(--sds-black-a30);
+    --sds-color-border-subtle-hover: var(--sds-black-a45);
+    --sds-color-border-subtle-active: var(--sds-black-a45);
+
+    --sds-color-border-faint: var(--sds-black-a08);
+    --sds-color-border-faint-hover: var(--sds-black-a12);
+    --sds-color-border-faint-active: var(--sds-black-a16);
+
+    --sds-color-border-subtle-solid: var(--sds-grey-40);
+    --sds-color-border-faint-solid: var(--sds-grey-20);
+
+    --sds-color-border-disabled: var(--sds-black-a30);
+    
+    /* Typography */
+
+    --sds-color-text: var(--sds-black-a90);
+    --sds-color-text-hover: var(--sds-black-a90);
+    --sds-color-text-active: var(--sds-black-a90);
+
+    --sds-color-text-meta: var(--sds-black-a60);
+    --sds-color-text-meta-hover: var(--sds-black-a90);
+    --sds-color-text-meta-active: var(--sds-black-a90);
+
+    --sds-color-text-knockout: var(--sds-white);
+    --sds-color-text-knockout-hover: var(--sds-white);
+    --sds-color-text-knockout-active: var(--sds-white-a60);
+
+    --sds-color-text-disabled: var(--sds-black-a30);
+
+    --sds-color-link: oklch(var(--sds-l-60) var(--sds-c-blue-60) var(--sds-h-blue));
+    --sds-color-link-hover: oklch(var(--sds-l-70) var(--sds-c-blue-70) var(--sds-h-blue));
+    --sds-color-link-active: oklch(var(--sds-l-70) var(--sds-c-blue-70) var(--sds-h-blue));
+
+    --sds-color-text-highlight: var(--sds-white);
+
+
+    /* Iconography */
+
+    --sds-color-icon: var(--sds-black-a90);
+    --sds-color-icon-hover: var(--sds-black-a90);
+    --sds-color-icon-active: var(--sds-black-a90);
+
+    --sds-color-icon-meta: var(--sds-black-a60);
+    --sds-color-icon-meta-hover: var(--sds-black-a90);
+    --sds-color-icon-meta-active: var(--sds-black-a90);
+
+    --sds-color-icon-knockout: var(--sds-white);
+    --sds-color-icon-knockout-hover: var(--sds-white);
+    --sds-color-icon-knockout-active: var(--sds-white-a60);
+
+    --sds-color-icon-disabled: var(--sds-black-a30);
+
+    /* Components */
+
+    --sds-brackets: url('../../assets/svg/details/brackets.svg');
+    --sds-color-logo: var(--sds-black-a90);
+    /* Header colors (defaults, overridden by JS) */
+    --sds-color-header-bg: oklch(from var(--sds-color-background) l c h / 0.9);
+    --sds-color-header-logo: var(--sds-color-logo);
+    --sds-color-header-name: var(--sds-color-text);
+    --sds-color-header-role: var(--sds-color-text-meta);
+    --sds-color-header-underline: var(--sds-color-accent);
+
+    /* Accents */
+
+    --sds-color-accent: oklch(var(--sds-l-50) var(--sds-c-blue-50) var(--sds-h-blue));
+
+    --sds-color-accent-hero: var(--sds-color-text-knockout);
+    --sds-color-background-accent-hero: oklch(var(--sds-l-50) var(--sds-c-warm-red-50) var(--sds-h-warm-red));
+    --sds-meta-theme-color-hero:    #EB5125; /* sRGB — iOS meta-tag parser requires hex/rgb, not oklch */
+    --sds-meta-theme-color-work:    #FFFFFF;
+    --sds-meta-theme-color-about:   #FFEDDA;
+    --sds-meta-theme-color-contact: #FFFFFF;
+
+    --sds-color-accent-work: oklch(var(--sds-l-50) var(--sds-c-blue-50) var(--sds-h-blue));
+    --sds-color-background-accent-work: var(--sds-color-background);
+
+    --sds-color-accent-about: oklch(var(--sds-l-60) calc(var(--sds-c-green-60) * var(--sds-p-max)) var(--sds-h-green));
+    --sds-color-background-accent-about: oklch(var(--sds-l-10) calc(var(--sds-c-amber-10) * var(--sds-p-max)) var(--sds-h-amber));
+
+    --sds-color-accent-contact: oklch(var(--sds-l-50) var(--sds-c-purple-50) var(--sds-h-purple));
+    --sds-color-background-accent-contact: var(--sds-color-background);
+
+    /* Related work (sub-pages). If this changes, also update the literal
+       "related-work" values in js/header-colors.js and js/theme.js. */
+    --sds-color-background-accent-related-work: oklch(var(--sds-l-90) calc(var(--sds-c-blue-90) * var(--sds-p-lowest)) var(--sds-h-blue));
+
+    /* Feedback */
+
+    --sds-color-feedback-negative: oklch(var(--sds-l-60) calc(var(--sds-c-system-red-60) * var(--sds-p-max)) var(--sds-h-system-red));
+    --sds-color-feedback-positive: oklch(var(--sds-l-60) calc(var(--sds-c-system-green-60) * var(--sds-p-max)) var(--sds-h-system-green));
+    --sds-color-background-feedback-negative: oklch(var(--sds-l-10) calc(var(--sds-c-system-red-10) * var(--sds-p-max)) var(--sds-h-system-red));
+    --sds-color-background-feedback-positive: oklch(var(--sds-l-10) calc(var(--sds-c-system-green-10) * var(--sds-p-max)) var(--sds-h-system-green));
+
+}
+
+/* ============ */
+/* Dark context */
+/* ============ */
+
+[data-sds-theme="dark"] {
+
+    /* Primitives */
+
+    /*
+    --sds-neutral-faint: oklch(var(--sds-l-50) 0 none / calc(var(--sds-a-30) + .05));
+    --sds-neutral-subtle: oklch(var(--sds-l-50) 0 none / calc(var(--sds-a-45) + .05));
+    --sds-neutral-strong: oklch(var(--sds-l-50) 0 none / calc(var(--sds-a-60) + .05));
+    */
+
+
+    /* Backgrounds (surfaces) */
+
+    --sds-color-background: oklch(var(--sds-l-95) calc(var(--sds-c-blue-95) * var(--sds-p-lowest)) var(--sds-h-blue));
+    --sds-color-background-neutral-soft: oklch(var(--sds-l-90) calc(var(--sds-c-blue-90) * var(--sds-p-lowest)) var(--sds-h-blue));
+    --sds-color-background-neutral-strong: oklch(var(--sds-l-80) calc(var(--sds-c-blue-80) * var(--sds-p-lowest)) var(--sds-h-blue));
+    
+    /* Backgrounds */
+
+    --sds-color-background-strong: var(--sds-white-a90);
+    --sds-color-background-strong-hover: var(--sds-white-a90);
+    --sds-color-background-strong-active: var(--sds-white-a90);
+
+    --sds-color-background-meta: var(--sds-white-a60);
+    --sds-color-background-meta-hover: var(--sds-white-a90);
+    --sds-color-background-meta-active: var(--sds-white-a90);
+
+    --sds-color-background-subtle: var(--sds-white-a30);
+    --sds-color-background-subtle-hover: var(--sds-white-a45);
+    --sds-color-background-subtle-active: var(--sds-white-a45);
+
+    --sds-color-background-faint: var(--sds-white-a08);
+    --sds-color-background-faint-hover: var(--sds-white-a12);
+    --sds-color-background-faint-active: var(--sds-white-a16);
+
+    --sds-color-background-transparent: transparent;
+    --sds-color-background-transparent-hover: var(--sds-white-a04);
+    --sds-color-background-transparent-active: var(--sds-white-a08);
+
+    --sds-color-background-disabled: var(--sds-white-a08);
+
+    /* Borders */
+
+    --sds-color-border: var(--sds-white-a90);
+    --sds-color-border-hover: var(--sds-white-a90);
+    --sds-color-border-active: var(--sds-white-a90);
+
+    --sds-color-border-meta: var(--sds-white-a60);
+    --sds-color-border-meta-hover: var(--sds-white-a90);
+    --sds-color-border-meta-active: var(--sds-white-a90);
+
+    --sds-color-border-subtle: var(--sds-white-a30);
+    --sds-color-border-subtle-hover: var(--sds-white-a45);
+    --sds-color-border-subtle-active: var(--sds-white-a45);
+
+    --sds-color-border-faint: var(--sds-white-a08);
+    --sds-color-border-faint-hover: var(--sds-white-a12);
+    --sds-color-border-faint-active: var(--sds-white-a16);
+
+    --sds-color-border-subtle-solid: var(--sds-grey-70);
+    --sds-color-border-faint-solid: var(--sds-grey-80);
+
+    --sds-color-border-disabled: var(--sds-white-a30);
+
+    /* Typography */
+
+    --sds-color-text: var(--sds-white-a90);
+    --sds-color-text-hover: var(--sds-white-a90);
+    --sds-color-text-active: var(--sds-white-a90);
+
+    --sds-color-text-meta: var(--sds-white-a60);
+    --sds-color-text-meta-hover: var(--sds-white-a90);
+    --sds-color-text-meta-active: var(--sds-white-a90);
+
+    --sds-color-text-knockout: var(--sds-black-a90);
+    --sds-color-text-knockout-hover: var(--sds-black-a90);
+    --sds-color-text-knockout-active: var(--sds-black-a60);
+
+    --sds-color-text-disabled: var(--sds-white-a30);
+
+    --sds-color-link: oklch(var(--sds-l-40) var(--sds-c-blue-40) var(--sds-h-blue));
+    --sds-color-link-hover: oklch(var(--sds-l-30) var(--sds-c-blue-30) var(--sds-h-blue));
+    --sds-color-link-active: oklch(var(--sds-l-30) var(--sds-c-blue-30) var(--sds-h-blue));
+
+    --sds-color-text-highlight: var(--sds-black);
+
+    /* Iconography */
+
+    --sds-color-icon: var(--sds-white-a90);
+    --sds-color-icon-hover: var(--sds-white-a90);
+    --sds-color-icon-active: var(--sds-white-a90);
+    
+    --sds-color-icon-meta: var(--sds-white-a60);
+    --sds-color-icon-meta-hover: var(--sds-white-a90);
+    --sds-color-icon-meta-active: var(--sds-white-a90);
+
+    --sds-color-icon-knockout: var(--sds-black-a90);
+    --sds-color-icon-knockout-hover: var(--sds-black-a90);
+    --sds-color-icon-knockout-active: var(--sds-black-a60);
+
+    --sds-color-icon-disabled: var(--sds-white-a30);
+
+    /* Components */
+
+    --sds-brackets: url('../../assets/svg/details/brackets-dark.svg');
+    --sds-color-logo: var(--sds-white-a90);
+
+    /* Accents */
+
+    --sds-color-accent: oklch(var(--sds-l-40) var(--sds-c-blue-40) var(--sds-h-blue));
+
+    --sds-color-accent-hero: oklch(var(--sds-l-50) var(--sds-c-warm-red-50) var(--sds-h-warm-red));
+    --sds-color-background-accent-hero: oklch(var(--sds-l-80) var(--sds-c-blue-80) var(--sds-h-blue));
+    --sds-meta-theme-color-hero:    #143457; /* sRGB — iOS meta-tag parser requires hex/rgb, not oklch */
+    --sds-meta-theme-color-work:    #192027;
+    --sds-meta-theme-color-about:   #15393E;
+    --sds-meta-theme-color-contact: #192027;
+
+    --sds-color-accent-work: oklch(var(--sds-l-40) var(--sds-c-blue-40) var(--sds-h-blue));
+    --sds-color-background-accent-work: var(--sds-color-background);
+
+    --sds-color-accent-about: oklch(var(--sds-l-40) var(--sds-c-amber-40) var(--sds-h-amber));
+    --sds-color-background-accent-about: oklch(var(--sds-l-80) calc(var(--sds-c-teal-80) * var(--sds-p-higher)) var(--sds-h-teal));
+
+    --sds-color-accent-contact: oklch(var(--sds-l-40) var(--sds-c-purple-40) var(--sds-h-purple));
+    --sds-color-background-accent-contact: var(--sds-color-background);
+
+    /* Related work (sub-pages). If this changes, also update the literal
+       "related-work" values in js/header-colors.js and js/theme.js. */
+    --sds-color-background-accent-related-work: oklch(var(--sds-l-90) calc(var(--sds-c-blue-90) * var(--sds-p-lowest)) var(--sds-h-blue));
+
+    /* Feedback */
+
+    --sds-color-feedback-negative: oklch(var(--sds-l-40) calc(var(--sds-c-system-red-40) * var(--sds-p-max)) var(--sds-h-system-red));
+    --sds-color-feedback-positive: oklch(var(--sds-l-40) calc(var(--sds-c-system-green-40) * var(--sds-p-max)) var(--sds-h-system-green));
+    --sds-color-background-feedback-negative: oklch(var(--sds-l-90) calc(var(--sds-c-system-red-90) * var(--sds-p-lower)) var(--sds-h-system-red));
+    --sds-color-background-feedback-positive: oklch(var(--sds-l-90) calc(var(--sds-c-system-green-90) * var(--sds-p-lower)) var(--sds-h-system-green));
+
+}

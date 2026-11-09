@@ -1,0 +1,230 @@
+/* styles/04-components/buttons.css */
+
+/*
+  Buttons — one base class, a style modifier, and optional icon(s).
+  Works on <button> and <a>.
+
+  Style (pick one):
+    .sds-btn--fill     solid --sds-color-button-background, knockout label/icon
+    .sds-btn--outline  transparent, 1px --sds-color-button-border outline
+    .sds-btn--ghost    transparent, no outline
+
+  Content (set by markup order — no modifier needed except icon-only):
+
+    Label only:
+      <button class="sds-btn sds-btn--fill">
+        <span class="sds-btn-label">Label</span>
+      </button>
+
+    Label + icon right:
+      <a class="sds-btn sds-btn--outline" href="...">
+        <span class="sds-btn-label">Label</span>
+        <span class="sds-btn-icon">[arrow-right svg]</span>
+      </a>
+
+    Icon left + label:
+      <a class="sds-btn sds-btn--outline" href="...">
+        <span class="sds-btn-icon">[arrow-left svg]</span>
+        <span class="sds-btn-label">Label</span>
+      </a>
+
+    Icon only (square; give it an aria-label):
+      <a class="sds-btn sds-btn--ghost sds-btn--icon-only" href="..." aria-label="Next">
+        <span class="sds-btn-icon">[arrow-right svg]</span>
+      </a>
+
+  Disabled:
+      <button class="sds-btn sds-btn--fill" disabled>...</button>
+      <a class="sds-btn sds-btn--outline" aria-disabled="true">...</a>
+
+  Spacing: .sds-btn's padding is the icon-side inset; .sds-btn-label adds a little
+  extra on both sides, so the label side always gets more room than the
+  icon side — whichever side the icon is on.
+
+  Icons are 20×20 SVGs using fill="currentColor", so they follow the
+  label color in every style and theme.
+*/
+
+/* ========================= */
+/* Base                      */
+/* ========================= */
+
+.sds-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--sds-half-x);     /* label ↔ icon gap */
+    min-height: var(--sds-six-x);
+    padding: var(--sds-one-and-a-half-x);
+    border: none;
+    border-radius: var(--sds-radius-large);
+    background: none;
+    box-shadow: none;
+    color: var(--sds-color-text);
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+    font-size: var(--sds-font-size-small);
+    font-variation-settings:
+        "wght" var(--sds-font-weight-medium),
+        "wdth" var(--sds-font-width-regular);
+    line-height: var(--sds-line-height-default);
+    letter-spacing: var(--sds-letter-spacing-default);
+}
+
+/* Suppress link underline on <a> buttons */
+.sds-btn::after { display: none !important; }
+
+/* ========================= */
+/* Sub-elements              */
+/* ========================= */
+
+/* Extra horizontal breathing room on text label */
+.sds-btn-label {
+    padding: 0 var(--sds-half-x);
+}
+
+.sds-btn-icon {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+/* ========================= */
+/* Icon-only variant         */
+/* ========================= */
+
+/* Square: padding is equal on all sides (already set on .sds-btn),
+   aspect-ratio locks width = height = --sds-six-x */
+.sds-btn--icon-only {
+    min-width: var(--sds-six-x);
+    aspect-ratio: 1;
+    align-self: flex-start; /* prevent stretch in flex column containers */
+}
+
+/* ========================= */
+/* States (shared)           */
+/* ========================= */
+
+/* Disabled: native <button disabled>, or aria-disabled="true" on an <a>
+   (an <a> can't take the disabled attribute — also drop its href).
+   Per-style disabled colors live in each style's section below.
+   Hover/active rules below skip disabled buttons via :not(), wrapped in
+   :where() so it adds no specificity. */
+.sds-btn:is(:disabled, [aria-disabled="true"]) {
+    cursor: not-allowed;
+}
+
+/* ========================= */
+/* Fill                      */
+/* ========================= */
+
+.sds-btn--fill {
+    background-color: var(--sds-color-background-strong);
+    color: var(--sds-color-text-knockout);
+}
+
+.sds-btn--fill:hover:where(:not(:disabled, [aria-disabled="true"])) {
+    /* hover */
+    background: var(--sds-color-background-strong-hover);
+    color: var(--sds-color-text-knockout-hover);
+    box-shadow: 0 0 0 var(--sds-eighth-x) var(--sds-color-border-hover); /* add outer border on hover */
+}
+
+.sds-btn--fill:active:where(:not(:disabled, [aria-disabled="true"])) {
+    /* active */
+    background: var(--sds-color-background-strong-active);
+    color: var(--sds-color-text-knockout-active);
+    box-shadow: none; /* remove outer border on active */
+}
+
+.sds-btn--fill:is(:disabled, [aria-disabled="true"]) {
+    /* disabled */
+    background: var(--sds-color-background-disabled);
+    color: var(--sds-color-text-disabled);
+}
+
+/* ========================= */
+/* Outline                   */
+/* Border via inset shadow   */
+/* ========================= */
+
+.sds-btn--outline {
+    background-color: transparent;
+    color: var(--sds-color-text);
+    box-shadow: inset 0 0 0 var(--sds-eighth-x) var(--sds-color-border-subtle);
+}
+
+.sds-btn--outline:hover:where(:not(:disabled, [aria-disabled="true"])) {
+    /* hover */
+    background-color: var(--sds-color-background-transparent-hover);
+    color: var(--sds-color-text-hover);
+    box-shadow: inset 0 0 0 var(--sds-eighth-x) var(--sds-color-border-subtle-hover), 0 0 0 var(--sds-eighth-x) var(--sds-color-border-subtle-hover); /* add outer border on hover */
+}
+
+.sds-btn--outline:active:where(:not(:disabled, [aria-disabled="true"])) {
+    /* active */
+    background-color: var(--sds-color-background-transparent-active);
+    color: var(--sds-color-text-active);
+    box-shadow: inset 0 0 0 var(--sds-quarter-x) var(--sds-color-border-subtle-active); /* thicker inner border on active */
+}
+
+.sds-btn--outline:is(:disabled, [aria-disabled="true"]) {
+    /* disabled */
+    background-color: var(--sds-color-background-disabled);
+    color: var(--sds-color-text-disabled);
+    box-shadow: none; /* no border on disabled outline buttons */
+}
+
+/* ========================= */
+/* Ghost                     */
+/* ========================= */
+
+.sds-btn--ghost {
+    background-color: transparent;
+    color: var(--sds-color-text);
+}
+
+.sds-btn--ghost:hover:where(:not(:disabled, [aria-disabled="true"])) {
+    /* hover */
+    background-color: var(--sds-color-background-transparent-hover);
+    color: var(--sds-color-text-hover);
+    box-shadow: 0 0 0 var(--sds-eighth-x) var(--sds-color-background-transparent-hover); /* add outer border on hover */
+}
+
+.sds-btn--ghost:active:where(:not(:disabled, [aria-disabled="true"])) {
+    /* active */
+    background-color: var(--sds-color-background-transparent-active);
+    color: var(--sds-color-text-active);
+    box-shadow: none; /* remove outer border on active */
+}
+
+.sds-btn--ghost:is(:disabled, [aria-disabled="true"]) {
+    /* disabled */
+    background-color: var(--sds-color-background-disabled);
+    color: var(--sds-color-text-disabled);
+}
+
+/* ========================= */
+/* Responsive                */
+/* ========================= */
+
+@media only screen and (max-width: 960px) {
+
+    .sds-btn {
+        min-height: var(--sds-five-x);
+        padding: var(--sds-one-and-a-quarter-x);
+        font-size: var(--sds-font-size-xsmall);
+    }
+
+    .sds-btn--icon-only {
+        min-width: var(--sds-five-x);
+    }
+}
+
+@media only screen and (max-width: 480px) {
+
+    .sds-btn {
+        font-size: var(--sds-font-size-2xsmall);
+    }
+}

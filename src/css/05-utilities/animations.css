@@ -1,0 +1,185 @@
+/* styles/05-utilities/animations.css */
+
+/* ============================================= */
+/* Respect User Motion Preferences */
+/* ============================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* ============================================= */
+/* Global Transitions (for users who allow motion) */
+/* ============================================= */
+
+/* Layout and text elements — full transition set including typography.
+   color is fast so icon fills (via currentColor) and text colors feel snappy.
+   Backgrounds stay at default so theme transitions feel cinematic, not abrupt.
+   fill/stroke omitted — no-ops on HTML elements; SVG handles these separately.
+   padding/gap animate when --sds-padding-* and --sds-adaptive-space-* vars change at
+   breakpoints, producing fluid layout shifts instead of snapping. */
+a, button, h1, h2, h3, h4, h5, h6, p, ul, li,
+header, footer, main, section, div, nav,
+article, figure, figcaption {
+    transition:
+        background-color var(--sds-transition-default),
+        color var(--sds-transition-fast),
+        border-color var(--sds-transition-default),
+        box-shadow var(--sds-transition-default),
+        opacity var(--sds-transition-default),
+        transform var(--sds-transition-default),
+        backdrop-filter var(--sds-transition-default),
+        padding var(--sds-transition-default),
+        gap var(--sds-transition-default),
+        font-size var(--sds-transition-default),
+        font-variation-settings var(--sds-transition-default),
+        letter-spacing var(--sds-transition-default);
+}
+
+/* SVG elements — no typography or fill/stroke transitions. fill/stroke on the
+   SVG element interfere with currentColor rendering on child paths. Icon fills
+   are driven by the parent's color transition via currentColor. Specific SVG
+   fill/stroke transitions are handled in the component section below. */
+svg {
+    transition:
+        opacity var(--sds-transition-default),
+        transform var(--sds-transition-default);
+}
+
+/* Header elements - removed !important */
+.sds-header-logo {
+    transition:
+        color var(--sds-transition-default),
+        width var(--sds-transition-default),
+        height var(--sds-transition-default);
+}
+
+.sds-header-name,
+.sds-header-role {
+    transition: color var(--sds-transition-default);
+}
+
+
+/* Icon paths use fill="currentColor" — fill is driven by the parent's color
+   transition, not its own. A separate fill transition here would conflict with
+   --sds-transition-fast on parent buttons/links, causing icons to lag. Only
+   animate opacity and transform directly on paths. */
+path {
+    transition:
+        opacity var(--sds-transition-default),
+        transform var(--sds-transition-default);
+}
+
+/* FOUC prevention - keep !important here (necessary override) */
+.sds-no-transition *,
+.sds-no-transition *:after,
+.sds-no-transition *:before {
+    transition-property: none !important;
+    animation: none !important;
+}
+
+/* ============================================= */
+/* Component Transitions                         */
+/* Centralized here; removed from component CSS. */
+/* transition:none overrides stay in component   */
+/* files — they are contextual suppressions.     */
+/* ============================================= */
+
+/* --- Typography --- */
+
+a {
+    transition: color var(--sds-transition-fast);
+}
+
+main p a,
+main li a,
+main article a,
+.sds-body a,
+.sds-body-small a,
+section p a,
+section li a {
+    transition: color var(--sds-transition-fast);
+}
+
+main p a::after,
+main li a::after,
+main article a::after,
+.sds-body a::after,
+.sds-body-small a::after,
+section p a::after,
+section li a::after {
+    transition:
+        height var(--sds-transition-fast),
+        bottom var(--sds-transition-fast);
+}
+
+/* --- Buttons --- */
+
+.sds-btn {
+    transition:
+        background-color var(--sds-transition-fast),
+        box-shadow var(--sds-transition-fast),
+        color var(--sds-transition-fast);
+}
+
+/* --- Contact form --- */
+
+.sds-form-input {
+    transition:
+        background-color var(--sds-transition-fast),
+        box-shadow var(--sds-transition-fast);
+}
+
+/* --- Global header --- */
+
+.sds-header-logo path {
+    transition: fill var(--sds-transition-default);
+}
+
+#sds-menu-trigger .sds-menu-bar {
+    transition:
+        transform var(--sds-transition-default),
+        opacity var(--sds-transition-default);
+}
+
+/* Morph icon: stroke color transitions on theme toggle (all browsers).
+   Non-Safari uses JS Web Animations for path shape; CSS handles stroke color.
+   Safari crossfades the whole icon, but still needs stroke on the way back. */
+.sds-morph-body,
+[class*="sds-morph-ray-"] {
+    transition:
+        opacity var(--sds-transition-default),
+        stroke var(--sds-transition-default);
+}
+
+/* Safari: promote layers for smoother crossfade */
+.sds-is-safari .sds-morph-body,
+.sds-is-safari [class*="sds-morph-ray-"] {
+    will-change: opacity, stroke;
+}
+
+/* Desktop nav underline — desktop only */
+@media only screen and (min-width: 769px) {
+    .sds-nav-underline {
+        transition:
+            transform var(--sds-transition-default),
+            width var(--sds-transition-default),
+            bottom var(--sds-transition-default);
+    }
+}
+
+/* Mobile drawer — slide in/out */
+@media only screen and (max-width: 768px) {
+    #sds-main-nav {
+        transition:
+            transform var(--sds-transition-default),
+            visibility var(--sds-transition-default);
+    }
+}
