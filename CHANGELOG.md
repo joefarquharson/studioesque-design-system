@@ -2,6 +2,7 @@
 
 ## 0.0.1 (unreleased)
 
+- Portfolio-specific section color and meta-theme-color tokens moved out of `colors.css`.
 - Section modifiers `.sds-content--tinted/--accent/--full-bleed` replace the portfolio's per-id section rules.
 - Brackets and frame borders are now opt-in via `extras/sds-brackets.css`.
 - Headings: `--sds-heading-N` (compact default) / `--sds-display-N` with opt-in `.sds-scale-display`; removed `body.subpage`.

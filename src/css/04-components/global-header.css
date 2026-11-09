@@ -52,7 +52,7 @@
 
 /* CSS fill overrides SVG presentation attributes — more reliable than currentColor */
 .sds-header-logo path {
-    fill: var(--sds-color-header-logo, var(--sds-color-accent-hero));
+    fill: var(--sds-color-header-logo, var(--sds-color-logo));
 }
 
 .sds-header-main-content {

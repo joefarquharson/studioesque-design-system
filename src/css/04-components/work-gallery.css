@@ -366,7 +366,7 @@
         var(--sds-brackets) right var(--sds-bracket-right) top -8px no-repeat,
         var(--sds-brackets) right var(--sds-bracket-right) bottom -8px no-repeat,
         var(--sds-brackets) left -8px bottom -8px no-repeat,
-        var(--sds-color-background-accent-work);
+        var(--sds-section-background, var(--sds-color-background));
 }
 
 .sds-work-card--phantom.sds-is-last-in-row {

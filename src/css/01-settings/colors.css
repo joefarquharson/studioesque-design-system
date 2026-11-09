@@ -402,26 +402,6 @@
 
     --sds-color-accent: oklch(var(--sds-l-50) var(--sds-c-blue-50) var(--sds-h-blue));
 
-    --sds-color-accent-hero: var(--sds-color-text-knockout);
-    --sds-color-background-accent-hero: oklch(var(--sds-l-50) var(--sds-c-warm-red-50) var(--sds-h-warm-red));
-    --sds-meta-theme-color-hero:    #EB5125; /* sRGB — iOS meta-tag parser requires hex/rgb, not oklch */
-    --sds-meta-theme-color-work:    #FFFFFF;
-    --sds-meta-theme-color-about:   #FFEDDA;
-    --sds-meta-theme-color-contact: #FFFFFF;
-
-    --sds-color-accent-work: oklch(var(--sds-l-50) var(--sds-c-blue-50) var(--sds-h-blue));
-    --sds-color-background-accent-work: var(--sds-color-background);
-
-    --sds-color-accent-about: oklch(var(--sds-l-60) calc(var(--sds-c-green-60) * var(--sds-p-max)) var(--sds-h-green));
-    --sds-color-background-accent-about: oklch(var(--sds-l-10) calc(var(--sds-c-amber-10) * var(--sds-p-max)) var(--sds-h-amber));
-
-    --sds-color-accent-contact: oklch(var(--sds-l-50) var(--sds-c-purple-50) var(--sds-h-purple));
-    --sds-color-background-accent-contact: var(--sds-color-background);
-
-    /* Related work (sub-pages). If this changes, also update the literal
-       "related-work" values in js/header-colors.js and js/theme.js. */
-    --sds-color-background-accent-related-work: oklch(var(--sds-l-90) calc(var(--sds-c-blue-90) * var(--sds-p-lowest)) var(--sds-h-blue));
-
     /* Feedback */
 
     --sds-color-feedback-negative: oklch(var(--sds-l-60) calc(var(--sds-c-system-red-60) * var(--sds-p-max)) var(--sds-h-system-red));
@@ -545,26 +525,6 @@
     /* Accents */
 
     --sds-color-accent: oklch(var(--sds-l-40) var(--sds-c-blue-40) var(--sds-h-blue));
-
-    --sds-color-accent-hero: oklch(var(--sds-l-50) var(--sds-c-warm-red-50) var(--sds-h-warm-red));
-    --sds-color-background-accent-hero: oklch(var(--sds-l-80) var(--sds-c-blue-80) var(--sds-h-blue));
-    --sds-meta-theme-color-hero:    #143457; /* sRGB — iOS meta-tag parser requires hex/rgb, not oklch */
-    --sds-meta-theme-color-work:    #192027;
-    --sds-meta-theme-color-about:   #15393E;
-    --sds-meta-theme-color-contact: #192027;
-
-    --sds-color-accent-work: oklch(var(--sds-l-40) var(--sds-c-blue-40) var(--sds-h-blue));
-    --sds-color-background-accent-work: var(--sds-color-background);
-
-    --sds-color-accent-about: oklch(var(--sds-l-40) var(--sds-c-amber-40) var(--sds-h-amber));
-    --sds-color-background-accent-about: oklch(var(--sds-l-80) calc(var(--sds-c-teal-80) * var(--sds-p-higher)) var(--sds-h-teal));
-
-    --sds-color-accent-contact: oklch(var(--sds-l-40) var(--sds-c-purple-40) var(--sds-h-purple));
-    --sds-color-background-accent-contact: var(--sds-color-background);
-
-    /* Related work (sub-pages). If this changes, also update the literal
-       "related-work" values in js/header-colors.js and js/theme.js. */
-    --sds-color-background-accent-related-work: oklch(var(--sds-l-90) calc(var(--sds-c-blue-90) * var(--sds-p-lowest)) var(--sds-h-blue));
 
     /* Feedback */
 
