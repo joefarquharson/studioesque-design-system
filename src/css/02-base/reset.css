@@ -1,5 +1,9 @@
 /* 02-base > reset.css */
 
+/* OPT-IN (part of sds-base.css): unprefixed element reset. Components
+   assume box-sizing: border-box and zeroed margins; a host that skips this
+   file needs an equivalent reset of its own. */
+
 /* A more-intuitive box-sizing model */
 
 *, *::before, *::after {
@@ -90,12 +94,6 @@ section, article, figure {
   position: relative;
 }
 
-/* Ensure grid wrappers don't overflow */
-.sds-grid-wrapper {
-  width: 100%;
-  max-width: 100%;
-}
-
 /* Constrain main content areas */
 main {
   width: 100%;
@@ -125,11 +123,6 @@ svg {
 
   html, body {
     overflow-x: clip;
-  }
-  
-  /* Ensure grid content stays in bounds on mobile */
-  .sds-content-row {
-    max-width: 100%;
   }
 }
 

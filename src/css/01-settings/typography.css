@@ -90,7 +90,7 @@
 
     /* Heading scale
        --sds-heading-N is what h1-h5 use. Defaults to the compact scale;
-       wrap any page, section, or <body> in .sds-scale-display (typography.css)
+       wrap any page, section, or <body> in .sds-scale-display (02-base/text.css)
        to swap in the larger --sds-display-N values instead. Values step down
        with viewport width via the media queries at the bottom of this file —
        only these tokens change per breakpoint, never the h1-h5 rules. */
@@ -185,4 +185,15 @@
         --sds-display-4: var(--sds-font-size-small);
         --sds-display-5: var(--sds-font-size-small);
     }
+}
+
+/* Flow spacing (moved from 02-base: also used by work-gallery.css) */
+
+:root {
+    --sds-flow-space-attached: .25em;
+    --sds-flow-space-text: .75em;
+    --sds-flow-space-before-heading: 1.25em;
+    --sds-flow-space-before-minor-heading: 1.875em;
+    --sds-flow-space-after-heading: 1em;
+    --sds-flow-space-after-minor-heading: .375em;
 }

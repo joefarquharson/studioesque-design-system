@@ -13,7 +13,9 @@ Read `docs/PHASE-2.md` (progress + remaining work) and `docs/HANDOFF.md` (state,
 ## Layout
 
 ```
-src/css/index.css          full bundle (import order matters)
+src/css/index.css          full bundle = sds-base.css + sds-core.css in cascade order (import order matters)
+src/css/sds-base.css       OPT-IN element layer: 02-base/reset.css, elements.css, motion.css (the only unprefixed rules)
+src/css/sds-core.css       everything else: tokens, 02-base/text.css (sds- text classes), layout, components, utilities
 src/css/01-settings ... 05-utilities   ITCSS-style layers, one file per component in 04-components
 src/css/extras/            OPT-IN files, not imported by index.css (sds-brackets.css)
 src/js/                    ES modules, each exports an idempotent initX(options) (options documented in each file header); index.js = init(options); lib/ helpers
@@ -23,7 +25,7 @@ docs/                      PHASE-2.md, HANDOFF.md, rename-map.json, portfolio-mi
 
 ## Conventions
 
-- Everything is prefixed: classes `sds-*`, custom properties `--sds-*`, attributes `data-sds-*`, events `sds:*`, ids `sds-*`. Never add an unprefixed selector or token. Bare element selectors (h1, p, img) in 02-base are the only exception.
+- Everything is prefixed: classes `sds-*`, custom properties `--sds-*`, attributes `data-sds-*`, events `sds:*`, ids `sds-*`. Never add an unprefixed selector or token. Bare element selectors (h1, p, img, *) are allowed ONLY in the opt-in base files `02-base/reset.css`, `elements.css`, `motion.css`; anything that must work without sds-base.css (core) stays prefixed (e.g. the core reduced-motion rule targets `[class*="sds-"]`). `npm run check` enforces that index.css = sds-base.css + sds-core.css.
 - Per-instance values are inline custom properties (`--sds-logo-card-ratio`, `--sds-image-block-ratio`, `--sds-logo-caption-text`). Structural/layout variants are BEM `--modifier` classes (`.sds-image-block-media--natural`, `.sds-content--full-bleed`).
 - Each component file starts with a header comment containing a copy-pasteable usage example. Keep that up to date.
 - The system must not reference portfolio sections (`#work`, `#about`, ...) or portfolio colors. Section styling goes through `.sds-content--tinted` / `--accent` / `--full-bleed` plus `--sds-section-background` / `--sds-section-accent`.

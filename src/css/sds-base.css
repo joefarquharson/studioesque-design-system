@@ -1,0 +1,20 @@
+/* src/css/sds-base.css */
+
+/* OPT-IN BASE: the only unprefixed rules in the system.
+     reset.css     box-sizing, margin reset, body font/color, media defaults
+     elements.css  p/li/a/h1-h5 typography and flow spacing between elements
+     motion.css    global element transitions, reduced-motion for every element
+
+   Load it BEFORE sds-core.css to keep the cascade order of index.css:
+     <link rel="stylesheet" href="sds/css/sds-base.css">
+     <link rel="stylesheet" href="sds/css/sds-core.css">
+   (index.css is exactly these two together.)
+
+   Skip it when the host project has its own reset and element styles. Then
+   the host must still provide box-sizing: border-box and zeroed margins,
+   which the components assume; bare h1-h5 won't use the --sds-heading-N
+   scale, and .sds-scale-display has nothing to remap. */
+
+@import "02-base/reset.css";
+@import "02-base/elements.css";
+@import "02-base/motion.css";

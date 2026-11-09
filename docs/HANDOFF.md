@@ -5,7 +5,7 @@ Moving from a Cowork chat to Claude Code in VS Code. This file is the single sou
 Repos (both in `Portfolio-2026.code-workspace`):
 
 - `studioesque-design-system/` : this repo. Git history from Nov 9, 5 commits, no remote yet.
-- `joefarquharson.github.io/` : the live portfolio, separate git repo. Last commit Oct 30. **Two uncommitted edits there, both made from the Cowork chat:** `styles/01-settings/colors.css` (link colors now built from `--l-*`/`--c-blue-*`/`--h-blue`) and `styles/02-base/typography.css` (`.code` color `--black-60` -> `--black-a60`). Commit or review them before anything else.
+- `joefarquharson.github.io/` : the live portfolio, separate git repo. Its earlier uncommitted edits (link colors, `.code` color, wave hero) and the color-page `srcset` fix are committed and pushed (Nov 9, `6f4fdc4`, `f6de7bc`).
 
 ## Done
 
@@ -60,12 +60,13 @@ Repos (both in `Portfolio-2026.code-workspace`):
 - `rename.mjs` gained `--skip-src`: without it, renaming another tree also rewrites `src/` comments that mention BEM modifiers (`--tinted` -> `--sds-tinted`). Use it in Step 5.
 - Portfolio bugs found (exist before and after, not system issues): `identity.html:248` has full-width digits (`１１．５２４３`) in an SVG path in the related-work card CTA (console error); `index.html` requests a missing favicon (404).
 
-**Step 4: tooling and docs**
+**Step 4: tooling and docs (IN PROGRESS)**
+- DONE (Nov 9): base styles are opt-in. Three entry points: `index.css` (full, unchanged for the portfolio) = `sds-base.css` (opt-in: `02-base/reset.css`, `elements.css`, `motion.css`, the only unprefixed rules) + `sds-core.css` (tokens, `02-base/text.css`, layout, components, utilities). Base loads before core to keep the cascade. Moves: element typography -> `elements.css`; sds- text classes + `[data-sds-theme]` fix -> `text.css`; flow-space tokens -> `01-settings/typography.css` (work-gallery uses them); element transitions + `*` reduced-motion -> `motion.css`, with a scoped `[class*="sds-"]` reduced-motion rule kept in core; dead `.sds-grid-wrapper` rule in reset deleted (grid.css overrode it); `.sds-content-row` mobile max-width -> `content.css`. `check.mjs` now verifies all three entries and that index = base + core.
+- Verified by computed-style diff (every property of every element and pseudo-element, 3 pages x 1200/400 x light/dark x normal/reduced motion, 6,640 boxes): old index.css vs new index.css 0 differences; `sds-base.css` + `sds-core.css` vs `index.css` 0 differences. Core alone: elements fall back to browser defaults, components keep sds styles, reduced motion still applies to sds elements.
 - `scripts/build.mjs` (esbuild or lightningcss): bundle `dist/sds.css`, `sds.min.css`, `sds.js` with assets alongside so CSS `url()` paths still resolve; add `npm run build`.
 - GitHub Actions: `ci.yml` (check + build on PR), `release.yml` (publish on tag).
 - Docs site in `docs/` (GitHub Pages): foundations (color/OKLCH, type, spacing, brackets, theming) and one page per component with live demo, light/dark toggle, markup snippet.
 - `templates/starter/`: minimal page wired to the system.
-- Decide whether `reset.css` and bare-element typography ship in core or an opt-in `sds-base.css`.
 
 **Step 5: migrate the portfolio (last, separate checklist; edit the portfolio repo only now)**
 - Copy `docs/portfolio-migration/portfolio-tokens.css` in; load after the system CSS.
@@ -86,7 +87,7 @@ Repos (both in `Portfolio-2026.code-workspace`):
 
 - Step 3 rendered and compared the real pages (see above); re-run `scripts/compare-portfolio` after system changes and during Step 5.
 - Expected migration diff: subpage titles shrink one step (60/48/36 -> 48/36/30), by Joe's decision. Every other compared pixel matches.
-- Unprefixed bare-element rules (`h1`, `p`, `img`) can collide with a host project's CSS; Step 4 decides how to ship them.
+- Unprefixed element rules now live only in opt-in `sds-base.css`. A host that skips it must provide `box-sizing: border-box` and zeroed margins itself (components assume both).
 - Known undeclared custom properties (intentionally left): `--sds-color-background-knockout` (typography.css, with `!important`), `--sds-color-background-token`, `--sds-color-border-strong`, `--sds-line-height-tight`, `--sds-line-height-medium`, `--sds-color-background-offset`. `--sds-content-start/-end` are read with fallbacks and never set (fine).
 - `.sds-outside-grid`'s diagonal-lines pattern is always on (not gated like brackets).
 - Probable portfolio bug, preserved via `metaFallback: '#EB5125'`: a section with no meta entry (`page-hero` on subpages, or no section) sets the status bar to the LIGHT hero orange even in dark mode. Fix by adding `page-hero`/`default` entries to `metaColors` in the portfolio config (Joe's call on colors).

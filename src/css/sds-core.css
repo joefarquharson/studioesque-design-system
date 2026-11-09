@@ -1,0 +1,42 @@
+/* src/css/sds-core.css */
+
+/* CORE: tokens, sds- text classes, layout, components, utilities. No
+   unprefixed element selectors. Pair with sds-base.css (loaded BEFORE this
+   file) unless the host already provides an equivalent reset: components
+   assume box-sizing: border-box and zeroed default margins. */
+
+/* 01-settings: Design tokens only */
+
+@import "01-settings/colors.css";
+@import "01-settings/dimensions.css";
+@import "01-settings/typography.css";
+@import "01-settings/motion.css";
+
+/* 02-base: Global resets and tag-level styles */
+
+@import "02-base/text.css";
+
+/* 03-layout: The 12-column skeleton */
+
+@import "03-layout/grid.css";
+@import "03-layout/section.css";
+@import "03-layout/outside-grid.css";
+
+/* 04-components: Generic UI components */
+
+@import "04-components/buttons.css";
+@import "04-components/global-header.css";
+@import "04-components/content.css";
+@import "04-components/page-hero.css";
+@import "04-components/image-block.css";
+@import "04-components/logo-grid.css";
+@import "04-components/work-gallery.css";
+@import "04-components/pagination.css";
+@import "04-components/tooltip.css";
+@import "04-components/contact-form.css";
+@import "04-components/global-footer.css";
+
+/* 05-utilities: Single-purpose high-priority classes like .hidden or .text-center overrides */
+
+@import "05-utilities/animations.css";
+@import "05-utilities/visually-hidden.css";

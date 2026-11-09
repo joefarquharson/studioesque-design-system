@@ -376,7 +376,7 @@
 
 /* ========================= */
 /* Responsive text sizing    */
-/* Mirrors typography.css:   */
+/* Mirrors 02-base/elements.css (h3) and text.css (.sds-body-small): */
 /*   title → like h3         */
 /*   desc  → like .sds-body-small*/
 /* ========================= */

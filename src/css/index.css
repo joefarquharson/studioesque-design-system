@@ -1,5 +1,9 @@
 /* src/css/index.css */
 
+/* FULL BUNDLE = sds-base.css + sds-core.css, in cascade order.
+   Use this unless the host project has its own reset / element styles;
+   then load only sds-core.css (see sds-base.css for the trade-off). */
+
 /* 01-settings: Design tokens only */
 
 @import "01-settings/colors.css";
@@ -9,8 +13,10 @@
 
 /* 02-base: Global resets and tag-level styles */
 
-@import "02-base/reset.css";
-@import "02-base/typography.css";
+@import "02-base/reset.css";      /* opt-in base (sds-base.css) */
+@import "02-base/elements.css";   /* opt-in base (sds-base.css) */
+@import "02-base/motion.css";     /* opt-in base (sds-base.css) */
+@import "02-base/text.css";
 
 /* 03-layout: The 12-column skeleton */
 

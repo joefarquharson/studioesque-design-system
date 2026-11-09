@@ -1,0 +1,93 @@
+/* src/css/02-base/motion.css */
+
+/* OPT-IN (part of sds-base.css): element-level motion, moved from
+   05-utilities/animations.css. Global transitions give the theme switch its
+   cross-fade; without this file, components keep their own class-based
+   transitions (animations.css) but plain elements snap. */
+
+/* ============================================= */
+/* Respect User Motion Preferences */
+/* ============================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* ============================================= */
+/* Global Transitions (for users who allow motion) */
+/* ============================================= */
+
+/* Layout and text elements — full transition set including typography.
+   color is fast so icon fills (via currentColor) and text colors feel snappy.
+   Backgrounds stay at default so theme transitions feel cinematic, not abrupt.
+   fill/stroke omitted — no-ops on HTML elements; SVG handles these separately.
+   padding/gap animate when --sds-padding-* and --sds-adaptive-space-* vars change at
+   breakpoints, producing fluid layout shifts instead of snapping. */
+a, button, h1, h2, h3, h4, h5, h6, p, ul, li,
+header, footer, main, section, div, nav,
+article, figure, figcaption {
+    transition:
+        background-color var(--sds-transition-default),
+        color var(--sds-transition-fast),
+        border-color var(--sds-transition-default),
+        box-shadow var(--sds-transition-default),
+        opacity var(--sds-transition-default),
+        transform var(--sds-transition-default),
+        backdrop-filter var(--sds-transition-default),
+        padding var(--sds-transition-default),
+        gap var(--sds-transition-default),
+        font-size var(--sds-transition-default),
+        font-variation-settings var(--sds-transition-default),
+        letter-spacing var(--sds-transition-default);
+}
+
+/* SVG elements — no typography or fill/stroke transitions. fill/stroke on the
+   SVG element interfere with currentColor rendering on child paths. Icon fills
+   are driven by the parent's color transition via currentColor. Specific SVG
+   fill/stroke transitions are handled in the component section below. */
+svg {
+    transition:
+        opacity var(--sds-transition-default),
+        transform var(--sds-transition-default);
+}
+
+/* Icon paths use fill="currentColor" — fill is driven by the parent's color
+   transition, not its own. A separate fill transition here would conflict with
+   --sds-transition-fast on parent buttons/links, causing icons to lag. Only
+   animate opacity and transform directly on paths. */
+path {
+    transition:
+        opacity var(--sds-transition-default),
+        transform var(--sds-transition-default);
+}
+
+/* Links */
+
+a {
+    transition: color var(--sds-transition-fast);
+}
+
+main p a,
+main li a,
+main article a,
+section p a,
+section li a {
+    transition: color var(--sds-transition-fast);
+}
+
+main p a::after,
+main li a::after,
+main article a::after,
+section p a::after,
+section li a::after {
+    transition:
+        height var(--sds-transition-fast),
+        bottom var(--sds-transition-fast);
+}

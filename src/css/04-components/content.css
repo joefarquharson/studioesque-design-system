@@ -130,3 +130,9 @@
     }
 }
 
+/* Keep grid content in bounds on mobile (moved from reset.css) */
+@media (max-width: 768px) {
+    .sds-content-row {
+        max-width: 100%;
+    }
+}
