@@ -62,7 +62,7 @@ Custom properties that are read with `var()` but never declared anywhere in `src
 
 Done:
 - [x] `sds-` rename applied (classes, custom properties, ids, `data-sds-*`, `sds:sectionchange`); manual follow-ups done (`[class*="sds-morph-ray-"]`, dynamic `.sds-morph-ray-${i}`, `ul.sds-nav-links`).
-- [x] Heading scale inverted: `--sds-heading-1..5` (compact, default) and `--sds-display-1..5` (large), opt-in `.sds-scale-display` on body/section/wrapper. `body.subpage` and its three breakpoint blocks are gone; `.sds-page-hero` pins its title by overriding the token. Verified equal to the pre-refactor sizes at 1200/800/400px for both scales (parsed from the CSS, not rendered).
+- [x] Heading scale inverted: `--sds-heading-1..5` (compact, default) and `--sds-display-1..5` (large), opt-in `.sds-scale-display` on body/section/wrapper. `body.subpage` and its three breakpoint blocks are gone; `.sds-page-hero` pins its title by overriding the token. Verified equal to the pre-refactor sizes at 1200/800/400px for both scales (parsed from the CSS, not rendered). **Then changed on purpose (Nov 9, Joe):** h1 moved down one step in both scales, `--sds-heading-1` 48/36/30 and `--sds-display-1` 60/48/36; h2-h5 unchanged.
 - [x] `--black-60` -> `--black-a60` (`.sds-code`). Link colors fixed by Joe in `colors.css`.
 - [x] `.profile-link` removed from `animations.css`. It stays in the portfolio (its CSS already lives in `splash.css`), which must give it its own `transition` when it consumes the system.
 

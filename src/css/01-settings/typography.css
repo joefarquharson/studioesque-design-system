@@ -95,13 +95,13 @@
        with viewport width via the media queries at the bottom of this file —
        only these tokens change per breakpoint, never the h1-h5 rules. */
 
-    --sds-heading-1: var(--sds-font-size-4xlarge);
+    --sds-heading-1: var(--sds-font-size-3xlarge);   /* 48 */
     --sds-heading-2: var(--sds-font-size-2xlarge);
     --sds-heading-3: var(--sds-font-size-large);
     --sds-heading-4: var(--sds-font-size-medium);
     --sds-heading-5: var(--sds-font-size-small);
 
-    --sds-display-1: var(--sds-font-size-5xlarge);
+    --sds-display-1: var(--sds-font-size-4xlarge);   /* 60 */
     --sds-display-2: var(--sds-font-size-3xlarge);
     --sds-display-3: var(--sds-font-size-xlarge);
     --sds-display-4: var(--sds-font-size-large);
@@ -157,13 +157,13 @@
 
 @media only screen and (max-width: 960px) {
     :root {
-        --sds-heading-1: var(--sds-font-size-3xlarge);
+        --sds-heading-1: var(--sds-font-size-2xlarge);   /* 36 */
         --sds-heading-2: var(--sds-font-size-xlarge);
         --sds-heading-3: var(--sds-font-size-medium);
         --sds-heading-4: var(--sds-font-size-small);
         --sds-heading-5: var(--sds-font-size-xsmall);
 
-        --sds-display-1: var(--sds-font-size-4xlarge);
+        --sds-display-1: var(--sds-font-size-3xlarge);   /* 48 */
         --sds-display-2: var(--sds-font-size-2xlarge);
         --sds-display-3: var(--sds-font-size-large);
         --sds-display-4: var(--sds-font-size-medium);
@@ -173,13 +173,13 @@
 
 @media only screen and (max-width: 480px) {
     :root {
-        --sds-heading-1: var(--sds-font-size-2xlarge);
+        --sds-heading-1: var(--sds-font-size-xlarge);    /* 30 */
         --sds-heading-2: var(--sds-font-size-large);
         --sds-heading-3: var(--sds-font-size-small);
         --sds-heading-4: var(--sds-font-size-xsmall);
         --sds-heading-5: var(--sds-font-size-xsmall);
 
-        --sds-display-1: var(--sds-font-size-3xlarge);
+        --sds-display-1: var(--sds-font-size-2xlarge);   /* 36 */
         --sds-display-2: var(--sds-font-size-xlarge);
         --sds-display-3: var(--sds-font-size-medium);
         --sds-display-4: var(--sds-font-size-small);

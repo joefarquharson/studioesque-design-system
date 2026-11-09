@@ -22,6 +22,7 @@ Repos (both in `Portfolio-2026.code-workspace`):
 - Name: Studioesque Design System, prefix `sds`. License: MIT. Public repo is fine.
 - Brackets and borders ship together as one opt-in.
 - Headings: compact is default; homepage keeps larger headings via `.sds-scale-display` on its body. Hero text sizes are independent of `h1`/`h2`.
+- h1 sizes (Nov 9): homepage / display scale 60 / 48 / 36px, subpages / compact scale 48 / 36 / 30px (at >960 / ≤960 / ≤480). This is one step smaller than the old portfolio (72/60/48 and 60/48/36) on purpose.
 - Section ids are portfolio-specific: replaced by generic modifiers (done).
 - `.profile-link` lives in the portfolio.
 - Leave the known undeclared custom properties alone for now (see CLAUDE.md).
@@ -52,7 +53,7 @@ Repos (both in `Portfolio-2026.code-workspace`):
 **Step 3: verify in a real browser. DONE (Nov 9)**
 - Harness: `scripts/compare-portfolio/` (README there). `playwright-core` dev dependency drives the installed Chrome. Builds a throwaway copy of the portfolio (index, print, identity) wired to the system per the Step 5 checklist, then compares it to the live portfolio.
 - **index.html: pixel-identical** at 1200/800/400, light and dark (interactive hero included).
-- **print.html, identity.html: pixel-identical except the page-hero title**, once `#logos` gets `sds-content--full-bleed` (a migration step, already in the checklist). `.sds-page-hero` pins h1 one step SMALLER than the live site: live 60/48/36px (`body.subpage h1`), system 48/36/30px. The component comment calls this deliberate ("reads too large next to the eyebrow"), but the portfolio never had it. **Open decision for Joe** (see open items).
+- **print.html, identity.html: pixel-identical except the page-hero title**, once `#logos` gets `sds-content--full-bleed` (a migration step, already in the checklist). `.sds-page-hero` h1 is one step smaller than the live site (48/36/30 vs. 60/48/36). **Resolved:** Joe confirmed the smaller subpage size, and moved the h1 tokens down one step: `--sds-heading-1` 48/36/30, `--sds-display-1` 60/48/36. Re-verified rendered: index h1 60/48/36 (visually hidden, so the homepage stays pixel-identical), print/identity h1 48/36/30.
 - Real wheel scrolling on all three pages, both themes: header bg/logo/name/role colors, underline, forced-dark header at related-work, theme-color meta, and data-sds-theme match before at every section.
 - Theme toggle (writes `sds-theme`, legacy `theme` untouched), mobile menu open + Escape, and the 400px menu screenshot match.
 - Without `sds-brackets.css`: no brackets and no frame borders, as designed.
@@ -84,7 +85,7 @@ Repos (both in `Portfolio-2026.code-workspace`):
 ## Open items and risks
 
 - Step 3 rendered and compared the real pages (see above); re-run `scripts/compare-portfolio` after system changes and during Step 5.
-- **Decision needed: page-hero title size.** System `.sds-page-hero` h1 is 48/36/30px; the live portfolio is 60/48/36px. Either keep the smaller size (the portfolio changes on migration) or move the pin up one step in `page-hero.css` to match the live site.
+- Expected migration diff: subpage titles shrink one step (60/48/36 -> 48/36/30), by Joe's decision. Every other compared pixel matches.
 - Unprefixed bare-element rules (`h1`, `p`, `img`) can collide with a host project's CSS; Step 4 decides how to ship them.
 - Known undeclared custom properties (intentionally left): `--sds-color-background-knockout` (typography.css, with `!important`), `--sds-color-background-token`, `--sds-color-border-strong`, `--sds-line-height-tight`, `--sds-line-height-medium`, `--sds-color-background-offset`. `--sds-content-start/-end` are read with fallbacks and never set (fine).
 - `.sds-outside-grid`'s diagonal-lines pattern is always on (not gated like brackets).

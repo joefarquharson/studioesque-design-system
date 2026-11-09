@@ -33,24 +33,25 @@
 
 /* Inherits .sds-content's default background/text color. */
 
-/* One step further down the scale than the default --sds-heading-1 —
-   page-hero's title reads too large at that size next to the eyebrow above
-   it. Pinned by overriding the token on the component itself, so the h1
-   rule in typography.css still does the actual sizing; no h1 selector (and
-   no specificity fight) needed here. The nearest ancestor wins, so this
-   also beats a .sds-scale-display on <body>. */
+/* Pins the title to the compact h1 size (48 / 36 / 30, the same as the
+   default --sds-heading-1), so a page hero stays compact even inside
+   .sds-scale-display, where h1 would otherwise get --sds-display-1
+   (60 / 48 / 36). Pinned by overriding the token on the component itself,
+   so the h1 rule in typography.css still does the actual sizing; no h1
+   selector (and no specificity fight) needed here. The nearest ancestor
+   wins, so this beats a .sds-scale-display on <body>. */
 .sds-page-hero {
-    --sds-heading-1: var(--sds-font-size-3xlarge); /* 60 → 48 */
+    --sds-heading-1: var(--sds-font-size-3xlarge); /* 48 */
 }
 
 @media only screen and (max-width: 960px) {
     .sds-page-hero {
-        --sds-heading-1: var(--sds-font-size-2xlarge); /* 48 → 36 */
+        --sds-heading-1: var(--sds-font-size-2xlarge); /* 36 */
     }
 }
 
 @media only screen and (max-width: 480px) {
     .sds-page-hero {
-        --sds-heading-1: var(--sds-font-size-xlarge); /* 36 → 30 */
+        --sds-heading-1: var(--sds-font-size-xlarge); /* 30 */
     }
 }
