@@ -1,12 +1,13 @@
 # Studioesque Design System (SDS)
 
-Plain HTML/CSS/JS design system extracted from the portfolio site (`../joefarquharson.github.io`). No framework, no build step yet. Owner: Joe Farquharson (UX/UI designer, 25+ years; expert in design, leans on you for code). Be direct, skip design basics, give pros/cons/risks, and do exactly what's asked without touching unrelated code (note improvements separately).
+Plain HTML/CSS/JS design system extracted from the portfolio site (`../joefarquharson.github.io`). No framework. One build step (`npm run build`, esbuild) produces `dist/`; `src/` stays directly usable without it. Owner: Joe Farquharson (UX/UI designer, 25+ years; expert in design, leans on you for code). Be direct, skip design basics, give pros/cons/risks, and do exactly what's asked without touching unrelated code (note improvements separately).
 
 Read `docs/PHASE-2.md` (progress + remaining work) and `docs/HANDOFF.md` (state, decisions, next steps) before starting.
 
 ## Commands
 
 - `npm run check` : verifies every `@import` and `url()` asset resolves. Run after any CSS move/rename.
+- `npm run build` : `scripts/build.mjs` (esbuild) writes `dist/` (sds.css, sds-core.css, sds-base.css, sds-brackets.css, sds.js, each + `.min`, plus `assets/`). Gitignored.
 - `node scripts/rename.mjs` : dry-run of the `docs/rename-map.json` rename (`--write` applies, `--dir <path>` also processes another tree, `--skip-src` processes only that tree; always use it for the portfolio).
 - `scripts/compare-portfolio/` : before/after pixel + behavior comparison against the live portfolio (Playwright + installed Chrome). See its README.
 
@@ -37,6 +38,7 @@ docs/                      PHASE-2.md, HANDOFF.md, rename-map.json, portfolio-mi
 - **Specificity traps.** `body.x h1` beats plain `h1` inside media queries at every width. Prefer token overrides (see heading tokens) over selector overrides.
 - **Flex items don't reliably cap a replaced element at its intrinsic width.** Use block + `max-width: 100%` + `margin-inline: auto` (see `.sds-image-block-media--natural`).
 - **Percentage `max-height` can't resolve against an `auto`-height parent.**
+- **`url()` inside a custom property** resolves (in Chrome) against the stylesheet where `var()` is USED, not where it's declared. Only works if both files sit at the same folder depth (true for `src/` and `dist/`). Hosts overriding `--sds-brackets*` should use root-relative or absolute URLs.
 - **Images:** swapping to a 2x asset = add `srcset="img.png 2x"`, don't change CSS.
 - **Brackets + borders are one opt-in unit.** Core reads `--sds-brackets-light/dark` (fallback `none`) and `--sds-frame-width` / `--sds-frame-width-neg` (fallback `0px`). Any new frame box-shadow must use the width tokens, not a literal `1px`, and any bracket background must use `var(--sds-brackets)`.
 - **Headings:** `h1`-`h5` use `--sds-heading-N` (compact default); `.sds-scale-display` on body/section remaps to `--sds-display-N`. Responsive step-downs live in token values in `01-settings/typography.css`, never in per-selector media queries.
@@ -49,6 +51,6 @@ You can run a real browser here (the previous Cowork sandbox could not), so use 
 ## Don't
 
 - Don't edit `../joefarquharson.github.io` as part of design-system tasks (migration is a separate, last step with its own checklist in `docs/PHASE-2.md`).
-- Don't add a build step, framework, or dependency without asking.
+- Don't add a framework or dependency without asking (esbuild is the approved build dependency).
 - Don't fix the known undeclared custom properties (`--sds-color-background-knockout`, `-token`, `--sds-color-border-strong`, `--sds-line-height-tight/-medium`, `--sds-color-background-offset`); Joe chose to leave them for now.
 - Package stays `"private": true` until Joe says to publish. GitHub username in `package.json` is still a placeholder.

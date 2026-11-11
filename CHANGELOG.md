@@ -2,6 +2,8 @@
 
 ## 0.0.1 (unreleased)
 
+- `npm run build` (esbuild) produces `dist/`: full, core, base, and brackets CSS bundles, an ES module JS bundle, minified copies with source maps, and assets.
+- Base styles are opt-in: `index.css` = `sds-base.css` (element rules) + `sds-core.css`.
 - Portfolio-specific section color and meta-theme-color tokens moved out of `colors.css`.
 - Section modifiers `.sds-content--tinted/--accent/--full-bleed` replace the portfolio's per-id section rules.
 - Brackets and frame borders are now opt-in via `extras/sds-brackets.css`.

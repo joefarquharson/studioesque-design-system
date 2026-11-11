@@ -75,7 +75,7 @@ Still to do:
 - [x] localStorage key `theme` -> `sds-theme`; legacy read via `legacyStorageKey` (off by default, the portfolio config sets `'theme'`).
 - [x] Reword comments that say "portfolio"/"homepage".
 - [x] JS converted to ES modules: each file exports an idempotent `initX()`, no import side effects; `src/js/index.js` re-exports them with `init(options)` (`{ key: false }` skips); `src/js/lib/ready.js` lets a late init still run. Behavior unchanged (options come with the config item above). Smoke-tested in headless Chrome.
-- [ ] `scripts/build.mjs`.
+- [x] `scripts/build.mjs` (`npm run build`, esbuild): `dist/` bundles + minified + assets. Details in HANDOFF Step 4.
 
 Portfolio migration notes (for when it consumes the system):
 - Remove `class="subpage"` from the subpages; add `sds-scale-display` to the homepage `<body>` (decision: keep the About h2 large).

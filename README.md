@@ -20,6 +20,7 @@ src/
 docs/                    # docs site + planning notes (GitHub Pages later)
 templates/starter/       # minimal starter page (later)
 scripts/check.mjs        # verifies @imports and url() assets resolve
+scripts/build.mjs        # npm run build -> dist/
 ```
 
 CSS asset URLs (e.g. `url('../../assets/svg/details/brackets.svg')`) resolve from `src/css/<layer>/` to `src/assets/`, so keep that relative layout.
@@ -27,6 +28,14 @@ CSS asset URLs (e.g. `url('../../assets/svg/details/brackets.svg')`) resolve fro
 ## Optional: brackets + borders
 
 The system's signature corner brackets and 1px frame lines are off by default. Import `src/css/extras/sds-brackets.css` (before or after `index.css`) to turn both on everywhere. See the comment at the top of that file for the four custom properties behind it.
+
+## Build
+
+```
+npm run build
+```
+
+Writes `dist/`: `sds.css` (full), `sds-core.css` (without the element base layer), `sds-base.css`, `sds-brackets.css` (opt-in), and `sds.js` (ES module: `init()` plus each `initX()`), each also as `.min` with a source map, plus `assets/`. Keep `assets/` next to the CSS so the `url()`s resolve. `src/` works without building.
 
 ## Checks
 

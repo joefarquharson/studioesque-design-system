@@ -1,4 +1,4 @@
-# Handoff: Studioesque Design System (as of Nov 9, 2026)
+# Handoff: Studioesque Design System (as of Nov 11, 2026)
 
 Moving from a Cowork chat to Claude Code in VS Code. This file is the single source of truth for state and next steps. The older `../HANDOFF.md` (one level up) covers only the portfolio site as of Oct 2 and is stale for this project; it is still accurate for the portfolio's own architecture.
 
@@ -63,7 +63,8 @@ Repos (both in `Portfolio-2026.code-workspace`):
 **Step 4: tooling and docs (IN PROGRESS)**
 - DONE (Nov 9): base styles are opt-in. Three entry points: `index.css` (full, unchanged for the portfolio) = `sds-base.css` (opt-in: `02-base/reset.css`, `elements.css`, `motion.css`, the only unprefixed rules) + `sds-core.css` (tokens, `02-base/text.css`, layout, components, utilities). Base loads before core to keep the cascade. Moves: element typography -> `elements.css`; sds- text classes + `[data-sds-theme]` fix -> `text.css`; flow-space tokens -> `01-settings/typography.css` (work-gallery uses them); element transitions + `*` reduced-motion -> `motion.css`, with a scoped `[class*="sds-"]` reduced-motion rule kept in core; dead `.sds-grid-wrapper` rule in reset deleted (grid.css overrode it); `.sds-content-row` mobile max-width -> `content.css`. `check.mjs` now verifies all three entries and that index = base + core.
 - Verified by computed-style diff (every property of every element and pseudo-element, 3 pages x 1200/400 x light/dark x normal/reduced motion, 6,640 boxes): old index.css vs new index.css 0 differences; `sds-base.css` + `sds-core.css` vs `index.css` 0 differences. Core alone: elements fall back to browser defaults, components keep sds styles, reduced motion still applies to sds elements.
-- `scripts/build.mjs` (esbuild or lightningcss): bundle `dist/sds.css`, `sds.min.css`, `sds.js` with assets alongside so CSS `url()` paths still resolve; add `npm run build`.
+- DONE (Nov 11): `npm run build` (`scripts/build.mjs`, esbuild 0.28.2 pinned as the one build dev dependency, Joe approved). Writes `dist/sds.css`, `sds-core.css`, `sds-base.css`, `sds-brackets.css`, `sds.js` (ESM: `init` + every `initX`), each also `.min` with a source map, plus `dist/assets/` (full copy of `src/assets`; CSS `url()`s rewritten to `./assets/...`). No syntax lowering (no `target`), so dist ships the same CSS features as src. `dist/` is gitignored; `package.json` exports `./dist/*`.
+- Verified on the portfolio pages (3 pages x 1200/400 x light/dark x normal/reduced motion): `dist/sds.min.css` + `sds-brackets.min.css` vs `src` give 0 differences in every resolved property, except the hero's bracket URL (see the Step 5 note on custom-property URLs; same bytes, no visible change). `dist/sds.min.js` vs the src modules: 36 behavior checkpoints (load, 3 scroll positions, theme toggle, mobile menu), 0 differences, no new console errors.
 - GitHub Actions: `ci.yml` (check + build on PR), `release.yml` (publish on tag).
 - Docs site in `docs/` (GitHub Pages): foundations (color/OKLCH, type, spacing, brackets, theming) and one page per component with live demo, light/dark toggle, markup snippet.
 - `templates/starter/`: minimal page wired to the system.
@@ -79,6 +80,7 @@ Repos (both in `Portfolio-2026.code-workspace`):
 - Copy `docs/portfolio-migration/portfolio-js-config.js` in; replace the nine `<script defer>` tags with one `<script type="module">` calling `init(sdsOptions)` (hero-interactive.js stays a portfolio script).
 - Import `sds-brackets.css` to keep the current look.
 - Vendor `dist/` (or pinned CDN link); delete the duplicated copies.
+- **Before deleting the portfolio's own `/assets/svg/details/`:** `hero-interactive.css` overrides `--sds-brackets` with `url('../../assets/...')`. Chrome resolves a relative `url()` held in a custom property against the stylesheet where `var()` is used (the system's CSS), not where it is declared, so this path only works by matching folder depth. From `src/` it lands on `/sds/assets/`, from `dist/` on the portfolio's `/assets/`. Use a root-relative URL (`/assets/...` or the vendored `dist/assets/...`) there. The system's own `sds-brackets.css` is safe: in `dist/` it sits next to `sds.css`; in `src/` both files are two folders deep.
 
 **Step 6: publish**
 - Put the real GitHub username/org in `package.json`, create the repo, push, tag `v0.1.0`, then (optionally) npm publish and flip `"private"` off.

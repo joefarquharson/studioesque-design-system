@@ -13,16 +13,19 @@
     "./css": "./src/css/index.css",
     "./css/*": "./src/css/*",
     "./js/*": "./src/js/*",
-    "./assets/*": "./src/assets/*"
+    "./assets/*": "./src/assets/*",
+    "./dist/*": "./dist/*"
   },
   "scripts": {
-    "check": "node scripts/check.mjs"
+    "check": "node scripts/check.mjs",
+    "build": "node scripts/build.mjs"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/<user>/studioesque-design-system.git"
   },
   "devDependencies": {
+    "esbuild": "0.28.2",
     "playwright-core": "^1.65.0"
   }
 }
