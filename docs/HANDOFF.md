@@ -19,7 +19,7 @@ Repos (both in `Portfolio-2026.code-workspace`):
 
 ## Decisions Joe has made
 
-- **Type scale (Nov 11, revised):** Compact h1-h5: 48/36/24/20/16 (desktop), 36/30/20/18/14 (<=960), 30/24/18/16/12 (<=480). Display: 60/48/30/24/18, 48/36/24/20/16, 36/30/20/18/14. `--sds-font-size-6xlarge` 84 -> 96 (unused so far). Headings use the weight tokens (dark 675). `strong` semibold everywhere (opt-in base). `.sds-code` medium weight. Text classes renamed: `.sds-prose` (was `.sds-body`), `.sds-body` (was `.sds-body-small`), `.sds-eyebrow` (was `.sds-leader`).
+- **Type scale (Nov 11, revised):** Compact h1-h5: 48/36/24/20/18 (desktop), 36/30/20/18/16 (<=960), 30/24/18/16/14 (<=480). Display: 60/48/30/24/20, 48/36/24/20/18, 36/30/20/18/16. h4-h6 deliberately left as part of the scale (only h1-h3 in use; h5 may sit just under prose size). `--sds-font-size-6xlarge` 84 -> 96 (unused so far). Headings use the weight tokens (dark 675). `strong` semibold everywhere (opt-in base). `.sds-code` medium weight. Text classes renamed: `.sds-prose` (was `.sds-body`), `.sds-body` (was `.sds-body-small`), `.sds-eyebrow` (was `.sds-leader`).
 
 - Name: Studioesque Design System, prefix `sds`. License: MIT. Public repo is fine.
 - Brackets and borders ship together as one opt-in.

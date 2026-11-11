@@ -99,13 +99,13 @@
     --sds-heading-2: var(--sds-font-size-2xlarge);   /* 36 */
     --sds-heading-3: var(--sds-font-size-large);     /* 24 */
     --sds-heading-4: var(--sds-font-size-medium);    /* 20 */
-    --sds-heading-5: var(--sds-font-size-xsmall);    /* 16 */
+    --sds-heading-5: var(--sds-font-size-small);     /* 18 */
 
     --sds-display-1: var(--sds-font-size-4xlarge);   /* 60 */
     --sds-display-2: var(--sds-font-size-3xlarge);   /* 48 */
     --sds-display-3: var(--sds-font-size-xlarge);    /* 30 */
     --sds-display-4: var(--sds-font-size-large);     /* 24 */
-    --sds-display-5: var(--sds-font-size-small);     /* 18 */
+    --sds-display-5: var(--sds-font-size-medium);    /* 20 */
 
 }
 
@@ -161,13 +161,13 @@
         --sds-heading-2: var(--sds-font-size-xlarge);    /* 30 */
         --sds-heading-3: var(--sds-font-size-medium);    /* 20 */
         --sds-heading-4: var(--sds-font-size-small);     /* 18 */
-        --sds-heading-5: var(--sds-font-size-2xsmall);   /* 14 */
+        --sds-heading-5: var(--sds-font-size-xsmall);    /* 16 */
 
         --sds-display-1: var(--sds-font-size-3xlarge);   /* 48 */
         --sds-display-2: var(--sds-font-size-2xlarge);   /* 36 */
         --sds-display-3: var(--sds-font-size-large);     /* 24 */
         --sds-display-4: var(--sds-font-size-medium);    /* 20 */
-        --sds-display-5: var(--sds-font-size-xsmall);    /* 16 */
+        --sds-display-5: var(--sds-font-size-small);     /* 18 */
     }
 }
 
@@ -177,13 +177,13 @@
         --sds-heading-2: var(--sds-font-size-large);     /* 24 */
         --sds-heading-3: var(--sds-font-size-small);     /* 18 */
         --sds-heading-4: var(--sds-font-size-xsmall);    /* 16 */
-        --sds-heading-5: var(--sds-font-size-3xsmall);   /* 12 */
+        --sds-heading-5: var(--sds-font-size-2xsmall);   /* 14 */
 
         --sds-display-1: var(--sds-font-size-2xlarge);   /* 36 */
         --sds-display-2: var(--sds-font-size-xlarge);    /* 30 */
         --sds-display-3: var(--sds-font-size-medium);    /* 20 */
         --sds-display-4: var(--sds-font-size-small);     /* 18 */
-        --sds-display-5: var(--sds-font-size-2xsmall);   /* 14 */
+        --sds-display-5: var(--sds-font-size-xsmall);    /* 16 */
     }
 }
 
