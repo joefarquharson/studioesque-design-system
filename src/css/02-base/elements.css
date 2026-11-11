@@ -34,6 +34,10 @@ b {
     font-weight: var(--sds-font-weight-bold);
 }
 
+strong {
+    font-variation-settings: "wght" var(--sds-font-weight-semibold);
+}
+
 /* ============================================= */
 /* Links - Base Reset */
 /* ============================================= */

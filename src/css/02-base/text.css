@@ -112,10 +112,6 @@
     color: var(--sds-color-text-meta);
 }
 
-.sds-caption strong {
-    font-variation-settings: "wght" var(--sds-font-weight-semibold);
-}
-
 .sds-legal {
     font-size: var(--sds-font-size-3xsmall);
     font-variation-settings:

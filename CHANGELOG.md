@@ -2,6 +2,7 @@
 
 ## 0.0.1 (unreleased)
 
+- `strong` is semibold everywhere (was only inside `.sds-caption`); the rule moved to the opt-in base (`02-base/elements.css`).
 - Renamed text classes: `.sds-body` -> `.sds-prose` (the larger running-text style), `.sds-body-small` -> `.sds-body`, `.sds-leader` -> `.sds-eyebrow`. The portfolio renamed its own classes to match (`prose`, `body`, `eyebrow`), and the rename map is keyed to those names.
 - `templates/starter/index.html`: minimal page wired to the system.
 - CI workflow: check and build on pull requests and pushes to `main`.
