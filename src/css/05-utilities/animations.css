@@ -52,13 +52,13 @@
 
 /* --- Typography --- */
 
-.sds-body a,
-.sds-body-small a {
+.sds-prose a,
+.sds-body a {
     transition: color var(--sds-transition-fast);
 }
 
-.sds-body a::after,
-.sds-body-small a::after {
+.sds-prose a::after,
+.sds-body a::after {
     transition:
         height var(--sds-transition-fast),
         bottom var(--sds-transition-fast);

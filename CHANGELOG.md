@@ -2,6 +2,7 @@
 
 ## 0.0.1 (unreleased)
 
+- Renamed text classes: `.sds-body` -> `.sds-prose` (the larger running-text style), `.sds-body-small` -> `.sds-body`. The rename map now sends the portfolio's `body` to `sds-prose` and `body-small` to `sds-body`.
 - `templates/starter/index.html`: minimal page wired to the system.
 - CI workflow: check and build on pull requests and pushes to `main`.
 - `npm run build` (esbuild) produces `dist/`: full, core, base, and brackets CSS bundles, an ES module JS bundle, minified copies with source maps, and assets.

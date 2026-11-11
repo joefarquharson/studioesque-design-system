@@ -58,8 +58,8 @@ a {
 main p a,
 main li a,
 main article a,
+.sds-prose a,
 .sds-body a,
-.sds-body-small a,
 section p a,
 section li a {
     position: relative;
@@ -69,8 +69,8 @@ section li a {
 main p a::after,
 main li a::after,
 main article a::after,
+.sds-prose a::after,
 .sds-body a::after,
-.sds-body-small a::after,
 section p a::after,
 section li a::after {
     content: '';
@@ -85,8 +85,8 @@ section li a::after {
 main p a:hover::after,
 main li a:hover::after,
 main article a:hover::after,
+.sds-prose a:hover::after,
 .sds-body a:hover::after,
-.sds-body-small a:hover::after,
 section p a:hover::after,
 section li a:hover::after {
     bottom: 0.075em;
@@ -96,8 +96,8 @@ section li a:hover::after {
 main p a:active::after,
 main li a:active::after,
 main article a:active::after,
+.sds-prose a:active::after,
 .sds-body a:active::after,
-.sds-body-small a:active::after,
 section p a:active::after,
 section li a:active::after {
     bottom: 0.025em;

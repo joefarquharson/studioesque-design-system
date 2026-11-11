@@ -84,7 +84,7 @@
     color: var(--sds-color-text-meta);
 }
 
-.sds-body {
+.sds-prose {
     font-size: var(--sds-font-size-medium);
     font-variation-settings:
         "wght" var(--sds-font-weight-regular),
@@ -93,7 +93,7 @@
     letter-spacing: var(--sds-letter-spacing-default);
 }
 
-.sds-body-small {
+.sds-body {
     font-size: var(--sds-font-size-small);
     font-variation-settings:
         "wght" var(--sds-font-weight-regular),
@@ -131,8 +131,8 @@
 /* ============================================= */
 
 /* List container - adds space above and below entire list */
-.sds-body ul,
-.sds-body-small ul {
+.sds-prose ul,
+.sds-body ul {
     list-style: none;
     padding-left: 0;
     margin-top: var(--sds-flow-space-text);    /* Space above list */
@@ -140,8 +140,8 @@
 }
 
 /* List items */
-.sds-body ul li,
-.sds-body-small ul li {
+.sds-prose ul li,
+.sds-body ul li {
     display: block;
     position: relative;
     padding-left: 0;
@@ -150,13 +150,13 @@
 }
 
 /* Space between list items */
-.sds-body ul li + li,
-.sds-body-small ul li + li {
+.sds-prose ul li + li,
+.sds-body ul li + li {
     margin-top: var(--sds-flow-space-text);
 }
 
 /* Arrow bullets */
-.sds-body ul li::before {
+.sds-prose ul li::before {
     content: "\22A2";
     position: absolute;
     left: -1.7em;
@@ -164,7 +164,7 @@
     text-align: center;
 }
 
-.sds-body-small ul li::before {
+.sds-body ul li::before {
     content: "\22A2";
     position: absolute;
     left: -1.92em;
@@ -210,11 +210,11 @@
         font-size: var(--sds-font-size-medium);
     }
 
-    .sds-body {
+    .sds-prose {
         font-size: var(--sds-font-size-small);
     }
 
-    .sds-body-small {
+    .sds-body {
         font-size: var(--sds-font-size-2xsmall);
     }
 
@@ -231,17 +231,17 @@
     /* ============================================= */
 
     /* List container */
-    .sds-body ul,
-    .sds-body-small ul {
+    .sds-prose ul,
+    .sds-body ul {
         padding-left: 1.375em;
     }
 
     /* Arrow bullets */
-    .sds-body ul li::before {
+    .sds-prose ul li::before {
         left: -1.5em;
     }
     
-    .sds-body-small ul li::before {
+    .sds-body ul li::before {
         left: -1.6em;
     }
 }
@@ -260,11 +260,11 @@
         font-size: var(--sds-font-size-small);
     }
 
-    .sds-body {
+    .sds-prose {
         font-size: var(--sds-font-size-xsmall);
     }
 
-    .sds-body-small {
+    .sds-body {
         font-size: var(--sds-font-size-3xsmall);
     }
 
@@ -281,17 +281,17 @@
     /* ============================================= */
 
     /* List container */
-    .sds-body ul,
-    .sds-body-small ul {
+    .sds-prose ul,
+    .sds-body ul {
         padding-left: 1.375em;
     }
 
     /* Arrow bullets */
-    .sds-body ul li::before {
+    .sds-prose ul li::before {
         left: -1.5em;
     }
     
-    .sds-body-small ul li::before {
+    .sds-body ul li::before {
         left: -1.6em;
     }
 }

@@ -9,8 +9,8 @@
   },
   "classes": {
     "bar": "sds-menu-bar",
-    "body": "sds-body",
-    "body-small": "sds-body-small",
+    "body": "sds-prose",
+    "body-small": "sds-body",
     "btn": "sds-btn",
     "btn--fill": "sds-btn--fill",
     "btn--ghost": "sds-btn--ghost",
