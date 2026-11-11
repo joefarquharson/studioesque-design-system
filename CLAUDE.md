@@ -42,6 +42,7 @@ docs/                      PHASE-2.md, HANDOFF.md, rename-map.json, portfolio-mi
 - **Flex items don't reliably cap a replaced element at its intrinsic width.** Use block + `max-width: 100%` + `margin-inline: auto` (see `.sds-image-block-media--natural`).
 - **Percentage `max-height` can't resolve against an `auto`-height parent.**
 - **`url()` inside a custom property** resolves (in Chrome) against the stylesheet where `var()` is USED, not where it's declared. Only works if both files sit at the same folder depth (true for `src/` and `dist/`). Hosts overriding `--sds-brackets*` should use root-relative or absolute URLs.
+- **`font-variation-settings` is one property, not per-axis.** A rule that sets only `"wdth"` drops a `"wght"` set by an earlier rule on the same element. Every rule lists both axes (headings did not, and silently ignored the weight tokens).
 - **Images:** swapping to a 2x asset = add `srcset="img.png 2x"`, don't change CSS.
 - **Brackets + borders are one opt-in unit.** Core reads `--sds-brackets-light/dark` (fallback `none`) and `--sds-frame-width` / `--sds-frame-width-neg` (fallback `0px`). Any new frame box-shadow must use the width tokens, not a literal `1px`, and any bracket background must use `var(--sds-brackets)`.
 - **Headings:** `h1`-`h5` use `--sds-heading-N` (compact default); `.sds-scale-display` on body/section remaps to `--sds-display-N`. Responsive step-downs live in token values in `01-settings/typography.css`, never in per-selector media queries.
