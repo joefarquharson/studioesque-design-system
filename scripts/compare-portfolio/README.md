@@ -27,7 +27,8 @@ calling `init(sdsOptions)`, new storage key in the head script, `subpage` remove
    colors, underline, forced-dark class, theme-color meta.
 4. Theme toggle + storage keys, mobile menu open / Escape.
 
-Env: `PAGES=a.html,b.html`, `NO_NOBRACKETS=1`, `SHOTS_ONLY=1`.
+Env: `PAGES=a.html,b.html`, `NO_NOBRACKETS=1`, `SHOTS_ONLY=1`, `SUB=/` (page folder, default `/wip-r8k3t5/`).
+Run one comparison at a time: Python's simple server drops connections when two runs share it.
 
 Known noise: the interactive hero's live color animates, so its header color can
 differ in the 4th decimal and the hero meta color can be caught mid-tween; the

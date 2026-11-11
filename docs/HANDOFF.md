@@ -19,6 +19,8 @@ Repos (both in `Portfolio-2026.code-workspace`):
 
 ## Decisions Joe has made
 
+- **Type scale (Nov 11):** h3-h5 one step larger in both scales, at every breakpoint. Compact h1-h5: 48/36/30/24/20 (desktop), 36/30/24/20/18 (<=960), 30/24/20/18/16 (<=480). Display: 60/48/36/30/24, 48/36/30/24/20, 36/30/24/20/18. `--sds-font-size-6xlarge` 84 -> 96 (unused so far). Text classes renamed: `.sds-prose` (was `.sds-body`), `.sds-body` (was `.sds-body-small`), `.sds-eyebrow` (was `.sds-leader`).
+
 - Name: Studioesque Design System, prefix `sds`. License: MIT. Public repo is fine.
 - Brackets and borders ship together as one opt-in.
 - Headings: compact is default; homepage keeps larger headings via `.sds-scale-display` on its body. Hero text sizes are independent of `h1`/`h2`.

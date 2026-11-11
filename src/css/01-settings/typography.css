@@ -26,7 +26,7 @@
     --sds-font-size-3xlarge: 3rem;      /* 48 */
     --sds-font-size-4xlarge: 3.75rem;   /* 60 */
     --sds-font-size-5xlarge: 4.5rem;    /* 72 */
-    --sds-font-size-6xlarge: 5.25rem;   /* 84 */
+    --sds-font-size-6xlarge: 6rem;      /* 96 */
 
     /* Line height */
 
@@ -97,15 +97,15 @@
 
     --sds-heading-1: var(--sds-font-size-3xlarge);   /* 48 */
     --sds-heading-2: var(--sds-font-size-2xlarge);
-    --sds-heading-3: var(--sds-font-size-large);
-    --sds-heading-4: var(--sds-font-size-medium);
-    --sds-heading-5: var(--sds-font-size-small);
+    --sds-heading-3: var(--sds-font-size-xlarge);
+    --sds-heading-4: var(--sds-font-size-large);
+    --sds-heading-5: var(--sds-font-size-medium);
 
     --sds-display-1: var(--sds-font-size-4xlarge);   /* 60 */
     --sds-display-2: var(--sds-font-size-3xlarge);
-    --sds-display-3: var(--sds-font-size-xlarge);
-    --sds-display-4: var(--sds-font-size-large);
-    --sds-display-5: var(--sds-font-size-medium);
+    --sds-display-3: var(--sds-font-size-2xlarge);
+    --sds-display-4: var(--sds-font-size-xlarge);
+    --sds-display-5: var(--sds-font-size-large);
 
 }
 
@@ -159,15 +159,15 @@
     :root {
         --sds-heading-1: var(--sds-font-size-2xlarge);   /* 36 */
         --sds-heading-2: var(--sds-font-size-xlarge);
-        --sds-heading-3: var(--sds-font-size-medium);
-        --sds-heading-4: var(--sds-font-size-small);
-        --sds-heading-5: var(--sds-font-size-xsmall);
+        --sds-heading-3: var(--sds-font-size-large);
+        --sds-heading-4: var(--sds-font-size-medium);
+        --sds-heading-5: var(--sds-font-size-small);
 
         --sds-display-1: var(--sds-font-size-3xlarge);   /* 48 */
         --sds-display-2: var(--sds-font-size-2xlarge);
-        --sds-display-3: var(--sds-font-size-large);
-        --sds-display-4: var(--sds-font-size-medium);
-        --sds-display-5: var(--sds-font-size-small);
+        --sds-display-3: var(--sds-font-size-xlarge);
+        --sds-display-4: var(--sds-font-size-large);
+        --sds-display-5: var(--sds-font-size-medium);
     }
 }
 
@@ -175,14 +175,14 @@
     :root {
         --sds-heading-1: var(--sds-font-size-xlarge);    /* 30 */
         --sds-heading-2: var(--sds-font-size-large);
-        --sds-heading-3: var(--sds-font-size-small);
-        --sds-heading-4: var(--sds-font-size-xsmall);
+        --sds-heading-3: var(--sds-font-size-medium);
+        --sds-heading-4: var(--sds-font-size-small);
         --sds-heading-5: var(--sds-font-size-xsmall);
 
         --sds-display-1: var(--sds-font-size-2xlarge);   /* 36 */
         --sds-display-2: var(--sds-font-size-xlarge);
-        --sds-display-3: var(--sds-font-size-medium);
-        --sds-display-4: var(--sds-font-size-small);
+        --sds-display-3: var(--sds-font-size-large);
+        --sds-display-4: var(--sds-font-size-medium);
         --sds-display-5: var(--sds-font-size-small);
     }
 }

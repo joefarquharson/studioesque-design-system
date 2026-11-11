@@ -12,9 +12,9 @@ const PAGES = (process.env.PAGES || 'index.html,print.html,identity.html').split
 const WIDTHS = [1200, 800, 400];
 const THEMES = ['light', 'dark'];
 const VARIANTS_ALL = {
-  before: { base: 'http://localhost:8801/wip-r8k3t5/' },
-  after: { base: 'http://localhost:8802/wip-r8k3t5/' },
-  'after-nobrackets': { base: 'http://localhost:8802/wip-r8k3t5/', blockBrackets: true },
+  before: { base: 'http://localhost:8801' + (process.env.SUB ?? '/wip-r8k3t5/') },
+  after: { base: 'http://localhost:8802' + (process.env.SUB ?? '/wip-r8k3t5/') },
+  'after-nobrackets': { base: 'http://localhost:8802' + (process.env.SUB ?? '/wip-r8k3t5/'), blockBrackets: true },
 };
 const VARIANTS = Object.fromEntries(Object.entries(VARIANTS_ALL).filter(([k]) => !process.env.NO_NOBRACKETS || k !== 'after-nobrackets'));
 const shots = join(outDir, 'shots');
