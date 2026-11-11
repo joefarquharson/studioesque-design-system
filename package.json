@@ -1,6 +1,6 @@
 {
   "name": "@studioesque/design-system",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Studioesque Design System (SDS): OKLCH tokens, layout, and components extracted from joefarquharson.github.io.",
   "private": true,
   "license": "MIT",
@@ -22,10 +22,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/<user>/studioesque-design-system.git"
+    "url": "git+https://github.com/joefarquharson/studioesque-design-system.git"
   },
   "devDependencies": {
     "esbuild": "0.28.2",
     "playwright-core": "^1.65.0"
+  },
+  "homepage": "https://github.com/joefarquharson/studioesque-design-system",
+  "bugs": {
+    "url": "https://github.com/joefarquharson/studioesque-design-system/issues"
   }
 }

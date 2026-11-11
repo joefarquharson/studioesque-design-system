@@ -93,6 +93,7 @@ Repos (both in `Portfolio-2026.code-workspace`):
 - **Before deleting the portfolio's own `/assets/svg/details/`:** `hero-interactive.css` overrides `--sds-brackets` with `url('../../assets/...')`. Chrome resolves a relative `url()` held in a custom property against the stylesheet where `var()` is used (the system's CSS), not where it is declared, so this path only works by matching folder depth. From `src/` it lands on `/sds/assets/`, from `dist/` on the portfolio's `/assets/`. Use a root-relative URL (`/assets/...` or the vendored `dist/assets/...`) there. The system's own `sds-brackets.css` is safe: in `dist/` it sits next to `sds.css`; in `src/` both files are two folders deep.
 
 **Step 6: publish**
+- IN PROGRESS (Nov 11): GitHub account `joefarquharson` (Joe). Done: `package.json` repository/homepage/bugs URLs, version 0.1.0, README status + "Use it" section, CHANGELOG 0.1.0. Waiting on: Joe creates the empty repo on github.com (no `gh` CLI here), then push `main` + tag `v0.1.0`. npm publish not decided (`private` stays true). `dist/` is not committed, so tag users must build (a GitHub Release with a dist zip attached would avoid that).
 - Put the real GitHub username/org in `package.json`, create the repo, push, tag `v0.1.0`, then (optionally) npm publish and flip `"private"` off.
 
 ## Open items and risks

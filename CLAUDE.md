@@ -57,4 +57,4 @@ You can run a real browser here (the previous Cowork sandbox could not), so use 
 - Don't edit `../joefarquharson.github.io` as part of design-system tasks (migration is a separate, last step with its own checklist in `docs/PHASE-2.md`).
 - Don't add a framework or dependency without asking (esbuild is the approved build dependency).
 - Don't fix the known undeclared custom properties (`--sds-color-background-knockout`, `-token`, `--sds-color-border-strong`, `--sds-line-height-tight/-medium`, `--sds-color-background-offset`); Joe chose to leave them for now.
-- Package stays `"private": true` until Joe says to publish. GitHub username in `package.json` is still a placeholder.
+- Package stays `"private": true` (blocks npm publish) until Joe decides on npm. GitHub: `joefarquharson/studioesque-design-system`.

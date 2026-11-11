@@ -1,6 +1,9 @@
 # Changelog
 
-## 0.0.1 (unreleased)
+## 0.1.0 (2026-11-11)
+
+First release. The portfolio (joefarquharson.com) runs on this version.
+
 
 - Type scale revised: compact h1-h5 48/36/24/20/18, display 60/48/30/24/20 (desktop), stepping down at 960 and 480. `.sds-code` is medium weight (was bold).
 - Headings now use the weight tokens (`--sds-font-weight-bold`): each heading rule lists both axes in `font-variation-settings`. Light unchanged (700); dark headings are 675, matching the dark-mode weight shift of body text.
