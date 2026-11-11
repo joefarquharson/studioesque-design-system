@@ -21,6 +21,8 @@ src/css/01-settings ... 05-utilities   ITCSS-style layers, one file per componen
 src/css/extras/            OPT-IN files, not imported by index.css (sds-brackets.css)
 src/js/                    ES modules, each exports an idempotent initX(options) (options documented in each file header); index.js = init(options); lib/ helpers
 src/assets/svg/            details, icons, theme-toggle (CSS url() paths depend on this depth)
+dist/                      build output (gitignored)
+.github/workflows/ci.yml   check + build on PRs and pushes to main
 docs/                      PHASE-2.md, HANDOFF.md, rename-map.json, portfolio-migration/
 ```
 
