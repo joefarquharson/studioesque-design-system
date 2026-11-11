@@ -25,14 +25,14 @@
 /* Leader + heading spacing */
 /* ============================================= */
 
-/* .sds-leader is a kicker/eyebrow — only ever appears directly above a
+/* .sds-eyebrow is a kicker label — only ever appears directly above a
    heading. Flat --sds-flow-space-attached for now; revisit if it needs to
    scale per heading level the way p/li/ol → h3/h4/h5 do below. */
-.sds-leader + h1,
-.sds-leader + h2,
-.sds-leader + h3, 
-.sds-leader + h4,
-.sds-leader + h5 {
+.sds-eyebrow + h1,
+.sds-eyebrow + h2,
+.sds-eyebrow + h3, 
+.sds-eyebrow + h4,
+.sds-eyebrow + h5 {
     margin-top: var(--sds-flow-space-attached);
 }
 
@@ -63,7 +63,7 @@
 /* Text Utility Classes */
 /* ============================================= */
 
-.sds-leader {
+.sds-eyebrow {
     font-size: var(--sds-font-size-xsmall);
     font-variation-settings:
         "wght" var(--sds-font-weight-medium),
@@ -202,7 +202,7 @@
     /* Text Utility Classes */
     /* ============================================= */
 
-    .sds-leader {
+    .sds-eyebrow {
         font-size: var(--sds-font-size-2xsmall);
     }
 
@@ -252,7 +252,7 @@
     /* Text Utility Classes */
     /* ============================================= */
 
-    .sds-leader {
+    .sds-eyebrow {
         font-size: var(--sds-font-size-3xsmall);
     }
     
