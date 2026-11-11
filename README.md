@@ -18,7 +18,7 @@ src/
   js/                    # classic scripts (theme, menu, nav-underline, ...)
   assets/svg/            # details (brackets, diagonal-lines), icons, theme-toggle
 docs/                    # docs site + planning notes (GitHub Pages later)
-templates/starter/       # minimal starter page (later)
+templates/starter/       # minimal page wired to the system (serve over http)
 scripts/check.mjs        # verifies @imports and url() assets resolve
 scripts/build.mjs        # npm run build -> dist/
 ```

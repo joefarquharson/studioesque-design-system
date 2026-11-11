@@ -23,6 +23,7 @@ src/js/                    ES modules, each exports an idempotent initX(options)
 src/assets/svg/            details, icons, theme-toggle (CSS url() paths depend on this depth)
 dist/                      build output (gitignored)
 .github/workflows/ci.yml   check + build on PRs and pushes to main
+templates/starter/         index.html: minimal page wired to src/ (also a quick system test page)
 docs/                      PHASE-2.md, HANDOFF.md, rename-map.json, portfolio-migration/
 ```
 

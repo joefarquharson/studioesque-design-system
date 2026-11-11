@@ -1,0 +1,270 @@
+<!doctype html>
+<!--
+    Studioesque Design System: starter page.
+
+    A minimal page wired to the system: header with mobile menu, nav underline
+    and theme toggle, page hero, content section, buttons, a dark band, the
+    contact form, and the footer. Copy it into a new project and delete what
+    you don't need.
+
+    Paths: this file links the system's src/ so it works straight from the
+    repo, without a build. In your own project, copy dist/ in (keep assets/
+    next to the CSS) and use:
+
+        <link rel="stylesheet" href="sds/sds.css" />
+        import { init } from './sds/sds.js';
+
+    Serve it over http(s) (e.g. `npx serve` or `python3 -m http.server`);
+    ES modules don't load from file://.
+-->
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SDS starter</title>
+    <link rel="icon" href="data:," /><!-- replace with your favicon -->
+
+    <!-- Full system: base element styles + core. For a project with its own
+         reset and element styles, load sds-core.css instead of index.css. -->
+    <link rel="stylesheet" href="../../src/css/index.css" />
+    <!-- Optional: corner brackets + 1px frame lines -->
+    <!-- <link rel="stylesheet" href="../../src/css/extras/sds-brackets.css" /> -->
+
+    <!-- Fonts are not bundled; the system expects Mona Sans and Geist Mono. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Mona+Sans:ital,wdth,wght@0,75..125,200..900;1,75..125,200..900&display=swap" rel="stylesheet">
+
+    <!-- Sets the theme before first paint (saved choice, else system preference).
+         Must stay a classic inline script, not a module. -->
+    <script>
+        (function () {
+            var saved = null;
+            try { saved = localStorage.getItem('sds-theme'); } catch (e) {}
+            var system = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-sds-theme', saved || system);
+        })();
+    </script>
+
+    <script type="module">
+        import { init } from '../../src/js/index.js';
+
+        // Every module starts with its defaults. The one setting here is for
+        // the dark band (#work): the fixed header sits outside that section's
+        // DOM subtree, so it can't inherit its data-sds-theme="dark". Give the
+        // header that section's colors (theme-independent primitives, so they
+        // hold in both page themes), and forceDark for its brackets/borders.
+        init({
+            headerColors: {
+                colors: {
+                    work: {
+                        headerBg: 'oklch(from var(--sds-grey-90) l c h / 0.9)',
+                        headerLogo: 'var(--sds-white-a90)',
+                        headerName: 'var(--sds-white-a90)',
+                        headerRole: 'var(--sds-white-a60)',
+                        forceDark: true,
+                    },
+                },
+            },
+        });
+    </script>
+</head>
+<body>
+    <div class="sds-outside-grid" aria-hidden="true"></div>
+
+    <header id="sds-global-header">
+        <div class="sds-grid-wrapper">
+            <div class="sds-header-main-content">
+                <div class="sds-header-identity">
+                    <a href="#intro" aria-label="Home">
+                        <!-- Placeholder mark: replace with your logo (fill="currentColor" picks up the header colors) -->
+                        <svg class="sds-header-logo" viewBox="0 0 64 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="16" y="0" width="32" height="32" rx="16" fill="currentColor"/></svg>
+                    </a>
+                    <div class="sds-header-title">
+                        <p><span class="sds-header-name">Project name</span><span class="sds-header-role">Tagline or role</span></p>
+                    </div>
+                </div>
+                <button id="sds-menu-trigger" aria-label="Open Menu">
+                    <span class="sds-menu-bar"></span>
+                    <span class="sds-menu-bar"></span>
+                </button>
+                <nav id="sds-main-nav" class="sds-header-nav">
+                    <!-- The aria-hidden <li>s are layout cells for the mobile drawer
+                         and the desktop underline; keep them. -->
+                    <ul class="sds-nav-links">
+                        <li class="sds-menu-buffer-top" aria-hidden="true"></li>
+                        <li class="sds-menu-col-left" aria-hidden="true"></li>
+                        <li class="sds-mobile-only sds-menu-nav-row"><a href="#intro">Home</a></li>
+                        <li class="sds-menu-nav-row"><a href="#about">About</a></li>
+                        <li class="sds-menu-nav-row"><a href="#work">Work</a></li>
+                        <li class="sds-menu-nav-row"><a href="#contact">Contact</a></li>
+                        <li class="sds-menu-nav-row sds-menu-nav-row--toggle">
+                            <button class="sds-theme-toggle-button" id="sds-theme-toggle" aria-label="Toggle dark mode">
+                                <svg class="sds-theme-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <g>
+                                        <path class="sds-morph-body" d="M18.25 12C18.25 15.4518 15.4518 18.25 12 18.25C8.54822 18.25 5.75 15.4518 5.75 12C5.75 8.54822 8.54822 5.75 12 5.75C15.4518 5.75 18.25 8.54822 18.25 12Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path class="sds-morph-ray-12" d="M12 2.75V5.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path class="sds-morph-ray-1" d="M15.8756 5.2858L15.1256 6.58484" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path class="sds-morph-ray-2" d="M20.0132 7.37067L17.4152 8.87067" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path class="sds-morph-ray-3" d="M19.7506 11.9975L18.2506 11.9975" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path class="sds-morph-ray-4" d="M20.0132 16.6206L17.4152 15.1206" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path class="sds-morph-ray-5" d="M15.8799 18.7117L15.1299 17.4127" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path class="sds-morph-ray-6" d="M12 21.25L12 18.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path class="sds-morph-ray-7" d="M8.12561 18.7092L8.87561 17.4102" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path class="sds-morph-ray-8" d="M3.99182 16.6206L6.5899 15.1206" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path class="sds-morph-ray-9" d="M4.25061 11.9975L5.75061 11.9975" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path class="sds-morph-ray-10" d="M3.9917 7.3707L6.58978 8.8707" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path class="sds-morph-ray-11" d="M8.37805 5.71948L8.38305 5.72814" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </g>
+                                </svg>
+                            </button>
+                        </li>
+                        <li class="sds-menu-col-right" aria-hidden="true"></li>
+                        <li class="sds-menu-buffer-bottom" aria-hidden="true"></li>
+                        <li class="sds-menu-desktop-only" aria-hidden="true"><span class="sds-nav-underline"></span></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Page hero. Every section uses the same 12-column skeleton:
+             buffers (left/right/top/bottom) around a content area of rows. -->
+        <section id="intro" class="sds-content sds-page-hero">
+            <div class="sds-grid-wrapper">
+                <div class="sds-buffer-top sds-cap-bottom"></div>
+                <div class="sds-buffer-top"></div>
+                <div class="sds-buffer-left"></div>
+                <div class="sds-content-area">
+                    <div class="sds-content-row">
+                        <p class="sds-leader">Leader</p>
+                        <h1>Page title goes here</h1>
+                    </div>
+                    <div class="sds-content-row">
+                        <p class="sds-intro">An introductory paragraph. Set slightly larger than body text, it says what the page is about in a sentence or two.</p>
+                    </div>
+                </div>
+                <div class="sds-buffer-right"></div>
+                <div class="sds-buffer-bottom"></div>
+            </div>
+        </section>
+
+        <!-- Content section with body text and buttons -->
+        <section id="about" class="sds-content">
+            <div class="sds-grid-wrapper">
+                <div class="sds-buffer-top"></div>
+                <div class="sds-buffer-left"></div>
+                <div class="sds-content-area">
+                    <div class="sds-content-row">
+                        <div><h2>Section heading</h2></div>
+                    </div>
+                    <div class="sds-content-row">
+                        <p class="sds-body">Body copy. Each content row is a band of the grid; put one idea per row. <a href="#contact">Inline links</a> pick up the link color and underline.</p>
+                        <p class="sds-body">A second paragraph in the same row gets paragraph spacing automatically.</p>
+                    </div>
+                    <div class="sds-content-row">
+                        <div>
+                            <a href="#contact" class="sds-btn sds-btn--fill"><span class="sds-btn-label">Primary action</span></a>
+                            <a href="#work" class="sds-btn sds-btn--outline"><span class="sds-btn-label">Secondary</span></a>
+                            <a href="#work" class="sds-btn sds-btn--ghost"><span class="sds-btn-label">Ghost</span><span class="sds-btn-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.4764 9.47191C17.7663 9.76428 17.7663 10.2357 17.4764 10.5281L12.575 15.4712C12.2859 15.7629 11.8147 15.7639 11.5243 15.4735C11.2347 15.1839 11.2347 14.7145 11.5243 14.4249L15.1992 10.75H3.75C3.33579 10.75 3 10.4142 3 9.99998C3 9.58577 3.33579 9.24998 3.75 9.24998H15.1992L11.5243 5.57504C11.2347 5.28549 11.2347 4.81604 11.5243 4.52649C11.8147 4.23607 12.2859 4.23707 12.575 4.52872L17.4764 9.47191Z" fill="currentColor"/></svg></span></a>
+                        </div>
+                    </div>
+                    <div class="sds-content-row">
+                        <p class="sds-caption">A caption: small supporting text.</p>
+                    </div>
+                </div>
+                <div class="sds-buffer-right"></div>
+                <div class="sds-buffer-bottom"></div>
+            </div>
+        </section>
+
+        <!-- Dark band: data-sds-theme="dark" themes this section and everything
+             in it, whatever the page theme. --tinted paints --sds-section-background.
+             (Add sds-content--full-bleed to let the content span all 12
+             columns, e.g. for a card gallery.) -->
+        <section id="work" data-sds-theme="dark" class="sds-content sds-content--tinted" style="--sds-section-background: var(--sds-grey-90);">
+            <div class="sds-grid-wrapper">
+                <div class="sds-buffer-top"></div>
+                <div class="sds-buffer-left"></div>
+                <div class="sds-content-area">
+                    <div class="sds-content-row">
+                        <div><h2>A dark band</h2></div>
+                    </div>
+                    <div class="sds-content-row">
+                        <p class="sds-body">This section stays dark in both page themes. While it is under the header, the header switches to its colors (see the init call in the page head).</p>
+                    </div>
+                </div>
+                <div class="sds-buffer-right"></div>
+                <div class="sds-buffer-bottom"></div>
+            </div>
+        </section>
+
+        <!-- Contact form with validation (contact-form.js). --accent colors the
+             h2, bullets and link underlines with --sds-section-accent
+             (default: --sds-color-accent); set it inline or in your CSS. -->
+        <section id="contact" class="sds-content sds-content--accent">
+            <div class="sds-grid-wrapper">
+                <div class="sds-buffer-top"></div>
+                <div class="sds-buffer-left"></div>
+                <div class="sds-content-area">
+                    <div class="sds-content-row">
+                        <div><h2>Get in touch</h2></div>
+                    </div>
+                    <div class="sds-content-row">
+                        <form class="sds-contact-form" action="#" method="post" novalidate>
+                            <div class="sds-form-field">
+                                <div class="sds-form-field-header">
+                                    <label for="contact-name" class="sds-form-label">Name</label>
+                                    <span class="sds-form-error" id="contact-name-error" aria-live="polite">
+                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.14207 3.42892C9.53047 2.78159 10.4695 2.78159 10.8579 3.42892L18.0913 15.4856C18.4912 16.1521 18.0111 17.0002 17.2339 17.0002H2.76609C1.98888 17.0001 1.50883 16.1521 1.90867 15.4856L9.14207 3.42892ZM10.0005 13.1252C9.51722 13.1252 9.12547 13.517 9.12547 14.0002C9.12558 14.4834 9.51729 14.8752 10.0005 14.8752C10.4834 14.875 10.8754 14.4832 10.8755 14.0002C10.8755 13.5171 10.4835 13.1255 10.0005 13.1252ZM10.0005 7.00021C9.58625 7.00021 9.25047 7.336 9.25047 7.75021V11.2502C9.25058 11.6643 9.58633 12.0002 10.0005 12.0002C10.4144 12 10.7504 11.6642 10.7505 11.2502V7.75021C10.7505 7.33615 10.4145 7.00046 10.0005 7.00021Z" fill="currentColor"/></svg>
+                                        <span class="sds-form-error-text">This field can't be left blank</span>
+                                    </span>
+                                </div>
+                                <input type="text" id="contact-name" name="name" class="sds-form-input" placeholder="Your full name" required aria-describedby="contact-name-error" aria-invalid="false">
+                            </div>
+                            <div class="sds-form-field">
+                                <div class="sds-form-field-header">
+                                    <label for="contact-email" class="sds-form-label">Email</label>
+                                    <span class="sds-form-error" id="contact-email-error" aria-live="polite">
+                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.14207 3.42892C9.53047 2.78159 10.4695 2.78159 10.8579 3.42892L18.0913 15.4856C18.4912 16.1521 18.0111 17.0002 17.2339 17.0002H2.76609C1.98888 17.0001 1.50883 16.1521 1.90867 15.4856L9.14207 3.42892ZM10.0005 13.1252C9.51722 13.1252 9.12547 13.517 9.12547 14.0002C9.12558 14.4834 9.51729 14.8752 10.0005 14.8752C10.4834 14.875 10.8754 14.4832 10.8755 14.0002C10.8755 13.5171 10.4835 13.1255 10.0005 13.1252ZM10.0005 7.00021C9.58625 7.00021 9.25047 7.336 9.25047 7.75021V11.2502C9.25058 11.6643 9.58633 12.0002 10.0005 12.0002C10.4144 12 10.7504 11.6642 10.7505 11.2502V7.75021C10.7505 7.33615 10.4145 7.00046 10.0005 7.00021Z" fill="currentColor"/></svg>
+                                        <span class="sds-form-error-text">Please enter a valid email address</span>
+                                    </span>
+                                </div>
+                                <input type="email" id="contact-email" name="email" class="sds-form-input" placeholder="alias@email.com" required aria-describedby="contact-email-error" aria-invalid="false">
+                            </div>
+                            <div class="sds-form-field">
+                                <div class="sds-form-field-header">
+                                    <label for="contact-message" class="sds-form-label">Message</label>
+                                    <span class="sds-form-error" id="contact-message-error" aria-live="polite">
+                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.14207 3.42892C9.53047 2.78159 10.4695 2.78159 10.8579 3.42892L18.0913 15.4856C18.4912 16.1521 18.0111 17.0002 17.2339 17.0002H2.76609C1.98888 17.0001 1.50883 16.1521 1.90867 15.4856L9.14207 3.42892ZM10.0005 13.1252C9.51722 13.1252 9.12547 13.517 9.12547 14.0002C9.12558 14.4834 9.51729 14.8752 10.0005 14.8752C10.4834 14.875 10.8754 14.4832 10.8755 14.0002C10.8755 13.5171 10.4835 13.1255 10.0005 13.1252ZM10.0005 7.00021C9.58625 7.00021 9.25047 7.336 9.25047 7.75021V11.2502C9.25058 11.6643 9.58633 12.0002 10.0005 12.0002C10.4144 12 10.7504 11.6642 10.7505 11.2502V7.75021C10.7505 7.33615 10.4145 7.00046 10.0005 7.00021Z" fill="currentColor"/></svg>
+                                        <span class="sds-form-error-text">This field can't be left blank</span>
+                                    </span>
+                                </div>
+                                <textarea id="contact-message" name="message" class="sds-form-input sds-form-textarea" placeholder="Your message" required aria-describedby="contact-message-error" aria-invalid="false"></textarea>
+                            </div>
+                            <div class="sds-form-footer">
+                                <button type="submit" class="sds-btn sds-btn--fill"><span class="sds-btn-label">Send message</span></button>
+                                <span class="sds-form-error sds-form-submit-error" id="contact-submit-error" aria-live="polite">
+                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.14207 3.42892C9.53047 2.78159 10.4695 2.78159 10.8579 3.42892L18.0913 15.4856C18.4912 16.1521 18.0111 17.0002 17.2339 17.0002H2.76609C1.98888 17.0001 1.50883 16.1521 1.90867 15.4856L9.14207 3.42892ZM10.0005 13.1252C9.51722 13.1252 9.12547 13.517 9.12547 14.0002C9.12558 14.4834 9.51729 14.8752 10.0005 14.8752C10.4834 14.875 10.8754 14.4832 10.8755 14.0002C10.8755 13.5171 10.4835 13.1255 10.0005 13.1252ZM10.0005 7.00021C9.58625 7.00021 9.25047 7.336 9.25047 7.75021V11.2502C9.25058 11.6643 9.58633 12.0002 10.0005 12.0002C10.4144 12 10.7504 11.6642 10.7505 11.2502V7.75021C10.7505 7.33615 10.4145 7.00046 10.0005 7.00021Z" fill="currentColor"/></svg>
+                                    <span class="sds-form-error-text">Please correct any errors and try again</span>
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="sds-buffer-right"></div>
+                <div class="sds-buffer-bottom"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="sds-global-footer" data-sds-theme="dark">
+        <div class="sds-grid-wrapper">
+            <div class="sds-footer-legal">
+                <p class="sds-legal">© 2026 Your Name. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
