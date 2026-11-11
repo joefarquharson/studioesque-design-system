@@ -2,6 +2,7 @@
 
 ## 0.0.1 (unreleased)
 
+- Type scale revised: compact h1-h5 48/36/24/20/16, display 60/48/30/24/18 (desktop), stepping down at 960 and 480. `.sds-code` is medium weight (was bold).
 - Headings now use the weight tokens (`--sds-font-weight-bold`): each heading rule lists both axes in `font-variation-settings`. Light unchanged (700); dark headings are 675, matching the dark-mode weight shift of body text.
 - `strong` is semibold everywhere (was only inside `.sds-caption`); the rule moved to the opt-in base (`02-base/elements.css`).
 - Renamed text classes: `.sds-body` -> `.sds-prose` (the larger running-text style), `.sds-body-small` -> `.sds-body`, `.sds-leader` -> `.sds-eyebrow`. The portfolio renamed its own classes to match (`prose`, `body`, `eyebrow`), and the rename map is keyed to those names.

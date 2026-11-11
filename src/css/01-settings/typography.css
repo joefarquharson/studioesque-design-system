@@ -96,16 +96,16 @@
        only these tokens change per breakpoint, never the h1-h5 rules. */
 
     --sds-heading-1: var(--sds-font-size-3xlarge);   /* 48 */
-    --sds-heading-2: var(--sds-font-size-2xlarge);
-    --sds-heading-3: var(--sds-font-size-xlarge);
-    --sds-heading-4: var(--sds-font-size-large);
-    --sds-heading-5: var(--sds-font-size-medium);
+    --sds-heading-2: var(--sds-font-size-2xlarge);   /* 36 */
+    --sds-heading-3: var(--sds-font-size-large);     /* 24 */
+    --sds-heading-4: var(--sds-font-size-medium);    /* 20 */
+    --sds-heading-5: var(--sds-font-size-xsmall);    /* 16 */
 
     --sds-display-1: var(--sds-font-size-4xlarge);   /* 60 */
-    --sds-display-2: var(--sds-font-size-3xlarge);
-    --sds-display-3: var(--sds-font-size-2xlarge);
-    --sds-display-4: var(--sds-font-size-xlarge);
-    --sds-display-5: var(--sds-font-size-large);
+    --sds-display-2: var(--sds-font-size-3xlarge);   /* 48 */
+    --sds-display-3: var(--sds-font-size-xlarge);    /* 30 */
+    --sds-display-4: var(--sds-font-size-large);     /* 24 */
+    --sds-display-5: var(--sds-font-size-small);     /* 18 */
 
 }
 
@@ -158,32 +158,32 @@
 @media only screen and (max-width: 960px) {
     :root {
         --sds-heading-1: var(--sds-font-size-2xlarge);   /* 36 */
-        --sds-heading-2: var(--sds-font-size-xlarge);
-        --sds-heading-3: var(--sds-font-size-large);
-        --sds-heading-4: var(--sds-font-size-medium);
-        --sds-heading-5: var(--sds-font-size-small);
+        --sds-heading-2: var(--sds-font-size-xlarge);    /* 30 */
+        --sds-heading-3: var(--sds-font-size-medium);    /* 20 */
+        --sds-heading-4: var(--sds-font-size-small);     /* 18 */
+        --sds-heading-5: var(--sds-font-size-2xsmall);   /* 14 */
 
         --sds-display-1: var(--sds-font-size-3xlarge);   /* 48 */
-        --sds-display-2: var(--sds-font-size-2xlarge);
-        --sds-display-3: var(--sds-font-size-xlarge);
-        --sds-display-4: var(--sds-font-size-large);
-        --sds-display-5: var(--sds-font-size-medium);
+        --sds-display-2: var(--sds-font-size-2xlarge);   /* 36 */
+        --sds-display-3: var(--sds-font-size-large);     /* 24 */
+        --sds-display-4: var(--sds-font-size-medium);    /* 20 */
+        --sds-display-5: var(--sds-font-size-xsmall);    /* 16 */
     }
 }
 
 @media only screen and (max-width: 480px) {
     :root {
         --sds-heading-1: var(--sds-font-size-xlarge);    /* 30 */
-        --sds-heading-2: var(--sds-font-size-large);
-        --sds-heading-3: var(--sds-font-size-medium);
-        --sds-heading-4: var(--sds-font-size-small);
-        --sds-heading-5: var(--sds-font-size-xsmall);
+        --sds-heading-2: var(--sds-font-size-large);     /* 24 */
+        --sds-heading-3: var(--sds-font-size-small);     /* 18 */
+        --sds-heading-4: var(--sds-font-size-xsmall);    /* 16 */
+        --sds-heading-5: var(--sds-font-size-3xsmall);   /* 12 */
 
         --sds-display-1: var(--sds-font-size-2xlarge);   /* 36 */
-        --sds-display-2: var(--sds-font-size-xlarge);
-        --sds-display-3: var(--sds-font-size-large);
-        --sds-display-4: var(--sds-font-size-medium);
-        --sds-display-5: var(--sds-font-size-small);
+        --sds-display-2: var(--sds-font-size-xlarge);    /* 30 */
+        --sds-display-3: var(--sds-font-size-medium);    /* 20 */
+        --sds-display-4: var(--sds-font-size-small);     /* 18 */
+        --sds-display-5: var(--sds-font-size-2xsmall);   /* 14 */
     }
 }
 
