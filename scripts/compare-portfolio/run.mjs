@@ -151,13 +151,16 @@ for (const variant of ['before', 'after']) {
   const t = await p.evaluate(() => ({ theme: document.documentElement.getAttribute('data-theme') || document.documentElement.getAttribute('data-sds-theme'), theme_key: localStorage.getItem('theme'), sds_key: localStorage.getItem('sds-theme'), bodyBg: getComputedStyle(document.body).backgroundColor }));
   await ctx.close();
   const m = await openPage(variant, 'index.html', 400, 'light');
-  await m.p.click('#menu-trigger, #sds-menu-trigger');
-  await m.p.waitForTimeout(600);
-  const menu = await m.p.evaluate(() => ({ open: /menu-open/.test(document.documentElement.className), expanded: document.querySelector('#menu-trigger, #sds-menu-trigger').getAttribute('aria-expanded') }));
-  await m.p.screenshot({ path: join(shots, `${variant}__menu-open__400.png`) });
-  await m.p.keyboard.press('Escape');
-  await m.p.waitForTimeout(300);
-  menu.closedByEscape = !/menu-open/.test(await m.p.evaluate(() => document.documentElement.className));
+  let menu = 'no menu on this page';
+  if (await m.p.$('#menu-trigger, #sds-menu-trigger')) {
+    await m.p.click('#menu-trigger, #sds-menu-trigger');
+    await m.p.waitForTimeout(600);
+    menu = await m.p.evaluate(() => ({ open: /menu-open/.test(document.documentElement.className), expanded: document.querySelector('#menu-trigger, #sds-menu-trigger').getAttribute('aria-expanded') }));
+    await m.p.screenshot({ path: join(shots, `${variant}__menu-open__400.png`) });
+    await m.p.keyboard.press('Escape');
+    await m.p.waitForTimeout(300);
+    menu.closedByEscape = !/menu-open/.test(await m.p.evaluate(() => document.documentElement.className));
+  }
   await m.ctx.close();
   interactions[variant] = { toggle: t, menu };
 }
