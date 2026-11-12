@@ -39,7 +39,7 @@ function setup() {
     const h = tip.offsetHeight;
 
     // Preferred side, flipped if it would leave the viewport
-    let placement = trigger.dataset.tooltipPosition === "bottom" ? "bottom" : "top";
+    let placement = trigger.dataset.sdsTooltipPosition === "bottom" ? "bottom" : "top";
     if (placement === "top" && r.top - GAP - h < MARGIN) placement = "bottom";
     else if (placement === "bottom" && r.bottom + GAP + h > window.innerHeight - MARGIN) placement = "top";
 
@@ -47,13 +47,13 @@ function setup() {
     const centered = r.left + r.width / 2 - w / 2;
     const left = Math.min(Math.max(centered, MARGIN), window.innerWidth - w - MARGIN);
 
-    tip.dataset.placement = placement;
+    tip.dataset.sdsPlacement = placement;
     tip.style.left = `${Math.round(left)}px`;
     tip.style.top = `${Math.round(top)}px`;
   };
 
   const show = (trigger) => {
-    const text = trigger.dataset.tooltip;
+    const text = trigger.dataset.sdsTooltip;
     if (!text) return;
     if (current && current !== trigger) hide();
     current = trigger;
