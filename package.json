@@ -1,6 +1,6 @@
 {
   "name": "@studioesque/design-system",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Studioesque Design System (SDS): OKLCH tokens, layout, and components extracted from joefarquharson.github.io.",
   "private": true,
   "license": "MIT",

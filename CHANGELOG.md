@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.1 (2026-11-12)
+
+- Fix: tooltips never showed. The `sds-` rename updated the `[data-sds-tooltip]` selectors in `tooltip.js` but not the `dataset` reads, so the message came back empty. `data-sds-tooltip-position` and the `data-sds-placement` styling hook are fixed too.
+
 ## 0.1.0 (2026-11-11)
 
 First release. The portfolio (joefarquharson.com) runs on this version.

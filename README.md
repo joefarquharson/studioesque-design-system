@@ -2,7 +2,7 @@
 
 Tokens, layout, and components for Studioesque projects. Extracted from the portfolio site (`joefarquharson.github.io`).
 
-**Status: 0.1.0, early.** Everything is `sds-` prefixed and decoupled from the portfolio, which now runs on it (joefarquharson.com). Expect breaking changes before 1.0.
+**Status: 0.1.1, early.** Everything is `sds-` prefixed and decoupled from the portfolio, which now runs on it (joefarquharson.com). Expect breaking changes before 1.0.
 
 ## Use it
 
